@@ -20,5 +20,6 @@ class FCN():
         )
         
         self.apply_fn, self.kernel_fn = jit_fns(apply_fn, kernel_fn)
-        
+
+        self.params = None
         

@@ -16,6 +16,7 @@ class GPNN():
             _, params = self.model.init_fn(net_key, (-1, 1))
             prior_draws += [self.model.apply_fn(params, xs)]
             
+        self.model.params = params
         return prior_draws
 
     def compute_nngp_kernel(self, xs):
