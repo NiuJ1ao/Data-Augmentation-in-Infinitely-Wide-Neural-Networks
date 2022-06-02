@@ -8,8 +8,9 @@ def init_random_state(seed: int):
     PRNGKey.key = random.PRNGKey(seed)
 
 def split_key(num: int=2) -> tuple:
-    PRNGKey.key, *keys = random.split(PRNGKey.key, num)
-    return PRNGKey.key, *keys
+    keys = random.split(PRNGKey.key, num)
+    PRNGKey.key = keys[0]
+    return keys
 
 def jit_fns(apply_fn, kernel_fn):
     # JAX feature: compiles functions that they are executed as single calls to the GPU
@@ -18,11 +19,5 @@ def jit_fns(apply_fn, kernel_fn):
     return apply_fn, kernel_fn
     
 if __name__ == "__main__":
-    print(PRNGKey.key)
-    k1, k2 = split_key()
-    print(k1, k2)
-    print(PRNGKey.key)
-    k1, k2, k3 = split_key(3)
-    print(k1, k2)
-    print(PRNGKey.key)
+    pass
     

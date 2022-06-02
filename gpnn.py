@@ -13,7 +13,7 @@ class GPNN():
         prior_draws = []
         for _ in range(n):
             _, net_key = split_key()
-            _, params = self.model.init_fn(net_key, (-1, 1))
+            _, params = self.model.init_fn(net_key, xs.shape)
             prior_draws += [self.model.apply_fn(params, xs)]
             
         self.model.params = params
@@ -32,13 +32,12 @@ class GPNN():
             mean, cov = self.predict_fn(x_test=xs, get="ntk", compute_cov=True)
         else:
             mean, cov = self.predict_fn(x_test=xs, get="nngp", compute_cov=True)
-        mean = np.reshape(mean, (-1,))
-        std = np.sqrt(np.diag(cov))
-        return mean, std
+            
+        return mean, cov
 
     def compute_loss(self, loss_fn, ys, t, xs=None):
-        mean, cov = self.predict_fn(t=t, get='ntk', x_test=xs, compute_cov=True)
-        mean = np.reshape(mean, mean.shape[:1] + (-1,))
-        var = np.diagonal(cov, axis1=1, axis2=2)
-        ys = np.reshape(ys, (1, -1))
+        mean, cov = self.predict_fn(t=t, get='ntk', x_test=xs, compute_cov=True) # (ts, x_num, dim), (ts, x_num, x)
+        mean = np.reshape(mean, mean.shape[:1] + (-1,)) # (ts, x_num)
+        var = np.diagonal(cov, axis1=1, axis2=2) # (ts, x_num)
+        ys = np.reshape(ys, (1, -1)) # (1, y_num)
         return loss_fn(mean, var, ys)

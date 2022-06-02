@@ -1,7 +1,11 @@
 from neural_tangents import stax
 from util import jit_fns
 
-class FCN(): 
+class BaseModel():
+    def __init__(self):
+        self.params = None
+
+class FCN(BaseModel):
     def __init__(self, 
                  num_layers=2,
                  hid_dim=512, 
@@ -21,5 +25,27 @@ class FCN():
         
         self.apply_fn, self.kernel_fn = jit_fns(apply_fn, kernel_fn)
 
-        self.params = None
+class ResFCN(BaseModel):
+    def __init__(self):
+        super().__init__()
+        ResBlock = stax.serial(
+            stax.FanOut(2),
+            stax.parallel(
+                stax.serial(
+                    stax.Erf(),
+                    stax.Dense(512, W_std=1.1, b_std=0),
+                ),
+                stax.Identity()
+            ),
+            stax.FanInSum()
+        )
+        
+        self.init_fn, apply_fn, kernel_fn = stax.serial(
+            stax.Dense(512, W_std=1, b_std=0),
+            ResBlock, ResBlock, stax.Erf(),
+            stax.Dense(1, W_std=1.5, b_std=0)
+        )
+
+        self.apply_fn, self.kernel_fn = jit_fns(apply_fn, kernel_fn)
+
         
