@@ -1,5 +1,19 @@
 from jax import random
 from jax import jit
+import argparse
+from logger import logger
+
+def args_parser():
+    parser = argparse.ArgumentParser(description='Data Augmentation in Infinitely Wide Neural Networks')
+    parser.add_argument('--model', default='resnet', choices=['fcn', 'resfcn', 'resnet'],
+                        help='an integer for the accumulator')
+    parser.add_argument("--training-steps", type=int, default=10000, help="number of training steps")
+    parser.add_argument("--lr", type=float, default=0.1, help="learning rate")
+    
+    
+    args = parser.parse_args()
+    logger.info(args)
+    return args
 
 class PRNGKey():
     key = random.PRNGKey(10)

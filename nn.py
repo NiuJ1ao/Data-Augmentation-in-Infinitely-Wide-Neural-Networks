@@ -4,9 +4,15 @@ from util import PRNGKey, split_key
 
 class Trainer():
     
-    def __init__(self, model, training_steps, optimizer, loss):
+    def __init__(self, 
+                 model, 
+                 training_steps, 
+                 batch_num, 
+                 optimizer, 
+                 loss):
         self.model = model
         self.training_steps = training_steps
+        self.batch_num = batch_num
         self.opt_init, opt_update, self.get_params = optimizer
         
         self.opt_update = jit(opt_update)
@@ -17,7 +23,13 @@ class Trainer():
         train_losses = []
         test_losses = []
 
-        opt_state = self.opt_init(self.model.params)
+        if self.model.params != None:
+            opt_state = self.opt_init(self.model.params)
+        else:
+            _, net_key = split_key()
+            print(train[0].shape)
+            _, params = self.model.init_fn(net_key, train[0].shape)
+            opt_state = self.opt_init(params)
 
         for i in range(self.training_steps):
             opt_state = self.opt_update(i, self.grad_loss(opt_state, *train), opt_state)
@@ -27,7 +39,7 @@ class Trainer():
 
         return self.get_params(opt_state), train_losses, test_losses
     
-    def ensemble_fit(self, train, test, size):
+    def ensemble_fit(self, train, test, num_models):
         def _fit(key):
             train_losses = []
             test_losses = []
@@ -44,9 +56,9 @@ class Trainer():
             test_losses = np.concatenate(test_losses)
             return self.get_params(opt_state), train_losses, test_losses
         
-        if size == 1:
+        if num_models == 1:
             return _fit(PRNGKey.key)
         
-        ensemble_key = split_key(size)
+        ensemble_key = split_key(num_models)
         params, train_loss, test_loss = vmap(_fit)(ensemble_key)
         return params, train_loss, test_loss

@@ -1,6 +1,8 @@
 from jax import random
 import jax.numpy as np
+from keras.datasets import mnist
 from util import init_random_state, split_key
+from sklearn.model_selection import train_test_split
 
 def synthetic_dataset():
     init_random_state(10)
@@ -24,5 +26,30 @@ def synthetic_dataset():
     
     return train, test
     
+    
+def load_mnist(shuffle=True):
+    (x_train, y_train), (x_test, y_test) = mnist.load_data()
+    assert x_train.shape == (60000, 28, 28)
+    assert x_test.shape == (10000, 28, 28)
+    assert y_train.shape == (60000,)
+    assert y_test.shape == (10000,)
+    
+    # train val split
+    x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.1, random_state=42, shuffle=shuffle)
+    
+    x_train = x_train[:1]
+    y_train = y_train[:1]
+    x_val = x_val[:1]
+    y_val = y_val[:1]
+    x_test = x_test[:1]
+    y_test = y_test[:1]
+    
+    return (x_train, y_train.reshape(-1, 1)), (x_val, y_val.reshape(-1, 1)), (x_test, y_test.reshape(-1, 1))
+    
 if __name__ == "__main__":
-    synthetic_dataset()
+    (x_train, y_train), (x_val, y_val), (x_test, y_test) = load_mnist()
+    print(x_train.shape, y_train.shape)
+    print(y_val.shape)
+    print(y_test.shape)
+    
+    
