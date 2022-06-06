@@ -1,5 +1,6 @@
 from neural_tangents import stax
 from util import jit_fns
+from modules import ResNetGroup
 
 class BaseModel():
     def __init__(self):
@@ -48,4 +49,17 @@ class ResFCN(BaseModel):
 
         self.apply_fn, self.kernel_fn = jit_fns(apply_fn, kernel_fn)
 
+class ResNet(BaseModel):
+    def __init__(self, block_size, k, num_classes):
+        super().__init__()
+        self.init_fn, apply_fn, kernel_fn = stax.serial(
+            stax.Conv(16, (3, 3), padding='SAME'),
+            ResNetGroup(block_size, int(16 * k)),
+            ResNetGroup(block_size, int(32 * k), (2, 2)),
+            ResNetGroup(block_size, int(64 * k), (2, 2)),
+            stax.AvgPool((8, 8)),
+            stax.Flatten(),
+            stax.Dense(num_classes, W_std=1., b_std=0.),
+        )
+        self.apply_fn, self.kernel_fn = jit_fns(apply_fn, kernel_fn)
         

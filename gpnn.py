@@ -14,6 +14,8 @@ class GPNN():
         for _ in range(n):
             _, net_key = split_key()
             _, params = self.model.init_fn(net_key, xs.shape)
+            print(self.model.apply_fn(params, xs).shape)
+            assert False
             prior_draws += [self.model.apply_fn(params, xs)]
             
         self.model.params = params

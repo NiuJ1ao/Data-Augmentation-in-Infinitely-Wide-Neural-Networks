@@ -1,4 +1,5 @@
 import jax.numpy as np
+from jax import nn
 
 def mse_predict(mean, var, ys):
   assert mean.shape == var.shape
@@ -10,3 +11,6 @@ def mse_predict(mean, var, ys):
 
 def mse_loss(model):
   return lambda params, x, y: 0.5 * np.mean((model.apply_fn(params, x) - y) ** 2)
+
+def nll(model):
+  return lambda params, x, y: -np.sum(y * np.log(nn.softmax(model.apply_fn(params, x))))
