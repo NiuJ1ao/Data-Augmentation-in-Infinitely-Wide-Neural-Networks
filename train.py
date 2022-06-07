@@ -1,6 +1,6 @@
 from data_loader import load_mnist
 from nn import Trainer
-from losses import mse_loss, nll
+from metrics import accuray, mse_loss, nll
 from jax.example_libraries import optimizers
 from util import args_parser
 import logger as logging
@@ -20,12 +20,18 @@ def main():
     # load dataset
     train, val, test = load_mnist()
     
-    training_steps = args.training_steps
     optimizer = optimizers.sgd(args.lr)
     loss = nll(model)
-    trainer = Trainer(model, training_steps, 0, optimizer, loss)
+    acc = accuray(model)
+    trainer = Trainer(model, args.epochs, args.batch_size, optimizer, loss)
 
+    # opt_params, train_accs, val_accs = trainer.fit(train, val, metric=acc)
+    # logger.info('Train accuracy: {}'.format(train_accs))
+    # logger.info('Val accuracy: {}'.format(val_accs))
+    
     opt_params, train_losses, val_losses = trainer.fit(train, val)
+    logger.info('Train accuracy: {}'.format(train_losses))
+    logger.info('Val accuracy: {}'.format(val_losses))
     
 if __name__ == "__main__":
     main()

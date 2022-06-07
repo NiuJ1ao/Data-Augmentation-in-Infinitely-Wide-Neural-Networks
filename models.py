@@ -57,7 +57,7 @@ class ResNet(BaseModel):
             ResNetGroup(block_size, int(16 * k)),
             ResNetGroup(block_size, int(32 * k), (2, 2)),
             ResNetGroup(block_size, int(64 * k), (2, 2)),
-            stax.AvgPool((8, 8)),
+            stax.AvgPool((7, 7)),
             stax.Flatten(),
             stax.Dense(num_classes, W_std=1., b_std=0.),
         )
