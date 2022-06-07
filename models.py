@@ -61,5 +61,6 @@ class ResNet(BaseModel):
             stax.Flatten(),
             stax.Dense(num_classes, W_std=1., b_std=0.),
         )
+        
         self.apply_fn, self.kernel_fn = jit_fns(apply_fn, kernel_fn)
         

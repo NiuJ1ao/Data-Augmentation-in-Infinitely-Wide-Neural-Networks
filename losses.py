@@ -13,4 +13,4 @@ def mse_loss(model):
   return lambda params, x, y: 0.5 * np.mean((model.apply_fn(params, x) - y) ** 2)
 
 def nll(model):
-  return lambda params, x, y: -np.sum(y * np.log(nn.softmax(model.apply_fn(params, x))))
+  return lambda params, x, y: -np.mean(np.sum(y * model.apply_fn(params, x), axis=1))

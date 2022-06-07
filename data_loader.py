@@ -37,13 +37,19 @@ def load_mnist(shuffle=True):
     # train val split
     x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.1, random_state=42, shuffle=shuffle)
     
+    x_train = x_train[:1]
+    y_train = y_train[:1]
+    x_val = x_val[:1]
+    y_val = y_val[:1]
+    x_test = x_test[:1]
+    y_test = y_test[:1]
     
-    return (x_train, y_train), (x_val, y_val), (x_test, y_test)
+    return (x_train, y_train.reshape(-1, 1)), (x_val, y_val.reshape(-1, 1)), (x_test, y_test.reshape(-1, 1))
     
 if __name__ == "__main__":
     (x_train, y_train), (x_val, y_val), (x_test, y_test) = load_mnist()
-    print(x_train.shape)
-    print(x_val.shape)
-    print(x_test.shape)
+    print(x_train.shape, y_train.shape)
+    print(y_val.shape)
+    print(y_test.shape)
     
     
