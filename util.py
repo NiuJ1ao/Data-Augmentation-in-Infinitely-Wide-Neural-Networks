@@ -15,7 +15,7 @@ def args_parser():
     logger.info(args)
     return args
 
-def minibatch(x, y, batch_size, train_epochs):
+def minibatch_images(x, y, batch_size, train_epochs):
   """Generate minibatches of data for a set number of epochs."""
   epoch = 0
   start = 0
@@ -31,11 +31,8 @@ def minibatch(x, y, batch_size, train_epochs):
           np.arange(x.shape[0], dtype=np.int32),
           independent=True
       )
-      print(x.shape)
-      print(permutation)
-      assert False
-      x = x[permutation]
-      y = y[permutation]
+      x = x[permutation, :, :, :] # B x X x Y x C 
+      y = y[permutation, :] # B x L
       epoch += 1
       start = 0
       continue

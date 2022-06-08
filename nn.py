@@ -1,6 +1,6 @@
 from jax import jit, grad, vmap
 import jax.numpy as np
-from util import PRNGKey, minibatch, split_key
+from util import PRNGKey, minibatch_images, split_key
 from tqdm import tqdm
 
 class Trainer():
@@ -25,7 +25,7 @@ class Trainer():
             init_params=False):
         
         # batch training data
-        train_batches = minibatch(*train, batch_size=self.batch_size, train_epochs=self.epochs)
+        train_batches = minibatch_images(*train, batch_size=self.batch_size, train_epochs=self.epochs)
         num_complete_batches, leftover = divmod(train[0].shape[0], self.batch_size)
         num_batches = num_complete_batches + bool(leftover)
         
@@ -43,11 +43,6 @@ class Trainer():
             _, net_key = split_key(2)
             _, params = self.model.init_fn(net_key, train[0].shape)
             opt_state = self.opt_init(params)
-
-        # out = self.model.apply_fn(params, train[0])
-        # print(out.shape)
-        # print(out, train[1])
-        # assert False
 
         # train step
         for i in tqdm(range(self.epochs)):

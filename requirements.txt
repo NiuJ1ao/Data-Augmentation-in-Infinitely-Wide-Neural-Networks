@@ -2,3 +2,4 @@ neural-tangents
 matplotlib
 tensorflow
 scikit-learn
+tqdm
