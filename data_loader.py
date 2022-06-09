@@ -28,7 +28,6 @@ def synthetic_dataset():
     
     return train, test
     
-    
 def load_mnist(shuffle: bool=True, flatten: bool=False):
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
     assert x_train.shape == (60000, 28, 28) 
@@ -54,7 +53,7 @@ def load_mnist(shuffle: bool=True, flatten: bool=False):
 
 def preprocess_mnist(x, y, flatten: bool=False):
     if flatten:
-        x = np.reshape(x, (x.shape[0], -1))
+        x = x.reshape(x.shape[0], -1)
     else:
         # reshape to have single channel
         x = x.reshape(x.shape + (1,))

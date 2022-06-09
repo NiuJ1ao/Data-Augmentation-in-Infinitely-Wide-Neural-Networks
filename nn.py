@@ -2,6 +2,7 @@ import itertools
 import time
 from jax import jit, grad, vmap
 import jax.numpy as np
+from matplotlib.pyplot import xlabel
 from util import PRNGKey, minibatch, split_key
 from tqdm import tqdm
 from logger import get_logger
@@ -25,7 +26,7 @@ class Trainer():
         self.loss = jit(loss)
         self.grad_loss = jit(lambda state, x, y: grad(self.loss)(self.get_params(state), x, y))
         
-    def fit(self, train, test, 
+    def fit(self, train, val, 
             metric=None,
             init_params=False):
         
@@ -39,8 +40,9 @@ class Trainer():
             opt_state = self.opt_init(self.model.params)
         else:
             _, net_key = split_key()
-            _, init_params = self.model.init_fn(net_key, train[0].shape)
-            opt_state = self.opt_init(init_params)
+            # _, init_params = self.model.init_fn(net_key, train[0].shape)
+            self.model.init_params(net_key, train[0].shape)
+            opt_state = self.opt_init(self.model.params)
 
         # train step
         itercount = itertools.count()
@@ -49,17 +51,17 @@ class Trainer():
         for _ in range(self.epochs):
             for _ in range(num_batches):
                 opt_state = self.opt_update(next(itercount), self.grad_loss(opt_state, *next(train_batches)), opt_state)
+                self.model.update_params(self.get_params(opt_state))
                 pbar.update(1)
-
-            step_params = self.get_params(opt_state)
+        
             if metric != None:
-                train_m = metric(step_params, *train).item()
-                test_m = metric(step_params, *test).item()
-                logger.info(f"train acc: {train_m}, test acc: {test_m}")
-            
-        return self.get_params(opt_state)
+                train_preds = self.model.predict(train[0])
+                train_m = metric(train_preds, train[1]).item()
+                val_preds = self.model.predict(val[0])
+                val_m = metric(val_preds, val[1]).item()
+                logger.info(f"train acc: {train_m}, val acc: {val_m}")
     
-    def ensemble_fit(self, train, test, num_models):
+    def fit_ensemble(self, train, test, num_models):
         def _fit(key):
             train_losses = []
             test_losses = []

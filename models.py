@@ -1,13 +1,31 @@
 from neural_tangents import stax
-from util import jit_fns
+from util import jit_and_batch
 from modules import ResNetGroup
 
 class BaseModel():
-    def __init__(self):
+    def __init__(self, batch_size=0, device_count=-1, store_on_device=True):
         self.params = None
+        self.apply_fn, self.kernel_fn = jit_and_batch(self.apply_fn, self.kernel_fn, 
+                                                      batch_size=batch_size,
+                                                      device_count=device_count,
+                                                      store_on_device=store_on_device)
+        
+    def init_params(self, key, shape):
+        _, self.params = self.init_fn(key, shape)
+        
+    def update_params(self, params):
+        self.params = params
+        
+    def predict(self, x):
+        if self.params is None:
+            raise Exception('Model parameters not initialized.')
+        return self.apply_fn(self.params, x)
 
 class FCN(BaseModel):
     def __init__(self, 
+                 batch_size=0, 
+                 device_count=-1, 
+                 store_on_device=True, 
                  num_layers=2,
                  hid_dim=512, 
                  hid_w_std=1.5, 
@@ -15,20 +33,16 @@ class FCN(BaseModel):
                  out_dim=1, 
                  out_w_std=1.5, 
                  out_b_std=0.05,
-                 nonlinearity=stax.Erf):
-        
-        super().__init__()
+                 nonlinearity=stax.Relu):
         hid_layers = [stax.Dense(hid_dim, W_std=hid_w_std, b_std=hid_b_std), nonlinearity()] * num_layers
-        self.init_fn, apply_fn, kernel_fn = stax.serial(
+        self.init_fn, self.apply_fn, self.kernel_fn = stax.serial(
             *hid_layers,
             stax.Dense(out_dim, W_std=out_w_std, b_std=out_b_std)
         )
-        
-        self.apply_fn, self.kernel_fn = jit_fns(apply_fn, kernel_fn)
+        super(FCN, self).__init__(batch_size, device_count, store_on_device)
 
 class ResFCN(BaseModel):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, batch_size, device_count, store_on_device):
         ResBlock = stax.serial(
             stax.FanOut(2),
             stax.parallel(
@@ -41,18 +55,22 @@ class ResFCN(BaseModel):
             stax.FanInSum()
         )
         
-        self.init_fn, apply_fn, kernel_fn = stax.serial(
+        self.init_fn, self.apply_fn, self.kernel_fn = stax.serial(
             stax.Dense(512, W_std=1, b_std=0),
             ResBlock, ResBlock, stax.Erf(),
             stax.Dense(1, W_std=1.5, b_std=0)
         )
-
-        self.apply_fn, self.kernel_fn = jit_fns(apply_fn, kernel_fn)
+        super(ResFCN, self).__init__(batch_size, device_count, store_on_device)
 
 class ResNet(BaseModel):
-    def __init__(self, block_size, k, num_classes):
-        super().__init__()
-        self.init_fn, apply_fn, kernel_fn = stax.serial(
+    def __init__(self, 
+                 batch_size=0, 
+                 device_count=-1, 
+                 store_on_device=True, 
+                 block_size=4, 
+                 k=1, 
+                 num_classes=10):
+        self.init_fn, self.apply_fn, self.kernel_fn = stax.serial(
             stax.Conv(16, (3, 3), padding='SAME'),
             ResNetGroup(block_size, int(16 * k)),
             ResNetGroup(block_size, int(32 * k), (2, 2)),
@@ -61,18 +79,5 @@ class ResNet(BaseModel):
             stax.Flatten(),
             stax.Dense(num_classes, W_std=1., b_std=0.),
         )
-        
-        self.apply_fn, self.kernel_fn = jit_fns(apply_fn, kernel_fn)
-        
-class TestDense(BaseModel): # BUG: bug seems appearing when using this model
-    def __init__(self):
-        super().__init__()
-        
-        self.init_fn, apply_fn, kernel_fn = stax.serial(
-            stax.Dense(1024), stax.Relu(),
-            stax.Dense(1024), stax.Relu(),
-            stax.Dense(10)
-        )
-
-        self.apply_fn, self.kernel_fn = jit_fns(apply_fn, kernel_fn)
+        super(ResNet, self).__init__(batch_size, device_count, store_on_device)
         

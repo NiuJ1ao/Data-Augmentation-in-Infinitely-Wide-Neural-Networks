@@ -14,5 +14,5 @@ def mse_loss(model):
 # def nll(model):
 #   return lambda params, x, y: -np.mean(np.sum(y * model.apply_fn(params, x), axis=1))
 
-def accuracy(model):
-  return lambda params, x, y: np.mean(np.argmax(model.apply_fn(params, x), axis=1) == np.argmax(y, axis=1))
+def accuracy(predicts, targets):
+  return np.mean(np.argmax(predicts, axis=1) == np.argmax(targets, axis=1))

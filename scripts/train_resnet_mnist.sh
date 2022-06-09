@@ -1,5 +1,5 @@
 #!/bin/bash
 
-python train.py --model resfcn \
+python train_nn.py --model resnet \
  --epochs 10 --batch-size 128 \
- --lr 0.001 --momentum 0.9
+ --lr 1 --momentum 0.9

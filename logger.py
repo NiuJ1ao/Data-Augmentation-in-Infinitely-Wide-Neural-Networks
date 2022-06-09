@@ -4,7 +4,6 @@ from logging.handlers import RotatingFileHandler
 CRITICAL = logging.CRITICAL
 ERROR = logging.ERROR
 WARNING = logging.WARNING
-WARN = WARNING
 INFO = logging.INFO
 DEBUG = logging.DEBUG
 
