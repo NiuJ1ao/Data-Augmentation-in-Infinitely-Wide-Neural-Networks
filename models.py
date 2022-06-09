@@ -64,3 +64,15 @@ class ResNet(BaseModel):
         
         self.apply_fn, self.kernel_fn = jit_fns(apply_fn, kernel_fn)
         
+class TestDense(BaseModel): # BUG: bug seems appearing when using this model
+    def __init__(self):
+        super().__init__()
+        
+        self.init_fn, apply_fn, kernel_fn = stax.serial(
+            stax.Dense(1024), stax.Relu(),
+            stax.Dense(1024), stax.Relu(),
+            stax.Dense(10)
+        )
+
+        self.apply_fn, self.kernel_fn = jit_fns(apply_fn, kernel_fn)
+        

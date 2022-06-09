@@ -9,10 +9,10 @@ def mse_predict(mean, var, ys):
   return mean_predictions # (ts,)
 
 def mse_loss(model):
-  return lambda params, x, y: 0.5 * np.mean((model.apply_fn(params, x) - y) ** 2)
+  return lambda params, x, y: 0.5 * np.mean(np.sum((model.apply_fn(params, x) - y) ** 2, axis=-1))
 
-def nll(model):
-  return lambda params, x, y: -np.mean(np.sum(y * model.apply_fn(params, x), axis=1))
+# def nll(model):
+#   return lambda params, x, y: -np.mean(np.sum(y * model.apply_fn(params, x), axis=1))
 
-def accuray(model):
+def accuracy(model):
   return lambda params, x, y: np.mean(np.argmax(model.apply_fn(params, x), axis=1) == np.argmax(y, axis=1))

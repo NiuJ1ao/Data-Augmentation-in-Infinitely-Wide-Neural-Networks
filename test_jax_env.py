@@ -12,113 +12,176 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""A mock-up showing a ResNet50 network with training on synthetic data.
-This file uses the stax neural network definition library and the optimizers
-optimization library.
+"""A basic MNIST example using JAX with the mini-libraries stax and optimizers.
+The mini-library jax.example_libraries.stax is for neural network building, and
+the mini-library jax.example_libraries.optimizers is for first-order stochastic
+optimization.
 """
+
+import time
+import itertools
 
 import numpy.random as npr
 
-import jax.numpy as jnp
+import jax.numpy as np
 from jax import jit, grad, random
 from jax.example_libraries import optimizers
 from jax.example_libraries import stax
-from jax.example_libraries.stax import (AvgPool, BatchNorm, Conv, Dense,
-                                        FanInSum, FanOut, Flatten, GeneralConv,
-                                        Identity, MaxPool, Relu, LogSoftmax)
+from jax.example_libraries.stax import Dense, Relu, LogSoftmax
+
+from data_loader import load_mnist
+from models import FCN
+from util import split_key
+from neural_tangents import stax as nt_stax
+
+# """Datasets used in examples."""
+
+# import array
+# import gzip
+# import os
+# from os import path
+# import struct
+# import urllib.request
+
+# import numpy as np
 
 
-# ResNet blocks compose other layers
-
-def ConvBlock(kernel_size, filters, strides=(2, 2)):
-  ks = kernel_size
-  filters1, filters2, filters3 = filters
-  Main = stax.serial(
-      Conv(filters1, (1, 1), strides), BatchNorm(), Relu,
-      Conv(filters2, (ks, ks), padding='SAME'), BatchNorm(), Relu,
-      Conv(filters3, (1, 1)), BatchNorm())
-  Shortcut = stax.serial(Conv(filters3, (1, 1), strides), BatchNorm())
-  return stax.serial(FanOut(2), stax.parallel(Main, Shortcut), FanInSum, Relu)
+# _DATA = "/tmp/jax_example_data/"
 
 
-def IdentityBlock(kernel_size, filters):
-  ks = kernel_size
-  filters1, filters2 = filters
-  def make_main(input_shape):
-    # the number of output channels depends on the number of input channels
-    return stax.serial(
-        Conv(filters1, (1, 1)), BatchNorm(), Relu,
-        Conv(filters2, (ks, ks), padding='SAME'), BatchNorm(), Relu,
-        Conv(input_shape[3], (1, 1)), BatchNorm())
-  Main = stax.shape_dependent(make_main)
-  return stax.serial(FanOut(2), stax.parallel(Main, Identity), FanInSum, Relu)
+# def _download(url, filename):
+#   """Download a url to a file in the JAX data temp directory."""
+#   if not path.exists(_DATA):
+#     os.makedirs(_DATA)
+#   out_file = path.join(_DATA, filename)
+#   if not path.isfile(out_file):
+#     urllib.request.urlretrieve(url, out_file)
+#     print(f"downloaded {url} to {_DATA}")
 
 
-# ResNet architectures compose layers and ResNet blocks
+# def _partial_flatten(x):
+#   """Flatten all but the first dimension of an ndarray."""
+#   return np.reshape(x, (x.shape[0], -1))
 
-def ResNet50(num_classes):
-  return stax.serial(
-      GeneralConv(('HWCN', 'OIHW', 'NHWC'), 64, (7, 7), (2, 2), 'SAME'),
-      BatchNorm(), Relu, MaxPool((3, 3), strides=(2, 2)),
-      ConvBlock(3, [64, 64, 256], strides=(1, 1)),
-      IdentityBlock(3, [64, 64]),
-      IdentityBlock(3, [64, 64]),
-      ConvBlock(3, [128, 128, 512]),
-      IdentityBlock(3, [128, 128]),
-      IdentityBlock(3, [128, 128]),
-      IdentityBlock(3, [128, 128]),
-      ConvBlock(3, [256, 256, 1024]),
-      IdentityBlock(3, [256, 256]),
-      IdentityBlock(3, [256, 256]),
-      IdentityBlock(3, [256, 256]),
-      IdentityBlock(3, [256, 256]),
-      IdentityBlock(3, [256, 256]),
-      ConvBlock(3, [512, 512, 2048]),
-      IdentityBlock(3, [512, 512]),
-      IdentityBlock(3, [512, 512]),
-      AvgPool((7, 7)), Flatten, Dense(num_classes), LogSoftmax)
 
+# def _one_hot(x, k, dtype=np.float32):
+#   """Create a one-hot encoding of x of size k."""
+#   return np.array(x[:, None] == np.arange(k), dtype)
+
+
+# def mnist_raw():
+#   """Download and parse the raw MNIST dataset."""
+#   # CVDF mirror of http://yann.lecun.com/exdb/mnist/
+#   base_url = "https://storage.googleapis.com/cvdf-datasets/mnist/"
+
+#   def parse_labels(filename):
+#     with gzip.open(filename, "rb") as fh:
+#       _ = struct.unpack(">II", fh.read(8))
+#       return np.array(array.array("B", fh.read()), dtype=np.uint8)
+
+#   def parse_images(filename):
+#     with gzip.open(filename, "rb") as fh:
+#       _, num_data, rows, cols = struct.unpack(">IIII", fh.read(16))
+#       return np.array(array.array("B", fh.read()),
+#                       dtype=np.uint8).reshape(num_data, rows, cols)
+
+#   for filename in ["train-images-idx3-ubyte.gz", "train-labels-idx1-ubyte.gz",
+#                    "t10k-images-idx3-ubyte.gz", "t10k-labels-idx1-ubyte.gz"]:
+#     _download(base_url + filename, filename)
+
+#   train_images = parse_images(path.join(_DATA, "train-images-idx3-ubyte.gz"))
+#   train_labels = parse_labels(path.join(_DATA, "train-labels-idx1-ubyte.gz"))
+#   test_images = parse_images(path.join(_DATA, "t10k-images-idx3-ubyte.gz"))
+#   test_labels = parse_labels(path.join(_DATA, "t10k-labels-idx1-ubyte.gz"))
+
+#   return train_images, train_labels, test_images, test_labels
+
+# def mnist(permute_train=False):
+#   """Download, parse and process MNIST data to unit scale and one-hot labels."""
+#   train_images, train_labels, test_images, test_labels = mnist_raw()
+#   train_images = _partial_flatten(train_images) / np.float32(255.)
+#   test_images = _partial_flatten(test_images) / np.float32(255.)
+#   train_labels = _one_hot(train_labels, 10) - 0.1
+#   test_labels = _one_hot(test_labels, 10) - 0.1
+
+#   if permute_train:
+#     perm = np.random.RandomState(0).permutation(train_images.shape[0])
+#     train_images = train_images[perm]
+#     train_labels = train_labels[perm]
+
+#   return train_images, train_labels, test_images, test_labels
+
+model = FCN(num_layers=2, hid_dim=1024, out_dim=10, nonlinearity=nt_stax.Relu)
+loss = lambda params, x, y: 0.5 * np.mean(np.sum((model.apply_fn(params, x) - y) ** 2, axis=-1))
+accuracy = lambda params, x, y: np.mean(np.argmax(model.apply_fn(params, x), axis=1) == np.argmax(y, axis=1))
+
+# def loss(params, batch):
+#   inputs, targets = batch
+#   preds = predict(params, inputs)
+#   # return -jnp.mean(jnp.sum(preds * targets, axis=1))
+#   return 0.5 * jnp.mean(jnp.sum((preds - targets) ** 2, axis=-1))
+
+# def accuracy(params, batch):
+#   inputs, targets = batch
+#   target_class = jnp.argmax(targets, axis=1)
+#   predicted_class = jnp.argmax(predict(params, inputs), axis=1)
+#   return jnp.mean(predicted_class == target_class)
+
+# init_random_params, predict = stax.serial(
+#     Dense(1024), Relu,
+#     Dense(1024), Relu,
+#     # Dense(10), LogSoftmax)
+#     Dense(10))
+# loss = lambda params, x, y: 0.5 * np.mean(np.sum((predict(params, x) - y) ** 2, axis=-1))
+# accuracy = lambda params, x, y: np.mean(np.argmax(predict(params, x), axis=1) == np.argmax(y, axis=1))
 
 if __name__ == "__main__":
-  rng_key = random.PRNGKey(0)
+  rng = random.PRNGKey(0)
 
-  batch_size = 8
-  num_classes = 1001
-  input_shape = (224, 224, 3, batch_size)
-  step_size = 0.1
-  num_steps = 10
+  step_size = 0.001
+  num_epochs = 10
+  batch_size = 128
+  momentum_mass = 0.9
 
-  init_fun, predict_fun = ResNet50(num_classes)
-  _, init_params = init_fun(rng_key, input_shape)
+  (train_images, train_labels), _, (test_images, test_labels) = load_mnist(flatten=True)
+  # train_images, train_labels, test_images, test_labels = mnist()
+  # train_images, train_labels, test_images, test_labels = train_images[:10000], train_labels[:10000], test_images[:1000], test_labels[:1000]
+  num_train = train_images.shape[0]
+  num_complete_batches, leftover = divmod(num_train, batch_size)
+  num_batches = num_complete_batches + bool(leftover)
 
-  def loss(params, batch):
-    inputs, targets = batch
-    logits = predict_fun(params, inputs)
-    return -jnp.sum(logits * targets)
-
-  def accuracy(params, batch):
-    inputs, targets = batch
-    target_class = jnp.argmax(targets, axis=-1)
-    predicted_class = jnp.argmax(predict_fun(params, inputs), axis=-1)
-    return jnp.mean(predicted_class == target_class)
-
-  def synth_batches():
+  def data_stream():
     rng = npr.RandomState(0)
     while True:
-      images = rng.rand(*input_shape).astype('float32')
-      labels = rng.randint(num_classes, size=(batch_size, 1))
-      onehot_labels = labels == jnp.arange(num_classes)
-      yield images, onehot_labels
+      perm = rng.permutation(num_train)
+      for i in range(num_batches):
+        batch_idx = perm[i * batch_size:(i + 1) * batch_size]
+        yield train_images[batch_idx], train_labels[batch_idx]
+  batches = data_stream()
 
-  opt_init, opt_update, get_params = optimizers.momentum(step_size, mass=0.9)
-  batches = synth_batches()
+  opt_init, opt_update, get_params = optimizers.momentum(step_size, mass=momentum_mass)
 
   @jit
   def update(i, opt_state, batch):
     params = get_params(opt_state)
-    return opt_update(i, grad(loss)(params, batch), opt_state)
+    return opt_update(i, grad(loss)(params, *batch), opt_state)
 
+  # _, init_params = init_random_params(rng, train_images.shape)
+  _, init_params = model.init_fn(rng, train_images.shape)
   opt_state = opt_init(init_params)
-  for i in range(num_steps):
-    opt_state = update(i, opt_state, next(batches))
-  trained_params = get_params(opt_state)
+  itercount = itertools.count()
+
+  print("\nStarting training...")
+  for epoch in range(num_epochs):
+    start_time = time.time()
+    for _ in range(num_batches):
+      opt_state = update(next(itercount), opt_state, next(batches))
+    epoch_time = time.time() - start_time
+
+    params = get_params(opt_state)
+    train_acc = accuracy(params, train_images, train_labels).item()
+    test_acc = accuracy(params, test_images, test_labels).item()
+    print(f"Epoch {epoch} in {epoch_time:0.2f} sec")
+    print(f"Training set accuracy {train_acc}")
+    print(f"Test set accuracy {test_acc}")
+  
