@@ -1,6 +1,9 @@
 from jax import random
 import jax.numpy as np
+from jax.config import config
+config.update("jax_enable_x64", True)
 from keras.datasets import mnist
+import tensorflow_datasets as tfds
 from util import init_random_state, split_key
 from sklearn.model_selection import train_test_split
 from logger import get_logger
@@ -28,15 +31,18 @@ def synthetic_dataset():
     
     return train, test
     
-def load_mnist(shuffle: bool=True, flatten: bool=False):
+def load_mnist(shuffle: bool=True, 
+               flatten: bool=False, 
+               one_hot: bool=True):
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
+    
     assert x_train.shape == (60000, 28, 28) 
     assert x_test.shape == (10000, 28, 28)
     assert y_train.shape == (60000,)
     assert y_test.shape == (10000,)
     
-    x_train, y_train = preprocess_mnist(x_train, y_train, flatten)
-    x_test, y_test = preprocess_mnist(x_test, y_test, flatten)
+    x_train, y_train = preprocess_mnist(x_train, y_train, flatten, one_hot)
+    x_test, y_test = preprocess_mnist(x_test, y_test, flatten, one_hot)
     
     # train val split
     x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.1, random_state=42, shuffle=shuffle)
@@ -51,18 +57,19 @@ def load_mnist(shuffle: bool=True, flatten: bool=False):
     logger.info(f"MNIST: {len(x_train)} train, {len(x_val)} val, {len(x_test)} test samples.")
     return (x_train, y_train), (x_val, y_val), (x_test, y_test)
 
-def preprocess_mnist(x, y, flatten: bool=False):
+def preprocess_mnist(x, y, flatten: bool=False, one_hot: bool=True):
     if flatten:
         x = x.reshape(x.shape[0], -1)
     else:
-        # reshape to have single channel
+        # reshape to have single channel for CNN
         x = x.reshape(x.shape + (1,))
     
     # normalise pixels of grayscale images
-    x /= np.float32(255.)
+    x = x/np.float64(255.)
     
     # turn labels to one-hot encodings (-0.1 neg, 0.9 pos)
-    y = np.eye(10)[y] - 0.1
+    if one_hot:
+        y = np.eye(10)[y] - 0.1
         
     return x, y
     

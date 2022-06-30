@@ -2,8 +2,7 @@ import itertools
 import time
 from jax import jit, grad, vmap
 import jax.numpy as np
-from matplotlib.pyplot import xlabel
-from util import PRNGKey, minibatch, split_key
+from util import PRNGKey, compute_num_batches, minibatch, split_key
 from tqdm import tqdm
 from logger import get_logger
 logger = get_logger()
@@ -28,21 +27,15 @@ class Trainer():
         
     def fit(self, train, val, 
             metric=None,
-            init_params=False):
+            ):
         
         # batch training data
-        num_complete_batches, leftover = divmod(train[0].shape[0], self.batch_size)
-        num_batches = num_complete_batches + bool(leftover)
+        num_batches = compute_num_batches(train[0].shape[0], self.batch_size)
         train_batches = minibatch(*train, batch_size=self.batch_size, num_batches=num_batches)
 
         # initialise model if not yet initialised
-        if self.model.params != None and not init_params:
-            opt_state = self.opt_init(self.model.params)
-        else:
-            _, net_key = split_key()
-            # _, init_params = self.model.init_fn(net_key, train[0].shape)
-            self.model.init_params(net_key, train[0].shape)
-            opt_state = self.opt_init(self.model.params)
+        self.model.init_params(train[0].shape)
+        opt_state = self.opt_init(self.model.params)
 
         # train step
         itercount = itertools.count()

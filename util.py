@@ -1,4 +1,5 @@
 from jax import random, jit
+import tensorflow as tf
 import neural_tangents as nt
 import numpy.random as npr
 import argparse
@@ -14,20 +15,43 @@ def args_parser():
     parser.add_argument("--lr", type=float, default=0.1, help="learning rate")
     parser.add_argument("--momentum", type=float, default=0.9, help="momentum mass")
     
+    parser.add_argument("--num_inducing_points", type=int, default=750, help="number of inducing points")
+    
     parser.add_argument("--device-count", type=int, default=-1, help="number of devices")
     
     args = parser.parse_args()
     logger.info(args)
     return args
 
-def minibatch(x, y, batch_size, num_batches):
+def compute_num_batches(num_examples, batch_size):
+    num_complete_batches, leftover = divmod(num_examples, batch_size)
+    num_batches = num_complete_batches + bool(leftover)
+    return num_batches
+
+def minibatch(x, y, batch_size, num_batches=None):
+    if num_batches == None:
+        num_batches = compute_num_batches(x.shape[0], batch_size)
+        
     rng = npr.RandomState(0)
     num_train = x.shape[0]
     while True:
-      perm = rng.permutation(num_train)
-      for i in range(num_batches):
-        batch_idx = perm[i * batch_size:(i + 1) * batch_size]
-        yield x[batch_idx], y[batch_idx]
+        perm = rng.permutation(num_train)
+        for i in range(num_batches):
+            batch_idx = perm[i * batch_size:(i + 1) * batch_size]
+            yield x[batch_idx], y[batch_idx]
+
+def create_checkpoint(model, output_dir: str, max_to_keep: int=5, **kwargs):
+    ckpt = tf.train.Checkpoint(model=model, **kwargs)
+    manager = tf.train.CheckpointManager(ckpt, output_dir, max_to_keep=max_to_keep)
+    return ckpt, manager
+
+def check_divisibility(train, test, batch_size, device_count):
+    '''check if the number of data is divisible by batch size and device count'''
+    train_num = train.shape[0]
+    test_num = test.shape[0]
+    if batch_size > 0:
+        assert train_num % (batch_size * device_count) == 0, "training data size is not divisible by (batch size x device count)"
+        assert test_num % batch_size == 0, "test data size is not divisible by batch size"
 
 class PRNGKey():
     key = random.PRNGKey(0)

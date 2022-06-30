@@ -1,6 +1,10 @@
+import itertools
 from neural_tangents import stax
-from util import jit_and_batch
+import jax.numpy as np
+from util import jit_and_batch, split_key
 from modules import ResNetGroup
+from logger import get_logger
+logger = get_logger()
 
 class BaseModel():
     def __init__(self, batch_size=0, device_count=-1, store_on_device=True):
@@ -10,8 +14,11 @@ class BaseModel():
                                                       device_count=device_count,
                                                       store_on_device=store_on_device)
         
-    def init_params(self, key, shape):
-        _, self.params = self.init_fn(key, shape)
+    def init_params(self, shape):
+        # initialise model if not yet initialised
+        if self.params == None:
+            _, net_key = split_key()
+            _, self.params = self.init_fn(net_key, shape)
         
     def update_params(self, params):
         self.params = params
@@ -40,7 +47,46 @@ class FCN(BaseModel):
             stax.Dense(out_dim, W_std=out_w_std, b_std=out_b_std)
         )
         super(FCN, self).__init__(batch_size, device_count, store_on_device)
+        
+    def pack_params(self):
+        param_list = []
+        self.index_list = []
+        i = 0
+        for param in self.params:
+            if len(param) > 0: # parametric layers
+                W, b = param # (in, out), (1, out)
+                layer = np.concatenate((W, b), axis=0).flatten()
+                num_params = layer.shape[0]
+                param_list.append(layer)
+                self.index_list.append((i, i + num_params))
+                i += num_params
 
+        packed_params = np.concatenate(param_list, axis=0)
+        logger.debug(f"packed_params: {packed_params.shape}")
+        logger.debug(self.index_list)
+        return packed_params
+
+    def unpack_params(self, params):
+        param_list = []
+        counter = itertools.count()
+        for param in self.params:
+            if len(param) == 0:
+                param_list.append(()) # non-parametric layers have no parameters
+            else:
+                i = next(counter)
+                W, b = param # (in, out), (1, out)
+                input_dim, output_dim = W.shape
+                layer_shape = (input_dim + 1, output_dim)
+                start, end = self.index_list[i]
+                layer_param = params[start:end].reshape(layer_shape)
+                recon_W, recon_b = layer_param[:-output_dim], layer_param[output_dim:]
+                recon_W, recon_b = recon_W.reshape(W.shape), recon_b.reshape(b.shape)
+                
+                assert W == recon_W and b == recon_b
+                
+        assert False 
+        return param_list
+    
 class ResFCN(BaseModel):
     def __init__(self, batch_size, device_count, store_on_device):
         ResBlock = stax.serial(
