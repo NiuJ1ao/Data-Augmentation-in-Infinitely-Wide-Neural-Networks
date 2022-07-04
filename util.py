@@ -15,7 +15,7 @@ def args_parser():
     parser.add_argument("--lr", type=float, default=0.1, help="learning rate")
     parser.add_argument("--momentum", type=float, default=0.9, help="momentum mass")
     
-    parser.add_argument("--num_inducing_points", type=int, default=750, help="number of inducing points")
+    parser.add_argument("--num-inducing-points", type=int, default=750, help="number of inducing points")
     
     parser.add_argument("--device-count", type=int, default=-1, help="number of devices")
     

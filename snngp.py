@@ -1,77 +1,91 @@
-from scipy.optimize import minimize
-from neural_tangents import empirical_nngp_fn
-import jax.numpy as np
-from jax import scipy, value_and_grad, jit
+import jax.numpy as jnp
+import numpy as np
+from jax import scipy, grad, value_and_grad, jit, random
 from logger import get_logger
+from optimizer import lbfgs
+from scipy.optimize import minimize
+from tqdm import tqdm
+
+from util import split_key
 logger = get_logger()
 
 class SNNGP():
-    def __init__(self, model, data, inducing_points, num_latent_gps, noise_variance=1):
+    def __init__(self, model, hyper_params, train_data, inducing_points, num_latent_gps, noise_variance=1, stds=None):
+        x, y = train_data
         self.model = model
-        # self.kernel_fn = model.kernel_fn 
-        self.kernel_fn = empirical_nngp_fn(model.apply_fn)
-        # diag_kernel_fn = empirical_nngp_fn(model.apply_fn, diagonal_axes=)
-        self.data = data
+        self.data = (x, y)
         self.inducing_points = inducing_points
         self.num_inducing_points = inducing_points.shape[0]
         self.num_latent_gps = num_latent_gps
-        self.sigma = np.sqrt(noise_variance)
+        self.sigma = jnp.sqrt(noise_variance)
         self.sigma_squred = noise_variance
+        self.hyper_params = hyper_params
+        
+        if stds is None:
+            _, key = split_key()
+            self.stds = jnp.array([1., 1.], dtype=jnp.float64)
+            logger.debug(f"{self.stds}, {self.stds.dtype}")
+        else:
+            self.stds = stds
     
-    def log_marginal_likelihood_bound(self, params):
+    def neg_log_marginal_likelihood_bound(self, params):
         x, y = self.data
         N = x.shape[0]
         M = self.num_inducing_points
-        # sigma = y - np.zeros_like(y)
-
-        kuu = self.kernel_fn(self.inducing_points, None,  params) # (M, M)
-        kuf = self.kernel_fn(self.inducing_points, x,  params) # (M, N)
+        model = self.model(W_std=params[0], b_std=params[1], **self.hyper_params)
+        kernel_fn = model.kernel_fn
+        get = "nngp"
         
-        L = np.linalg.cholesky(kuu) # (M, M)
+        kuu = kernel_fn(self.inducing_points, None, get) # (M, M)
+        kuf = kernel_fn(self.inducing_points, x, get) # (M, N)
+        
+        L = jnp.linalg.cholesky(kuu) # (M, M)
         A = scipy.linalg.solve_triangular(L, kuf, lower=True) / self.sigma # (M, N)
         AAT = A @ A.T # (M, M)
-        B = np.eye(M) + AAT # (M, M)
-        LB = np.linalg.cholesky(B) # (M, M)
+        B = jnp.eye(M) + AAT # (M, M)
+        LB = jnp.linalg.cholesky(B) # (M, M)
         
         c = scipy.linalg.solve_triangular(LB, A @ y, lower=True) / self.sigma # (M, )
         
-        bound = N * np.log(2 * np.pi) \
-            + np.sum(np.log(np.diag(LB))) \
-            + N * np.log(self.sigma_squred) \
+        bound = N * jnp.log(2 * jnp.pi) \
+            + jnp.sum(jnp.log(jnp.diag(LB))) \
+            + N * jnp.log(self.sigma_squred) \
             + y @ y.T / self.sigma_squred \
             - c.T @ c
-        regulariser = np.trace(self.kernel_fn(x, None, params)) - np.trace(AAT)
+        regulariser = jnp.trace(kernel_fn(x, None, get)) - jnp.trace(AAT)
         elbo  = -0.5 * (bound + regulariser)
-        logger.debug(f"elbo: {elbo}")
+        # logger.debug(f"elbo: {elbo}")
         
-        return elbo
+        return -elbo
     
+    def evaluate(self):
+        """ KL divergence
+        """
+        
+    
+    # def optimize(self):
+    #     grad_elbo = jit(grad(self.neg_log_marginal_likelihood_bound))
+        
+    #     opt_init, opt_update, get_params = lbfgs(max_iter=100)
+    #     opt_state = opt_init(self.stds)
+    #     for i in tqdm(range(10)):
+    #         opt_state = opt_update(i, grad_elbo(get_params(opt_state)), opt_state)
+    #     logger.debug(f"{get_params(opt_state)}")
+        
     def optimize(self):
-        logger.debug(f"optimizing...")
+        logger.info("Optimizing...")
         
-        grad = jit(value_and_grad(lambda params: -self.log_marginal_likelihood_bound(params)))
+        grad_elbo = jit(value_and_grad(self.neg_log_marginal_likelihood_bound))
         
-        def objective(params):
-            value, grads = grad(params)
-            # scipy.optimize.minimize cannot handle
-            # JAX DeviceArray directly. a conversion
-            # to Numpy ndarray is needed.
-            return np.array(value), np.array(grads)
+        def grad_elbo_wrapper(params):
+            value, grads = grad_elbo(params)
+            # scipy.optimize.minimize cannot handle JAX DeviceArray
+            value, grads = np.array(value, dtype=np.float64), np.array(grads, dtype=np.float64)
+            return value, grads
         
-        params = self.model.params
-        logger.debug(type(params))
-        logger.debug(f"{len(params)}")
-        packed_params = self.model.pack_params()
-        logger.debug(self.model.unpack_params(packed_params))
-        assert False
+        res = minimize(fun=grad_elbo_wrapper, x0=self.stds, method="L-BFGS-B", jac=True)
+        logger.debug(f"{res}")
+        logger.info(f"Optimized for {res.nit} iters; Success: {res.success}; Result: {res.x}")
         
-        res = minimize(objective, self.model.params, method='L-BFGS-B', jac=True, options={'disp': True})
-        logger.debug(f"optimization finished in {res.nit} iterations")
-        
-        self.model.update_params(res.x)
-        new_elbo = self.log_marginal_likelihood_bound(self.model.params)
-        logger.debug(f"new_elbo: {new_elbo}")
         return res.x
-        
-        
         

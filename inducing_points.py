@@ -1,6 +1,11 @@
 import numpy as np
+from logger import get_logger
+logger = get_logger()
 
 def random_select(x, n):
+    if n > x.shape[0]:
+        logger.warning(f"n is larger than the number of samples, n = {n}")
+        return x
     return x[np.random.choice(x.shape[0], n, replace=False)]
 
 

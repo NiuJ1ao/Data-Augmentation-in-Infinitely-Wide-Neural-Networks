@@ -10,6 +10,7 @@ from logger import get_logger
 logger = get_logger()
 
 def synthetic_dataset():
+    config.update("jax_enable_x64", False)
     init_random_state(10)
     
     train_points = 5
