@@ -54,8 +54,6 @@ def gp_mnist():
     opt = gpflow.optimizers.Scipy()
     opt.minimize(training_loss, variables=model.trainable_variables, options={"maxiter": 100, "disp": True})
 
-
-
     original_test_dataset, info = tfds.load(name="mnist", split=tfds.Split.TEST, with_info=True, data_dir="data")
     test_dataset = (
         original_test_dataset

@@ -24,7 +24,6 @@ def run():
     train_x, train_y = train
     train = (train_x, train_y.flatten())
     test_x, test_y = test
-    input_shape = train_x.shape
     
     inducing_points = random_select(train_x, args.num_inducing_points)
     logger.debug(f"inducing_points: {inducing_points.shape}")
@@ -43,7 +42,21 @@ def run():
     
     snngp = SNNGP(model=model, hyper_params=model_params, train_data=train, inducing_points=inducing_points, num_latent_gps=1)
     # snngp.log_marginal_likelihood_bound([1.5, 0.05], **model_params)
+    elbo = snngp.elbo()
+    logger.info(f"elbo: {elbo}")
+    upper_bound = snngp.upper_bound()
+    logger.info(f"upper_bound: {upper_bound}")
+    interval = snngp.evaluate()
+    logger.info(f"interval: {interval}")
+    
     snngp.optimize()
+    
+    elbo = snngp.elbo()
+    logger.info(f"elbo: {elbo}")
+    upper_bound = snngp.upper_bound()
+    logger.info(f"upper_bound: {upper_bound}")
+    interval = snngp.evaluate()
+    logger.info(f"interval: {interval}")
     
 if __name__ == "__main__":
     run()
