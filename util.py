@@ -3,6 +3,7 @@ import tensorflow as tf
 import neural_tangents as nt
 import numpy.random as npr
 import argparse
+import jax.numpy as jnp
 from logger import get_logger
 logger = get_logger()
 
@@ -69,6 +70,12 @@ def jit_and_batch(apply_fn, kernel_fn, batch_size, device_count, store_on_device
     apply_fn = jit(apply_fn)
     kernel_fn = nt.batch(kernel_fn, batch_size, device_count, store_on_device)
     return apply_fn, kernel_fn
+    
+def softplus(X):
+    return jnp.log(1 + jnp.exp(X))
+
+def softplus_inv(X):
+    return jnp.log(jnp.exp(X) - 1)
     
 if __name__ == "__main__":
     pass

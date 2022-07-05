@@ -4,16 +4,11 @@ import numpy as np
 from jax import scipy, value_and_grad, jit
 from logger import get_logger
 from scipy.optimize import minimize
+from util import softplus, softplus_inv
+from jax.config import config
+config.update("jax_enable_x64", True)
 
 logger = get_logger()
-
-class _common_tensors():
-    def __init__(self, A, B, LB, AAT, L):
-        self.A = A
-        self.B = B
-        self.LB = LB
-        self.AAT = AAT
-        self.L = L
 
 class SNNGP():
     def __init__(self, 
@@ -34,10 +29,9 @@ class SNNGP():
         self.sigma_squared = noise_variance
         self.hyper_params = hyper_params
         self.get = "nngp"
-        
+        self.jitter = 1e-6
         if stds is None:
             self.stds = jnp.array([1., 1.], dtype=jnp.float64)
-            logger.debug(f"{self.stds}, {self.stds.dtype}")
         else:
             self.stds = stds
             
@@ -45,17 +39,25 @@ class SNNGP():
             
         self.CommonTensors = namedtuple("CommonTensors", ["A", "B", "LB", "AAT", "L"])
     
-    def _init_kernel_fn(self, params):
-        model = self.model(W_std=params[0], b_std=params[1], **self.hyper_params)
+    def _init_kernel_fn(self, stds):
+        model = self.model(W_std=stds[0], b_std=stds[1], **self.hyper_params)
         self.kernel_fn = model.kernel_fn
         return self.kernel_fn
+        
+    def pack_params(self):
+        return jnp.concatenate([softplus_inv(self.stds), self.inducing_points.ravel()])
     
-    def _precomputation(self, params):
+    def unpack_params(self, params):
+        stds = softplus(params[:2])
+        inducing_points = params[2:].reshape((self.num_inducing_points, -1))
+        return stds, inducing_points
+    
+    def _precomputation(self):
         x, _ = self.data
         M = self.num_inducing_points
-        kernel_fn = self._init_kernel_fn(params)
+        kernel_fn = self._init_kernel_fn(self.stds)
 
-        kuu = kernel_fn(self.inducing_points, None, self.get) # (M, M)
+        kuu = kernel_fn(self.inducing_points, None, self.get) + self.jitter * jnp.eye(M) # (M, M)
         kuf = kernel_fn(self.inducing_points, x, self.get) # (M, N)
         
         L = jnp.linalg.cholesky(kuu) # (M, M)
@@ -69,114 +71,124 @@ class SNNGP():
         
         return self.cached_tensors
     
-    def elbo(self):
+    def _logdet_term(self, LB):
+        """log determinant term
+        """
         x, y = self.data
         N = x.shape[0]
+        out_dim = y.shape[1]
+
+        half_logdet_B = jnp.sum(jnp.log(jnp.diag(LB)))
+        log_sigma_sq = N * jnp.log(self.sigma_squared)
         
+        logdet = -out_dim * (half_logdet_B + 0.5 * (log_sigma_sq))
+        return logdet
+    
+    def _trace_term(self, AAT):
+        """trace term
+        """
+        x, y = self.data
+        out_dim = y.shape[1]
+        
+        trace_k = jnp.trace(self.kernel_fn(x, None, self.get)) / self.sigma_squared
+        trace_q = jnp.trace(AAT)
+        trace = trace_k - trace_q
+        
+        return -0.5 * out_dim * trace
+    
+    def _quad_term(self, A, LB):
+        _, y = self.data
+        c = scipy.linalg.solve_triangular(LB, A @ y, lower=True) / self.sigma # (M, D)
+        quad = -0.5 * (jnp.sum(y.T @ y) / self.sigma_squared - jnp.sum(c.T @ c))
+        return quad
+    
+    def _const_term(self):
+        x, y = self.data
+        N = x.shape[0]
+        out_dim = y.shape[1]
+        return -0.5 * N * out_dim * jnp.log(2 * jnp.pi)
+    
+    def lower_bound(self):
         if self.is_precomputed:
             A = self.cached_tensors.A
             LB = self.cached_tensors.LB
             AAT = self.cached_tensors.AAT
         else:
-            cached_tensors = self._precomputation(self.stds)
+            cached_tensors = self._precomputation()
             A = cached_tensors.A
             LB = cached_tensors.LB
             AAT = cached_tensors.AAT
         
-        c = scipy.linalg.solve_triangular(LB, A @ y, lower=True) / self.sigma # (M, )
-        
-        bound = N * jnp.log(2 * jnp.pi) \
-            + jnp.sum(jnp.log(jnp.diag(LB))) \
-            + N * jnp.log(self.sigma_squared) \
-            + y @ y.T / self.sigma_squared \
-            - c.T @ c
-
-        regulariser = jnp.trace(self.kernel_fn(x, None, self.get)) / self.sigma_squared - jnp.trace(AAT)
-        
-        elbo  = -0.5 * (bound + regulariser)
-        
+        logdet = self._logdet_term(LB)
+        trace = self._trace_term(AAT)
+        quad = self._quad_term(A, LB)    
+        const = self._const_term()
+        elbo = const + logdet + quad + trace
         return elbo
             
     def _neg_elbo(self, params):
-        x, y = self.data
-        N = x.shape[0]
+        x, _ = self.data
         M = self.num_inducing_points
-        kernel_fn = self._init_kernel_fn(params)
         
-        kuu = kernel_fn(self.inducing_points, None, self.get) # (M, M)
-        kuf = kernel_fn(self.inducing_points, x, self.get) # (M, N)
+        stds, inducing_points = self.unpack_params(params)
+        kernel_fn = self._init_kernel_fn(stds)
+        
+        kuu = kernel_fn(inducing_points, None, self.get) + self.jitter * jnp.eye(M) # (M, M)
+        kuf = kernel_fn(inducing_points, x, self.get) # (M, N)
         
         L = jnp.linalg.cholesky(kuu) # (M, M)
         A = scipy.linalg.solve_triangular(L, kuf, lower=True) / self.sigma # (M, N)
         AAT = A @ A.T # (M, M)
         B = jnp.eye(M) + AAT # (M, M)
         LB = jnp.linalg.cholesky(B) # (M, M)
-        c = scipy.linalg.solve_triangular(LB, A @ y, lower=True) / self.sigma # (M, )
         
-        bound = N * jnp.log(2 * jnp.pi) \
-            + jnp.sum(jnp.log(jnp.diag(LB))) \
-            + N * jnp.log(self.sigma_squared) \
-            + y @ y.T / self.sigma_squared \
-            - c.T @ c
-
-        regulariser = jnp.trace(kernel_fn(x, None, self.get)) / self.sigma_squared - jnp.trace(AAT)
-        
-        neg_elbo = 0.5 * (bound + regulariser)
-        
-        return neg_elbo
+        logdet = self._logdet_term(LB)
+        trace = self._trace_term(AAT)
+        quad = self._quad_term(A, LB)    
+        const = self._const_term()
+        elbo = const + logdet + quad + trace
+        return -elbo
     
     def upper_bound(self):
         x, y = self.data
         N = x.shape[0]
         M = self.num_inducing_points
-        # kernel_fn = self._init_kernel_fn(params)
         
         if self.is_precomputed:
             A = self.cached_tensors.A
             LB = self.cached_tensors.LB
             AAT = self.cached_tensors.AAT
         else:
-            cached_tensors = self._precomputation(self.stds)
+            cached_tensors = self._precomputation()
             A = cached_tensors.A
             LB = cached_tensors.LB
             AAT = cached_tensors.AAT
         
-        # kuu = kernel_fn(self.inducing_points, None, self.get) # (M, M)
-        # kuf = kernel_fn(self.inducing_points, x, self.get) # (M, N)
+        const = self._const_term()
+        logdet = self._logdet_term(LB)
         
-        # L = jnp.linalg.cholesky(kuu) # (M, M)
+        trace_k = jnp.trace(self.kernel_fn(x, None, self.get))
+        trace_q = jnp.trace(AAT) * self.sigma_squared
+        trace = trace_k - trace_q
         
-        # # normaliser
-        # A = scipy.linalg.solve_triangular(L, kuf, lower=True) / self.sigma # (M, N)
-        # AAT = A @ A.T # (M, M)
-        # B = jnp.eye(M) + AAT # (M, M)
-        # LB = jnp.linalg.cholesky(B) # (M, M)
-        
-        log_terms = N * jnp.log(2 * jnp.pi) \
-            + jnp.sum(jnp.log(jnp.diag(LB))) \
-            + N * jnp.log(self.sigma_squared)
-                
-        # inverse (woodbury identity)
-        trace_term = jnp.trace(self.kernel_fn(x, None, self.get)) - jnp.trace(AAT) * self.sigma_squared
-        alpha = trace_term + self.sigma_squared
+        alpha = trace + self.sigma_squared
         alpha_sqrt = jnp.sqrt(alpha)
         
         A = A * self.sigma / alpha_sqrt # (M, N)
         AAT = A @ A.T # (M, M)
         B = jnp.eye(M) + AAT # (M, M)
         LB = jnp.linalg.cholesky(B) # (M, M)
-        c = scipy.linalg.solve_triangular(LB, A @ y, lower=True) / alpha_sqrt # (M, )
+        c = scipy.linalg.solve_triangular(LB, A @ y, lower=True) / alpha_sqrt # (M, D)
         
-        quad_term = y @ y.T / alpha - c.T @ c
+        quad_term = -0.5 * (jnp.sum(y.T @ y) / alpha - jnp.sum(c.T @ c))
         
-        upper_bound = -0.5 * (log_terms + quad_term)
-        
+        upper_bound = const + logdet + quad_term
         return upper_bound
     
     def evaluate(self):
         """
         """
-        return self.upper_bound() - self.elbo()
+        return self.upper_bound() - self.lower_bound()
         
     def optimize(self):
         logger.info("Optimizing...")
@@ -189,44 +201,45 @@ class SNNGP():
             value, grads = np.array(value, dtype=np.float64), np.array(grads, dtype=np.float64)
             return value, grads
         
-        res = minimize(fun=grad_elbo_wrapper, x0=self.stds, method="L-BFGS-B", jac=True)
+        res = minimize(fun=grad_elbo_wrapper, x0=self.pack_params(), method="L-BFGS-B", jac=True, options={"disp": True})
         logger.debug(f"{res}")
         logger.info(f"Optimized for {res.nit} iters; Success: {res.success}; Result: {res.x}")
         
-        if res.success == True:
-            self.stds = jnp.asarray(res.x)
-            self._precomputation(self.stds)
-        
+        # if res.success == True:
+        stds, inducing_points = self.unpack_params(jnp.asarray(res.x))
+        self.stds = stds
+        self.inducing_points = inducing_points
+        self._precomputation()
+    
         return self.stds
-                
-    def predict(self, test, opt_params):
-        """Posterior distribution
-        """
-        x, y = self.data
-        M = self.num_inducing_points
-        kernel_fn = self._init_kernel_fn(opt_params)
-
-        kuu = kernel_fn(self.inducing_points, None, self.get) # (M, M)
-        kuf = kernel_fn(self.inducing_points, x, self.get) # (M, N)
         
-        L = jnp.linalg.cholesky(kuu) # (M, M)
-        A = scipy.linalg.solve_triangular(L, kuf, lower=True) / self.sigma # (M, N)
-        AAT = A @ A.T # (M, M)
-        B = jnp.eye(M) + AAT # (M, M)
-        LB = jnp.linalg.cholesky(B) # (M, M)
+    def predict(self, test, diag=False):
+        _, y = self.data
         
-        L_inv = jnp.linalg.inv(L) # (M, M)
-        LB_inv = jnp.linalg.inv(LB) # (M, M)
-        B_inv = jnp.linalg.inv(B) # (M, M)
+        if self.is_precomputed:
+            A = self.cached_tensors.A
+            LB = self.cached_tensors.LB
+            L = self.cached_tensors.L
+        else:
+            cached_tensors = self._precomputation(self.stds)
+            A = cached_tensors.A
+            LB = cached_tensors.LB
+            L = cached_tensors.L
         
         c = scipy.linalg.solve_triangular(LB, A @ y, lower=True) / self.sigma # (M, )
         
-        kss = kernel_fn(test, test, self.get)
-        ksu = kernel_fn(test, self.inducing_points, self.get)
-        kus = ksu.T
+        kss = self.kernel_fn(test, test, self.get)
+        kus = self.kernel_fn(self.inducing_points, test, self.get)
         
-        mean = ksu @ L_inv.T @ LB_inv.T @ c
-        cov = kss - ksu @ L_inv.T @ (jnp.eye(M) - B_inv) @ LB_inv.T @ kus
+        tmp1 = scipy.linalg.solve_triangular(L, kus, lower=True)
+        tmp2 = scipy.linalg.solve_triangular(LB, tmp1, lower=True)
+        
+        mean = tmp2.T @ c
+        cov = kss + tmp2.T @ tmp2 - tmp1.T @ tmp1
+        if diag:
+            cov = jnp.diag(cov)
+            cov = jnp.tile(cov[:, None], [1, self.num_latent_gps]) # (N, 1) -> (N, P)
+        else:
+            cov = jnp.tile(cov[None, ...], [self.num_latent_gps, 1, 1]) # (1, N, N) -> (P, N, N)
 
         return mean, cov
-        

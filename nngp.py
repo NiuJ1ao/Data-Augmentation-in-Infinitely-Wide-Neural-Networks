@@ -36,7 +36,7 @@ class NNGP():
         std = np.sqrt(np.diag(kernel))
         return std
 
-    def inference(self, x_train, x_test, ntk=False):
+    def inference(self, x_test, ntk=False):
         logger.info("Predicting...")
         start = time.time()
         if ntk:
