@@ -48,12 +48,12 @@ def load_mnist(shuffle: bool=True,
     # train val split
     x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.1, random_state=42, shuffle=shuffle)
     
-    x_train = x_train[:10000]
-    y_train = y_train[:10000]
-    x_val = x_val[:1000]
-    y_val = y_val[:1000]
-    x_test = x_test[:1000]
-    y_test = y_test[:1000]
+    # x_train = x_train[:10000]
+    # y_train = y_train[:10000]
+    # x_val = x_val[:1000]
+    # y_val = y_val[:1000]
+    # x_test = x_test[:1000]
+    # y_test = y_test[:1000]
     
     logger.info(f"MNIST: {len(x_train)} train, {len(x_val)} val, {len(x_test)} test samples.")
     return (x_train, y_train), (x_val, y_val), (x_test, y_test)

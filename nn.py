@@ -32,27 +32,49 @@ class Trainer():
         # batch training data
         num_batches = compute_num_batches(train[0].shape[0], self.batch_size)
         train_batches = minibatch(*train, batch_size=self.batch_size, num_batches=num_batches)
-
+        val_x, val_y = val
+        
         # initialise model if not yet initialised
         self.model.init_params(train[0].shape)
         opt_state = self.opt_init(self.model.params)
+        
+        train_losses = []
+        val_losses = []
+        train_evals = []
+        val_evals = []
 
         # train step
         itercount = itertools.count()
         total_steps = self.epochs * num_batches
         pbar = tqdm(total=total_steps)
-        for _ in range(self.epochs):
+        for i in range(self.epochs):
+            epoch_train_loss, epoch_train_eval = 0, 0
             for _ in range(num_batches):
-                opt_state = self.opt_update(next(itercount), self.grad_loss(opt_state, *next(train_batches)), opt_state)
+                train_x, train_y = next(train_batches)
+                opt_state = self.opt_update(next(itercount), self.grad_loss(opt_state, train_x, train_y), opt_state)
                 self.model.update_params(self.get_params(opt_state))
+
+                epoch_train_loss += [self.loss(self.get_params(opt_state), train_x, train_y)]
+                if metric != None:
+                    train_preds = self.model.predict(train_x)
+                    epoch_train_eval += [metric(train_preds, train_y)]
+                
                 pbar.update(1)
-        
+
+            train_losses += [epoch_train_loss / num_batches]
+            val_losses += [self.loss(self.get_params(opt_state), val_x, val_y)]
+            
             if metric != None:
-                train_preds = self.model.predict(train[0])
-                train_m = metric(train_preds, train[1]).item()
-                val_preds = self.model.predict(val[0])
-                val_m = metric(val_preds, val[1]).item()
-                logger.info(f"train acc: {train_m}, val acc: {val_m}")
+                epoch_train_eval = epoch_train_eval / num_batches
+                epoch_val_eval = metric(self.model.predict(val_x), val_y)
+                train_evals += [epoch_train_eval]
+                val_evals += [epoch_val_eval]
+                logger.info(f"Epoch {i}; Train acc: {epoch_train_eval}; Val acc: {epoch_val_eval}")
+                
+        if metric != None:
+            return self.get_params(opt_state), train_losses, val_losses, train_evals, val_evals
+                  
+        return self.get_params(opt_state), train_losses, val_losses
           
           
     def fit_small(self, train, val, 

@@ -3,6 +3,7 @@ from nn import Trainer
 from metrics import accuracy, mse_loss
 from jax.example_libraries import optimizers
 from util import args_parser
+import matplotlib.pyplot as plt
 import logger
 logger = logger.init_logger(log_level=logger.INFO)
 
@@ -11,7 +12,7 @@ from models import FCN, ResNet
 def main():
     args = args_parser()
     
-    logger.warn("Due to different parameterization strategy in neural tangents, you may need to try different learning rate to get the same results. (https://github.com/google/neural-tangents/issues/155)")
+    logger.warning(f"Due to different parameterization strategy in neural tangents, you may need to try different learning rate to get the same results. (https://github.com/google/neural-tangents/issues/155)")
     
     # initialise model
     if args.model == 'resnet':
@@ -22,14 +23,26 @@ def main():
         flatten = True
     
     # load dataset
-    train, val, test = load_mnist(flatten=flatten)
+    train, val, test = load_mnist(flatten=flatten, one_hot=True)
     
     # optimizer = optimizers.sgd(args.lr)
     optimizer = optimizers.momentum(args.lr, mass=args.momentum)
     loss = mse_loss(model)
     trainer = Trainer(model, args.epochs, args.batch_size, optimizer, loss)
 
-    trainer.fit(train, val, metric=accuracy)
+    opt_params, train_losses, val_losses, train_accs, val_accs = trainer.fit(train, val, metric=accuracy)
+    
+    plt.plot(train_losses, label='train')
+    plt.plot(val_losses, label='val')
+    plt.legend()
+    plt.savefig('figures/loss.png')
+    plt.close()
+    
+    plt.plot(train_accs, label='train')
+    plt.plot(val_accs, label='val')
+    plt.legend()
+    plt.savefig('figures/accuracy.png')
+    plt.close()
     
     predicts = model.predict(test[0])
     acc = accuracy(predicts, test[1])
