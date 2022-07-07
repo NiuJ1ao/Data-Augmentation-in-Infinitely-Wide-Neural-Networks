@@ -1,8 +1,6 @@
-import itertools
 from neural_tangents import stax
-import jax.numpy as np
 from util import jit_and_batch, split_key
-from modules import ResNetGroup
+from modules import ResNetGroup, ConvBlock
 from logger import get_logger
 logger = get_logger()
 
@@ -74,17 +72,18 @@ class ResNet(BaseModel):
                  store_on_device=True, 
                  W_std=1.5,
                  b_std=0.05,
-                 block_size=4, 
-                 k=1, 
+                 block_size=2, 
                  num_classes=10):
+        
         self.init_fn, self.apply_fn, self.kernel_fn = stax.serial(
-            stax.Conv(16, (3, 3), padding='SAME'),
-            ResNetGroup(block_size, int(16 * k)),
-            ResNetGroup(block_size, int(32 * k), (2, 2)),
-            ResNetGroup(block_size, int(64 * k), (2, 2)),
+            stax.Conv(out_chan=64, filter_shape=(7, 7), strides=(2, 2), padding='SAME', W_std=W_std, b_std=b_std),
+            ResNetGroup(block_size, channels=64, W_std=W_std, b_std=b_std),
+            ResNetGroup(block_size, channels=128, W_std=W_std, b_std=b_std, strides=(2, 2)),
+            ResNetGroup(block_size, channels=256, W_std=W_std, b_std=b_std, strides=(2, 2)),
+            ResNetGroup(block_size, channels=512, W_std=W_std, b_std=b_std, strides=(2, 2)),
             stax.AvgPool((7, 7)),
             stax.Flatten(),
-            stax.Dense(num_classes, W_std=1., b_std=0.),
+            stax.Dense(num_classes, W_std=W_std, b_std=b_std),
         )
         super(ResNet, self).__init__(batch_size, device_count, store_on_device)
         

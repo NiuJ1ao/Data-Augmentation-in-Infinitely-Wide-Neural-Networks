@@ -1,5 +1,4 @@
 import itertools
-import time
 from jax import jit, grad, vmap
 import jax.numpy as np
 from util import PRNGKey, compute_num_batches, minibatch, split_key
@@ -48,19 +47,23 @@ class Trainer():
         total_steps = self.epochs * num_batches
         pbar = tqdm(total=total_steps)
         for i in range(self.epochs):
-            epoch_train_loss, epoch_train_eval = 0, 0
+            # train
             for _ in range(num_batches):
                 train_x, train_y = next(train_batches)
                 opt_state = self.opt_update(next(itercount), self.grad_loss(opt_state, train_x, train_y), opt_state)
-                self.model.update_params(self.get_params(opt_state))
-
-                epoch_train_loss += [self.loss(self.get_params(opt_state), train_x, train_y)]
+                self.model.update_params(self.get_params(opt_state))   
+                pbar.update(1)
+            
+            # eval
+            epoch_train_loss, epoch_train_eval = 0, 0
+            for _ in range(num_batches):
+                epoch_train_loss += self.loss(self.get_params(opt_state), train_x, train_y)
                 if metric != None:
                     train_preds = self.model.predict(train_x)
-                    epoch_train_eval += [metric(train_preds, train_y)]
-                
-                pbar.update(1)
-
+                    print(train_preds)
+                    assert False
+                    epoch_train_eval += metric(train_preds, train_y)
+                assert False
             train_losses += [epoch_train_loss / num_batches]
             val_losses += [self.loss(self.get_params(opt_state), val_x, val_y)]
             
