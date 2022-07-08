@@ -39,7 +39,17 @@ def minibatch(x, y, batch_size, num_batches=None):
         perm = rng.permutation(num_train)
         for i in range(num_batches):
             batch_idx = perm[i * batch_size:(i + 1) * batch_size]
-            yield x[batch_idx], y[batch_idx]
+            batch_x, batch_y = x[batch_idx], y[batch_idx]
+            # if padding:
+            #     image_size = batch_x[0].shape
+            #     pad_h = 224 - image_size[0]
+            #     pad_w = 224 - image_size[1]
+            #     # padding to 224x224
+            #     pad_h = pad_h // 2 if pad_h > 0 else 0
+            #     pad_w = pad_w // 2 if pad_w > 0 else 0
+            #     batch_x = jnp.pad(batch_x, ((0, 0), (pad_h, pad_h), (pad_w, pad_w), (0, 0)))
+                
+            yield batch_x, batch_y
 
 def create_checkpoint(model, output_dir: str, max_to_keep: int=5, **kwargs):
     ckpt = tf.train.Checkpoint(model=model, **kwargs)

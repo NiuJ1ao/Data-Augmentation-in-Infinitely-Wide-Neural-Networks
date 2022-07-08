@@ -33,8 +33,17 @@ class Trainer():
         train_batches = minibatch(*train, batch_size=self.batch_size, num_batches=num_batches)
         val_x, val_y = val
         
-        # initialise model if not yet initialised
-        self.model.init_params(train[0].shape)
+        # # initialise model if not yet initialised
+        # if padding:
+        #     if train[0].shape[1] < 224 or train[0].shape[2] < 224:
+        #         input_shape = (self.batch_size, 224, 224, 1)
+        #     else:
+        #         input_shape = (self.batch_size,) + train[0].shape[1:]
+        # else:
+        #     input_shape = (self.batch_size,) + train[0].shape[1:]
+        input_shape = (self.batch_size,) + train[0].shape[1:]
+        logger.debug(f"input shape: {input_shape}")
+        self.model.init_params(input_shape)
         opt_state = self.opt_init(self.model.params)
         
         train_losses = []
@@ -50,20 +59,23 @@ class Trainer():
             # train
             for _ in range(num_batches):
                 train_x, train_y = next(train_batches)
+                # train_preds = self.model.predict(train_x)
+                # print(train_preds.shape, np.any(train_preds != None))
+                # assert False
                 opt_state = self.opt_update(next(itercount), self.grad_loss(opt_state, train_x, train_y), opt_state)
-                self.model.update_params(self.get_params(opt_state))   
+                self.model.update_params(self.get_params(opt_state))
                 pbar.update(1)
             
             # eval
             epoch_train_loss, epoch_train_eval = 0, 0
             for _ in range(num_batches):
+                train_x, train_y = next(train_batches)
                 epoch_train_loss += self.loss(self.get_params(opt_state), train_x, train_y)
                 if metric != None:
                     train_preds = self.model.predict(train_x)
-                    print(train_preds)
-                    assert False
+                    assert np.any(train_preds != None)
                     epoch_train_eval += metric(train_preds, train_y)
-                assert False
+
             train_losses += [epoch_train_loss / num_batches]
             val_losses += [self.loss(self.get_params(opt_state), val_x, val_y)]
             
@@ -113,7 +125,7 @@ class Trainer():
                 train_m = metric(train_preds, train[1]).item()
                 val_preds = self.model.predict(val[0])
                 val_m = metric(val_preds, val[1]).item()
-                logger.info(f"train acc: {train_m}, val acc: {val_m}")
+                logger.info(f"train acc: {train_m:.4%}, val acc: {val_m:.4%}")
         
         return self.get_params(opt_state), train_losses, test_losses
                 

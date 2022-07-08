@@ -1,14 +1,14 @@
 from neural_tangents import stax
 from util import jit_and_batch, split_key
-from modules import ResNetGroup, ConvBlock
+from modules import ResNetGroup
 from logger import get_logger
 logger = get_logger()
 
 class BaseModel():
-    def __init__(self, batch_size=0, device_count=-1, store_on_device=True):
+    def __init__(self, kernel_batch_size=0, device_count=-1, store_on_device=True):
         self.params = None
         self.apply_fn, self.kernel_fn = jit_and_batch(self.apply_fn, self.kernel_fn, 
-                                                      batch_size=batch_size,
+                                                      batch_size=kernel_batch_size,
                                                       device_count=device_count,
                                                       store_on_device=store_on_device)
         
@@ -20,7 +20,7 @@ class BaseModel():
         
     def update_params(self, params):
         self.params = params
-        
+
     def predict(self, x):
         if self.params is None:
             raise Exception('Model parameters not initialized.')
@@ -28,7 +28,7 @@ class BaseModel():
 
 class FCN(BaseModel):
     def __init__(self, 
-                 batch_size=0, 
+                 kernel_batch_size=0, 
                  device_count=-1, 
                  store_on_device=True, 
                  num_layers=2,
@@ -42,10 +42,10 @@ class FCN(BaseModel):
             *hid_layers,
             stax.Dense(out_dim, W_std=W_std, b_std=b_std)
         )
-        super(FCN, self).__init__(batch_size, device_count, store_on_device)
+        super(FCN, self).__init__(kernel_batch_size, device_count, store_on_device)
     
 class ResFCN(BaseModel):
-    def __init__(self, batch_size, device_count, store_on_device):
+    def __init__(self, kernel_batch_size, device_count, store_on_device):
         ResBlock = stax.serial(
             stax.FanOut(2),
             stax.parallel(
@@ -63,27 +63,61 @@ class ResFCN(BaseModel):
             ResBlock, ResBlock, stax.Erf(),
             stax.Dense(1, W_std=1.5, b_std=0)
         )
-        super(ResFCN, self).__init__(batch_size, device_count, store_on_device)
+        super(ResFCN, self).__init__(kernel_batch_size, device_count, store_on_device)
 
 class ResNet(BaseModel):
     def __init__(self, 
-                 batch_size=0, 
+                 kernel_batch_size=0, 
                  device_count=-1, 
                  store_on_device=True, 
                  W_std=1.5,
                  b_std=0.05,
-                 block_size=2, 
+                 block_size=1, 
                  num_classes=10):
         
         self.init_fn, self.apply_fn, self.kernel_fn = stax.serial(
+            stax.Conv(out_chan=32, filter_shape=(5, 5), strides=(2, 2), padding='SAME', W_std=W_std, b_std=b_std), stax.Relu(),
+            stax.Conv(out_chan=32, filter_shape=(5, 5), strides=(2, 2), padding='SAME', W_std=W_std, b_std=b_std), stax.Relu(),
+            stax.Conv(out_chan=10, filter_shape=(3, 3), strides=(2, 2), padding='SAME', W_std=W_std, b_std=b_std), stax.Relu(),
+            stax.Conv(out_chan=10, filter_shape=(3, 3), strides=(2, 2), padding='SAME', W_std=W_std, b_std=b_std), stax.Relu(),
+            
+            # stax.Conv(out_chan=32, filter_shape=(3, 3), strides=(2, 2), padding='SAME', W_std=W_std, b_std=b_std),
+            
+            stax.Flatten(),
+            stax.Dense(num_classes, W_std=W_std, b_std=b_std)
+        )
+        super(ResNet, self).__init__(kernel_batch_size, device_count, store_on_device)
+        
+class ResNet18(BaseModel):
+    def __init__(self, 
+                 kernel_batch_size=0, 
+                 device_count=-1, 
+                 store_on_device=True, 
+                 W_std=1.5,
+                 b_std=0.05,
+                 block_size=1, 
+                 num_classes=10):
+        """ResNet18 model. Input shape is at least (224, 224)
+        
+
+        Args:
+            kernel_batch_size (int, optional): _description_. Defaults to 0.
+            device_count (int, optional): _description_. Defaults to -1.
+            store_on_device (bool, optional): _description_. Defaults to True.
+            W_std (float, optional): _description_. Defaults to 1.5.
+            b_std (float, optional): _description_. Defaults to 0.05.
+            block_size (int, optional): _description_. Defaults to 1.
+            num_classes (int, optional): _description_. Defaults to 10.
+        """
+        self.init_fn, self.apply_fn, self.kernel_fn = stax.serial(
             stax.Conv(out_chan=64, filter_shape=(7, 7), strides=(2, 2), padding='SAME', W_std=W_std, b_std=b_std),
-            ResNetGroup(block_size, channels=64, W_std=W_std, b_std=b_std),
-            ResNetGroup(block_size, channels=128, W_std=W_std, b_std=b_std, strides=(2, 2)),
-            ResNetGroup(block_size, channels=256, W_std=W_std, b_std=b_std, strides=(2, 2)),
-            ResNetGroup(block_size, channels=512, W_std=W_std, b_std=b_std, strides=(2, 2)),
+            ResNetGroup(block_size, out_chan=64, W_std=W_std, b_std=b_std),
+            ResNetGroup(block_size, out_chan=128, W_std=W_std, b_std=b_std, strides=(2, 2)),
+            ResNetGroup(block_size, out_chan=256, W_std=W_std, b_std=b_std, strides=(2, 2)),
+            ResNetGroup(block_size, out_chan=512, W_std=W_std, b_std=b_std, strides=(2, 2)),
             stax.AvgPool((7, 7)),
             stax.Flatten(),
-            stax.Dense(num_classes, W_std=W_std, b_std=b_std),
+            stax.Dense(num_classes, W_std=W_std, b_std=b_std) # BUG: solved by correcting input shape
         )
-        super(ResNet, self).__init__(batch_size, device_count, store_on_device)
-        
+        super(ResNet, self).__init__(kernel_batch_size, device_count, store_on_device)
+

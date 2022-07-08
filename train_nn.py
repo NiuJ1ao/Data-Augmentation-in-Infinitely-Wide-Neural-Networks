@@ -5,7 +5,7 @@ from jax.example_libraries import optimizers
 from util import args_parser
 import matplotlib.pyplot as plt
 import logger
-logger = logger.init_logger(log_level=logger.INFO)
+logger = logger.init_logger(log_level=logger.DEBUG)
 
 from models import FCN, ResNet
 
@@ -16,7 +16,7 @@ def main():
     
     # initialise model
     if args.model == 'resnet':
-        model = ResNet(block_size=4, k=1, num_classes=10)
+        model = ResNet(num_classes=10)
         flatten = False
     elif args.model == 'fcn':
         model = FCN(num_layers=2, hid_dim=1024, out_dim=10)
@@ -35,18 +35,18 @@ def main():
     plt.plot(train_losses, label='train')
     plt.plot(val_losses, label='val')
     plt.legend()
-    plt.savefig('figures/loss.png')
+    plt.savefig(f'figures/{args.model}_loss.png')
     plt.close()
     
     plt.plot(train_accs, label='train')
     plt.plot(val_accs, label='val')
     plt.legend()
-    plt.savefig('figures/accuracy.png')
+    plt.savefig(f'figures/{args.model}_accuracy.png')
     plt.close()
     
     predicts = model.predict(test[0])
     acc = accuracy(predicts, test[1])
-    logger.info(f"Test accuracy: {acc}")
+    logger.info(f"Test accuracy: {acc:.4%}")
     
 if __name__ == "__main__":
     main()

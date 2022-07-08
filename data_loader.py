@@ -1,9 +1,9 @@
 from jax import random
 import jax.numpy as np
 from jax.config import config
+from matplotlib import image
 config.update("jax_enable_x64", True)
 from keras.datasets import mnist
-import tensorflow_datasets as tfds
 from util import init_random_state, split_key
 from sklearn.model_selection import train_test_split
 from logger import get_logger
@@ -42,11 +42,12 @@ def load_mnist(shuffle: bool=True,
     assert y_train.shape == (60000,)
     assert y_test.shape == (10000,)
     
-    x_train, y_train = preprocess_mnist(x_train, y_train, flatten, one_hot)
-    x_test, y_test = preprocess_mnist(x_test, y_test, flatten, one_hot)
-    
     # train val split
     x_train, x_val, y_train, y_val = train_test_split(x_train, y_train, test_size=0.1, random_state=42, shuffle=shuffle)
+    
+    x_train, y_train = preprocess_mnist(x_train, y_train, flatten, one_hot)
+    x_val, y_val = preprocess_mnist(x_val, y_val, flatten, one_hot)
+    x_test, y_test = preprocess_mnist(x_test, y_test, flatten, one_hot)
     
     # x_train = x_train[:10000]
     # y_train = y_train[:10000]
@@ -55,7 +56,7 @@ def load_mnist(shuffle: bool=True,
     # x_test = x_test[:1000]
     # y_test = y_test[:1000]
     
-    logger.info(f"MNIST: {len(x_train)} train, {len(x_val)} val, {len(x_test)} test samples.")
+    logger.info(f"MNIST: {x_train.shape} train, {x_val.shape} val, {x_test.shape} test samples.")
     return (x_train, y_train), (x_val, y_val), (x_test, y_test)
 
 def preprocess_mnist(x, y, flatten: bool=False, one_hot: bool=True):
@@ -64,9 +65,16 @@ def preprocess_mnist(x, y, flatten: bool=False, one_hot: bool=True):
     else:
         # reshape to have single channel for CNN
         x = x.reshape(x.shape + (1,))
+        # image_size = x[0].shape
+        # pad_h = 224 - image_size[0]
+        # pad_w = 224 - image_size[1]
+        # # padding to 224x224
+        # pad_h = pad_h // 2 if pad_h > 0 else 0
+        # pad_w = pad_w // 2 if pad_w > 0 else 0
+        # x = np.pad(x, ((0, 0), (pad_h, pad_h), (pad_w, pad_w), (0, 0)))
     
     # normalise pixels of grayscale images
-    x = x/np.float64(255.)
+    x = x / np.float64(255.)
     
     # turn labels to one-hot encodings (-0.1 neg, 0.9 pos)
     if one_hot:
