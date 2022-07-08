@@ -1,7 +1,6 @@
 from collections import namedtuple
 import jax.numpy as jnp
 import numpy as np
-from neural_tangents import empirical_nngp_fn
 from jax import scipy, value_and_grad, jit
 from logger import get_logger
 from scipy.optimize import minimize
@@ -221,15 +220,15 @@ class SNNGP():
             return value, grads
         
         # res = minimize(fun=grad_elbo_wrapper, x0=self.pack_params(), method="L-BFGS-B", jac=True, options={"disp": True})
-        res = minimize(fun=grad_elbo_wrapper, x0=softplus_inv(self.stds), method="L-BFGS-B")
+        res = minimize(fun=grad_elbo_wrapper, x0=softplus_inv(self.stds), method="L-BFGS-B", jac=True)
         logger.debug(f"{res}")
         logger.info(f"Optimized for {res.nit} iters; Success: {res.success}; Result: {res.x}")
         
         # if res.success == True:
         # stds, inducing_points = self.unpack_params(jnp.asarray(res.x))
+        # self.inducing_points = inducing_points
         stds = softplus(jnp.asarray(res.x))
         self.stds = stds
-        # self.inducing_points = inducing_points
         self._precomputation()
     
         return self.stds
