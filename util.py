@@ -9,7 +9,7 @@ logger = get_logger()
 
 def args_parser():
     parser = argparse.ArgumentParser(description='Data Augmentation in Infinitely Wide Neural Networks')
-    parser.add_argument('--model', default='resnet', choices=['fcn', 'resfcn', 'resnet'],
+    parser.add_argument('--model', default='resnet', choices=['fcn', 'cnn', 'resnet'],
                         help='an integer for the accumulator')
     parser.add_argument("--epochs",  type=int, default=1, help="number of training steps")
     parser.add_argument("--batch-size",  type=int, default=0, help="batch size")

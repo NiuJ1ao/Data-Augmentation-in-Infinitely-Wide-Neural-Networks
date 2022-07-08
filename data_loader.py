@@ -49,8 +49,8 @@ def load_mnist(shuffle: bool=True,
     x_val, y_val = preprocess_mnist(x_val, y_val, flatten, one_hot)
     x_test, y_test = preprocess_mnist(x_test, y_test, flatten, one_hot)
     
-    # x_train = x_train[:10000]
-    # y_train = y_train[:10000]
+    # x_train = x_train[:1000]
+    # y_train = y_train[:1000]
     # x_val = x_val[:1000]
     # y_val = y_val[:1000]
     # x_test = x_test[:1000]

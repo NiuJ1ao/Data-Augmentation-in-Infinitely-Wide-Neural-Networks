@@ -84,7 +84,7 @@ class Trainer():
                 epoch_val_eval = metric(self.model.predict(val_x), val_y)
                 train_evals += [epoch_train_eval]
                 val_evals += [epoch_val_eval]
-                logger.info(f"Epoch {i}; Train acc: {epoch_train_eval}; Val acc: {epoch_val_eval}")
+                logger.info(f"Epoch {i}; Train acc: {epoch_train_eval:.2%}; Val acc: {epoch_val_eval:.2%}")
                 
         if metric != None:
             return self.get_params(opt_state), train_losses, val_losses, train_evals, val_evals

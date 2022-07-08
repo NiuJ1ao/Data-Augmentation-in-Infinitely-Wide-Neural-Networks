@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import logger
 logger = logger.init_logger(log_level=logger.DEBUG)
 
-from models import FCN, ResNet
+from models import FCN, CNN
 
 def main():
     args = args_parser()
@@ -15,8 +15,8 @@ def main():
     logger.warning(f"Due to different parameterization strategy in neural tangents, you may need to try different learning rate to get the same results. (https://github.com/google/neural-tangents/issues/155)")
     
     # initialise model
-    if args.model == 'resnet':
-        model = ResNet(num_classes=10)
+    if args.model == 'cnn':
+        model = CNN(num_classes=10)
         flatten = False
     elif args.model == 'fcn':
         model = FCN(num_layers=2, hid_dim=1024, out_dim=10)
@@ -46,7 +46,7 @@ def main():
     
     predicts = model.predict(test[0])
     acc = accuracy(predicts, test[1])
-    logger.info(f"Test accuracy: {acc:.4%}")
+    logger.info(f"Test accuracy: {acc:.2%}")
     
 if __name__ == "__main__":
     main()
