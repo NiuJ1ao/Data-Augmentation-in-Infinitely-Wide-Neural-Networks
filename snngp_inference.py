@@ -54,19 +54,21 @@ def run():
 
     elbo = snngp.lower_bound()
     logger.info(f"elbo: {elbo}")
+    ll = snngp.log_likelihood()
+    logger.debug(f"ll: {ll}")
+    assert False
     upper_bound = snngp.upper_bound()
     logger.info(f"upper_bound: {upper_bound}")
-    interval = snngp.evaluate()
-    logger.info(f"interval: {interval}")
     
     snngp.optimize()
     
     elbo = snngp.lower_bound()
     logger.info(f"elbo: {elbo}")
+    ll = snngp.log_likelihood()
+    logger.debug(f"ll: {ll}")
+    logger.debug(f"KL divergence: {ll - elbo}")
     upper_bound = snngp.upper_bound()
     logger.info(f"upper_bound: {upper_bound}")
-    interval = snngp.evaluate()
-    logger.info(f"interval: {interval}")
     
     mean, cov = snngp.predict(test_x)
     logger.debug(f"mean: {mean.shape}; cov: {cov.shape}")

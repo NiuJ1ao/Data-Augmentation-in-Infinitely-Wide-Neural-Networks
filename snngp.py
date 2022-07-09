@@ -44,13 +44,13 @@ class SNNGP():
         self.kernel_fn = model.kernel_fn
         return self.kernel_fn
         
-    # def pack_params(self):
-    #     return jnp.concatenate([softplus_inv(self.stds), self.inducing_points.ravel()])
+    def pack_params(self):
+        return jnp.concatenate([softplus_inv(self.stds), self.inducing_points.ravel()])
     
-    # def unpack_params(self, params):
-    #     stds = softplus(params[:2])
-    #     inducing_points = params[2:].reshape((self.num_inducing_points, -1))
-    #     return stds, inducing_points
+    def unpack_params(self, params):
+        stds = softplus(params[:2])
+        inducing_points = params[2:].reshape((self.num_inducing_points, -1))
+        return stds, inducing_points
     
     def _precomputation(self):
         x, _ = self.data
@@ -74,6 +74,7 @@ class SNNGP():
         logger.debug(f"LB: {LB.shape}")
         
         trace_x = jnp.trace(self.kernel_fn(x, None, self.get))
+        logger.debug(f"trace_x: {trace_x}")
         
         self.is_precomputed = True
         self.cached_tensors = self.CommonTensors(A, B, LB, AAT, L, trace_x)
@@ -143,9 +144,9 @@ class SNNGP():
         x, _ = self.data
         M = self.num_inducing_points
         
-        # stds, inducing_points = self.unpack_params(params)
-        stds = softplus(params)
-        inducing_points = self.inducing_points
+        stds, inducing_points = self.unpack_params(params)
+        # stds = softplus(params)
+        # inducing_points = self.inducing_points
         kernel_fn = self._init_kernel_fn(stds)
         
         kuu = kernel_fn(inducing_points, None, self.get) + self.jitter * jnp.eye(M) # (M, M)
@@ -203,10 +204,29 @@ class SNNGP():
         upper_bound = const + logdet + quad_term
         return upper_bound
     
-    def evaluate(self):
-        """
-        """
-        return self.upper_bound() - self.lower_bound()
+    def log_likelihood(self):
+        x, y = self.data
+        
+        kernel_fn = self._init_kernel_fn(self.stds)
+        cov = kernel_fn(x, x, get=self.get)
+        N = cov.shape[0]
+            
+        chol = scipy.linalg.cholesky(
+                cov + self.sigma * np.eye(N), lower=True)
+        logger.debug(f"{chol.shape}, {y.shape}")
+        alpha = scipy.linalg.cho_solve((chol, True), y)
+        logger.debug(alpha.shape)
+
+        ll = np.sum(-0.5 * np.einsum('ik,ik->k', y, alpha) -
+                    np.sum(np.log(np.diag(chol))) - (N / 2.) * np.log(2. * np.pi))
+        logger.debug(ll)
+        
+        return ll
+    
+    # def evaluate(self):
+    #     """
+    #     """
+    #     return self.upper_bound() - self.lower_bound()
         
     def optimize(self):
         logger.info("Optimizing...")
@@ -219,19 +239,40 @@ class SNNGP():
             value, grads = np.array(value, dtype=np.float64), np.array(grads, dtype=np.float64)
             return value, grads
         
-        # res = minimize(fun=grad_elbo_wrapper, x0=self.pack_params(), method="L-BFGS-B", jac=True, options={"disp": True})
-        res = minimize(fun=grad_elbo_wrapper, x0=softplus_inv(self.stds), method="L-BFGS-B", jac=True)
+        res = minimize(fun=grad_elbo_wrapper, x0=self.pack_params(), method="L-BFGS-B", jac=True, options={"disp": True})
+        # res = minimize(fun=grad_elbo_wrapper, x0=softplus_inv(self.stds), method="L-BFGS-B", jac=True, options={"disp": True})
         logger.debug(f"{res}")
         logger.info(f"Optimized for {res.nit} iters; Success: {res.success}; Result: {res.x}")
         
         # if res.success == True:
-        # stds, inducing_points = self.unpack_params(jnp.asarray(res.x))
-        # self.inducing_points = inducing_points
-        stds = softplus(jnp.asarray(res.x))
+        stds, inducing_points = self.unpack_params(jnp.asarray(res.x))
+        self.inducing_points = inducing_points
         self.stds = stds
         self._precomputation()
     
         return self.stds
+    
+    # def optimize(self):
+    #     logger.info("Optimizing...")
+
+    #     grad_elbo = jit(value_and_grad(self._neg_elbo))
+        
+    #     def grad_elbo_wrapper(params):
+    #         value, grads = grad_elbo(params)
+    #         # scipy.optimize.minimize cannot handle JAX DeviceArray
+    #         value, grads = np.array(value, dtype=np.float64), np.array(grads, dtype=np.float64)
+    #         return value, grads
+        
+    #     res = minimize(fun=grad_elbo_wrapper, x0=softplus_inv(self.stds), method="L-BFGS-B", jac=True, options={"disp": True})
+    #     logger.debug(f"{res}")
+    #     logger.info(f"Optimized for {res.nit} iters; Success: {res.success}; Result: {res.x}")
+        
+    #     # if res.success == True:
+    #     stds = softplus(jnp.asarray(res.x))
+    #     self.stds = stds
+    #     self._precomputation()
+    
+    #     return self.stds
         
     def predict(self, test, diag=False):
         _, y = self.data

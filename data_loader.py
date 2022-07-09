@@ -65,13 +65,10 @@ def preprocess_mnist(x, y, flatten: bool=False, one_hot: bool=True):
     else:
         # reshape to have single channel for CNN
         x = x.reshape(x.shape + (1,))
-        # image_size = x[0].shape
-        # pad_h = 224 - image_size[0]
-        # pad_w = 224 - image_size[1]
-        # # padding to 224x224
-        # pad_h = pad_h // 2 if pad_h > 0 else 0
-        # pad_w = pad_w // 2 if pad_w > 0 else 0
-        # x = np.pad(x, ((0, 0), (pad_h, pad_h), (pad_w, pad_w), (0, 0)))
+        # standardise images across channels
+        mean = np.mean(x, axis=(1,2), keepdims=True)
+        std = np.std(x, axis=(1,2), keepdims=True)
+        x = (x - mean) / std
     
     # normalise pixels of grayscale images
     x = x / np.float64(255.)
