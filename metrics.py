@@ -16,3 +16,9 @@ def mse_loss(model):
 
 def accuracy(predicts, targets):
   return np.mean(np.argmax(predicts, axis=1) == np.argmax(targets, axis=1))
+
+def accuracy1d(predicts, targets):
+  return np.mean(predicts == targets)
+
+def RMSE(predicts, targets):
+  return np.sqrt(np.mean(np.mean(np.square(predicts - targets), axis=0)))

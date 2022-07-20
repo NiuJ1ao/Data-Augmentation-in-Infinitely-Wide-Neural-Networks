@@ -17,7 +17,7 @@ def args_parser():
     parser.add_argument("--momentum", type=float, default=0.9, help="momentum mass")
     
     parser.add_argument("--num-inducing-points", type=int, default=750, help="number of inducing points")
-    
+    parser.add_argument("--select-method", default='random', choices=['random', 'first', 'greedy'], help="method for selecting inducing points")
     parser.add_argument("--device-count", type=int, default=-1, help="number of devices")
     
     args = parser.parse_args()
@@ -86,7 +86,31 @@ def softplus(X):
 
 def softplus_inv(X):
     return jnp.log(jnp.exp(X) - 1)
+
+def batch_kernel(kernel_fn, batch_size, x1, x2):
+    if batch_size < 1:
+        return kernel_fn(x1, x2, "nngp")
+    
+    N = x1.shape[0]
+    M = x2.shape[0]
+    kernel = []
+    x1_start_indices = jnp.arange(0, N, batch_size)
+    x1_end_indices = x1_start_indices + batch_size
+    x2_start_indices = jnp.arange(0, M, batch_size)
+    x2_end_indices = x1_start_indices + batch_size
+    for x1_start, x1_end in zip(x1_start_indices, x1_end_indices):
+        subkernel = []
+        for x2_start, x2_end in zip(x2_start_indices, x2_end_indices):
+            x1_end = min(x1_end, N)
+            x2_end = min(x2_end, M)
+            subkernel.append(kernel_fn(x1[x1_start:x1_end], x2[x2_start:x2_end], "nngp"))
+        kernel.append(jnp.concatenate(subkernel, axis=1))
+    kernel = jnp.concatenate(kernel)
+    return kernel
     
 if __name__ == "__main__":
-    pass
+    a = 0.1
+    b = softplus_inv(a)
+    print(b)
+    print(softplus(b))
     

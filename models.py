@@ -80,9 +80,9 @@ class CNN(BaseModel):
             stax.Conv(out_chan=10, filter_shape=(3, 3), strides=(2, 2), padding='SAME', W_std=W_std, b_std=b_std), stax.Relu(),
             stax.Conv(out_chan=10, filter_shape=(3, 3), strides=(2, 2), padding='SAME', W_std=W_std, b_std=b_std), stax.Relu(),
             
-            # stax.Conv(out_chan=32, filter_shape=(3, 3), strides=(2, 2), padding='SAME', W_std=W_std, b_std=b_std),
-            # stax.Relu(),
-            
+            # stax.Conv(out_chan=32, filter_shape=(3, 3), strides=(1, 1), padding='SAME', W_std=W_std, b_std=b_std), stax.Relu(),
+            # stax.AvgPool((2, 2)),
+
             stax.Flatten(),
             
             # stax.Dense(100, W_std=W_std, b_std=b_std),
