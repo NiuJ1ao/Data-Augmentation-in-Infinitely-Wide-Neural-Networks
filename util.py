@@ -20,6 +20,9 @@ def args_parser():
     parser.add_argument("--select-method", default='random', choices=['random', 'first', 'greedy'], help="method for selecting inducing points")
     parser.add_argument("--device-count", type=int, default=-1, help="number of devices")
     
+    parser.add_argument("--augment-X", type=str, default=None, help="the path to augmentation")
+    parser.add_argument("--augment-y", type=str, default=None, help="the path to augmentation")
+    
     args = parser.parse_args()
     logger.info(args)
     return args
@@ -97,7 +100,7 @@ def batch_kernel(kernel_fn, batch_size, x1, x2):
     x1_start_indices = jnp.arange(0, N, batch_size)
     x1_end_indices = x1_start_indices + batch_size
     x2_start_indices = jnp.arange(0, M, batch_size)
-    x2_end_indices = x1_start_indices + batch_size
+    x2_end_indices = x2_start_indices + batch_size
     for x1_start, x1_end in zip(x1_start_indices, x1_end_indices):
         subkernel = []
         for x2_start, x2_end in zip(x2_start_indices, x2_end_indices):

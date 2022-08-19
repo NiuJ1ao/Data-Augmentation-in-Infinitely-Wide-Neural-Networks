@@ -1,0 +1,166 @@
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-16 19:55:59,899 INFO] (util:27) Namespace(augment_X=None, augment_y=None, batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=750, select_method='random')
+[2022-08-16 19:56:00,523 INFO] (data_loader:126) MNIST: (60000, 784) train, (10000, 784) test samples.
+[2022-08-16 19:56:00,524 INFO] (snngp_vary_inducing_random:30) 
+----Number of inducing point: 1000----
+[2022-08-16 19:56:00,619 INFO] (snngp_inference:59) inducing_points shape: (1000, 784)
+[2022-08-16 19:56:00,630 INFO] (snngp:271) Optimizing...
+2022-08-16 19:56:12.357044: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 1s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 19:56:19.071070: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 7.714103855s
+Constant folding an instruction is taking > 1s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[2022-08-16 20:01:41,668 INFO] (snngp:279) Optimized for 21 iters; Success: True; Result: [1.01107467 0.12511563], 0.01818576691739761
+[2022-08-16 20:01:50,582 INFO] (snngp_vary_inducing_random:47) ELBO: 30888.53206588908
+[2022-08-16 20:01:52,823 INFO] (snngp_vary_inducing_random:49) EUBO: 64294.53446089917
+[2022-08-16 20:01:55,593 INFO] (snngp_vary_inducing_random:53) Loss: 0.1253380858591839
+[2022-08-16 20:01:55,668 INFO] (snngp_vary_inducing_random:55) Accuracy: 95.57%
+[2022-08-16 20:01:55,668 INFO] (snngp_vary_inducing_random:30) 
+----Number of inducing point: 3000----
+[2022-08-16 20:01:55,774 INFO] (snngp_inference:59) inducing_points shape: (3000, 784)
+[2022-08-16 20:01:55,774 INFO] (snngp:271) Optimizing...
+2022-08-16 20:02:08.823524: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 2s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 20:03:08.833003: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 1m2.009545787s
+Constant folding an instruction is taking > 2s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[2022-08-16 20:25:23,305 INFO] (snngp:279) Optimized for 13 iters; Success: True; Result: [1.07274726 0.1531765 ], 0.013770418818487713
+[2022-08-16 20:25:51,740 INFO] (snngp_vary_inducing_random:47) ELBO: 37826.251077952875
+[2022-08-16 20:26:06,179 INFO] (snngp_vary_inducing_random:49) EUBO: 71827.30781326993
+[2022-08-16 20:26:11,195 INFO] (snngp_vary_inducing_random:53) Loss: 0.10920928163353635
+[2022-08-16 20:26:11,196 INFO] (snngp_vary_inducing_random:55) Accuracy: 96.77%
+[2022-08-16 20:26:11,196 INFO] (snngp_vary_inducing_random:30) 
+----Number of inducing point: 5000----
+[2022-08-16 20:26:11,302 INFO] (snngp_inference:59) inducing_points shape: (5000, 784)
+[2022-08-16 20:26:11,302 INFO] (snngp:271) Optimizing...
+2022-08-16 20:26:26.379832: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 4s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 20:29:10.380927: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 2m48.001158806s
+Constant folding an instruction is taking > 4s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[2022-08-16 21:16:02,198 INFO] (snngp:279) Optimized for 12 iters; Success: True; Result: [1.10192327 0.15742484], 0.012186106020147965
+[2022-08-16 21:17:01,847 INFO] (snngp_vary_inducing_random:47) ELBO: 40638.192771582515
+[2022-08-16 21:17:35,718 INFO] (snngp_vary_inducing_random:49) EUBO: 74889.70872236564
+[2022-08-16 21:17:43,180 INFO] (snngp_vary_inducing_random:53) Loss: 0.10339957832190246
+[2022-08-16 21:17:43,181 INFO] (snngp_vary_inducing_random:55) Accuracy: 97.22%
+[2022-08-16 21:17:43,216 INFO] (snngp_vary_inducing_random:67) 
+----Number of inducing point: 8000----
+[2022-08-16 21:17:43,346 INFO] (snngp_inference:59) inducing_points shape: (8000, 784)
+[2022-08-16 21:19:54,420 INFO] (snngp_vary_inducing_random:72) ELBO: 43242.48725577093
+[2022-08-16 21:21:20,607 INFO] (snngp_vary_inducing_random:74) EUBO: 76934.04911547754
+[2022-08-16 21:21:34,001 INFO] (snngp_vary_inducing_random:78) Loss: 0.09872926057705103
+[2022-08-16 21:21:34,002 INFO] (snngp_vary_inducing_random:80) Accuracy: 97.53%
+[2022-08-16 21:21:34,206 INFO] (snngp_vary_inducing_random:67) 
+----Number of inducing point: 9000----
+[2022-08-16 21:21:34,310 INFO] (snngp_inference:59) inducing_points shape: (9000, 784)
+[2022-08-16 21:24:16,515 INFO] (snngp_vary_inducing_random:72) ELBO: 43731.55264838748
+[2022-08-16 21:26:05,107 INFO] (snngp_vary_inducing_random:74) EUBO: 76809.05273539455
+[2022-08-16 21:26:21,393 INFO] (snngp_vary_inducing_random:78) Loss: 0.09795505564969299
+[2022-08-16 21:26:21,394 INFO] (snngp_vary_inducing_random:80) Accuracy: 97.54%
+[2022-08-16 21:26:21,615 INFO] (snngp_vary_inducing_random:67) 
+----Number of inducing point: 10000----
+[2022-08-16 21:26:21,706 INFO] (snngp_inference:59) inducing_points shape: (10000, 784)
+[2022-08-16 21:29:39,337 INFO] (snngp_vary_inducing_random:72) ELBO: 44284.74026750771
+[2022-08-16 21:31:55,834 INFO] (snngp_vary_inducing_random:74) EUBO: 76692.0497633745
+[2022-08-16 21:32:13,912 INFO] (snngp_vary_inducing_random:78) Loss: 0.09724485615858457
+[2022-08-16 21:32:13,913 INFO] (snngp_vary_inducing_random:80) Accuracy: 97.59%
+[2022-08-16 21:32:14,165 INFO] (snngp_vary_inducing_random:67) 
+----Number of inducing point: 11000----
+[2022-08-16 21:32:14,285 INFO] (snngp_inference:59) inducing_points shape: (11000, 784)
+[2022-08-16 21:36:09,400 INFO] (snngp_vary_inducing_random:72) ELBO: 44705.36139616063
+[2022-08-16 21:38:50,455 INFO] (snngp_vary_inducing_random:74) EUBO: 76578.62111959784
+[2022-08-16 21:39:12,115 INFO] (snngp_vary_inducing_random:78) Loss: 0.09667122930288062
+[2022-08-16 21:39:12,116 INFO] (snngp_vary_inducing_random:80) Accuracy: 97.60%
+[2022-08-16 21:39:12,409 INFO] (snngp_vary_inducing_random:67) 
+----Number of inducing point: 12000----
+[2022-08-16 21:39:12,525 INFO] (snngp_inference:59) inducing_points shape: (12000, 784)
+[2022-08-16 21:43:48,792 INFO] (snngp_vary_inducing_random:72) ELBO: 45057.92092460246
+[2022-08-16 21:47:00,696 INFO] (snngp_vary_inducing_random:74) EUBO: 76475.563473401
+[2022-08-16 21:47:25,030 INFO] (snngp_vary_inducing_random:78) Loss: 0.09626549396374942
+[2022-08-16 21:47:25,030 INFO] (snngp_vary_inducing_random:80) Accuracy: 97.62%
+[2022-08-16 21:47:25,363 INFO] (snngp_vary_inducing_random:67) 
+----Number of inducing point: 13000----
+[2022-08-16 21:47:25,482 INFO] (snngp_inference:59) inducing_points shape: (13000, 784)
+[2022-08-16 21:52:47,967 INFO] (snngp_vary_inducing_random:72) ELBO: 45390.16926289284
+[2022-08-16 21:56:33,214 INFO] (snngp_vary_inducing_random:74) EUBO: 76380.78654786313
+[2022-08-16 21:57:01,428 INFO] (snngp_vary_inducing_random:78) Loss: 0.09577215390604044
+[2022-08-16 21:57:01,429 INFO] (snngp_vary_inducing_random:80) Accuracy: 97.69%
+[2022-08-16 21:57:01,798 INFO] (snngp_vary_inducing_random:67) 
+----Number of inducing point: 14000----
+[2022-08-16 21:57:01,921 INFO] (snngp_inference:59) inducing_points shape: (14000, 784)
+[2022-08-16 22:03:12,262 INFO] (snngp_vary_inducing_random:72) ELBO: 45685.172175194064
+[2022-08-16 22:07:32,744 INFO] (snngp_vary_inducing_random:74) EUBO: 76288.63529386988
+[2022-08-16 22:08:04,149 INFO] (snngp_vary_inducing_random:78) Loss: 0.09545783075122277
+[2022-08-16 22:08:04,150 INFO] (snngp_vary_inducing_random:80) Accuracy: 97.65%
+[2022-08-16 22:08:04,565 INFO] (snngp_vary_inducing_random:67) 
+----Number of inducing point: 15000----
+[2022-08-16 22:08:04,690 INFO] (snngp_inference:59) inducing_points shape: (15000, 784)
+[2022-08-16 22:15:07,945 INFO] (snngp_vary_inducing_random:72) ELBO: 45961.88837827674
+[2022-08-16 22:20:11,077 INFO] (snngp_vary_inducing_random:74) EUBO: 76201.9897946427
+[2022-08-16 22:20:46,681 INFO] (snngp_vary_inducing_random:78) Loss: 0.09499113368355087
+[2022-08-16 22:20:46,682 INFO] (snngp_vary_inducing_random:80) Accuracy: 97.75%
+[2022-08-16 22:20:47,133 INFO] (snngp_vary_inducing_random:67) 
+----Number of inducing point: 16000----
+[2022-08-16 22:20:47,263 INFO] (snngp_inference:59) inducing_points shape: (16000, 784)
+[2022-08-16 22:29:22,914 INFO] (snngp_vary_inducing_random:72) ELBO: 46130.14151742393
+[2022-08-16 22:35:42,447 INFO] (snngp_vary_inducing_random:74) EUBO: 76120.36574524388
+[2022-08-16 22:36:22,554 INFO] (snngp_vary_inducing_random:78) Loss: 0.0947734798877018
+[2022-08-16 22:36:22,555 INFO] (snngp_vary_inducing_random:80) Accuracy: 97.79%
+[2022-08-16 22:36:23,080 INFO] (snngp_vary_inducing_random:67) 
+----Number of inducing point: 17000----
+[2022-08-16 22:36:23,210 INFO] (snngp_inference:59) inducing_points shape: (17000, 784)
+[2022-08-16 22:45:57,732 INFO] (snngp_vary_inducing_random:72) ELBO: 46370.33733092282
+[2022-08-16 22:52:53,312 INFO] (snngp_vary_inducing_random:74) EUBO: 76042.35963622214
+[2022-08-16 22:53:37,870 INFO] (snngp_vary_inducing_random:78) Loss: 0.0945345323955902
+[2022-08-16 22:53:37,870 INFO] (snngp_vary_inducing_random:80) Accuracy: 97.73%
+[2022-08-16 22:53:38,434 INFO] (snngp_vary_inducing_random:67) 
+----Number of inducing point: 18000----
+[2022-08-16 22:53:38,562 INFO] (snngp_inference:59) inducing_points shape: (18000, 784)
+[2022-08-16 23:04:24,582 INFO] (snngp_vary_inducing_random:72) ELBO: 46603.57173111542
+[2022-08-16 23:12:12,482 INFO] (snngp_vary_inducing_random:74) EUBO: 75960.4618545642
+[2022-08-16 23:13:01,736 INFO] (snngp_vary_inducing_random:78) Loss: 0.09409753031663494
+[2022-08-16 23:13:01,737 INFO] (snngp_vary_inducing_random:80) Accuracy: 97.84%
+[2022-08-16 23:13:02,345 INFO] (snngp_vary_inducing_random:67) 
+----Number of inducing point: 19000----
+[2022-08-16 23:13:02,480 INFO] (snngp_inference:59) inducing_points shape: (19000, 784)
+[2022-08-16 23:24:53,654 INFO] (snngp_vary_inducing_random:72) ELBO: 46807.6303332572
+[2022-08-16 23:33:42,454 INFO] (snngp_vary_inducing_random:74) EUBO: 75888.26084839799
+[2022-08-16 23:34:37,035 INFO] (snngp_vary_inducing_random:78) Loss: 0.09388674614658415
+[2022-08-16 23:34:37,036 INFO] (snngp_vary_inducing_random:80) Accuracy: 97.85%
+[2022-08-16 23:34:37,691 INFO] (snngp_vary_inducing_random:67) 
+----Number of inducing point: 20000----
+[2022-08-16 23:34:37,819 INFO] (snngp_inference:59) inducing_points shape: (20000, 784)
+[2022-08-16 23:47:46,773 INFO] (snngp_vary_inducing_random:72) ELBO: 46926.56771653997
+[2022-08-16 23:57:24,437 INFO] (snngp_vary_inducing_random:74) EUBO: 75816.8444369909
+[2022-08-16 23:58:22,794 INFO] (snngp_vary_inducing_random:78) Loss: 0.09380360885502503
+[2022-08-16 23:58:22,795 INFO] (snngp_vary_inducing_random:80) Accuracy: 97.79%

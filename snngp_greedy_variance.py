@@ -14,7 +14,7 @@ config.update("jax_enable_x64", True)
 def run():
     args = args_parser()
     init_random_state(0)
-    model, model_params, train, val, test = prepare_model_and_data(args)
+    model, model_params, train, test = prepare_model_and_data(args)
     train_x, _ = train
     test_x, test_y = test
     

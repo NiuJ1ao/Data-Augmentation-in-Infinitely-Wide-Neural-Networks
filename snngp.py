@@ -73,16 +73,10 @@ class SNNGP():
         logger.debug(f"stds: {self.stds}")
         self.kernel_fn = init_kernel_fn(self.model, self.stds, self.hyper_params)
 
-        if self.batch_size < 1:
-            kuu = self.kernel_fn(self.inducing_points, None, self.get)
-        else:
-            kuu = batch_kernel(self.kernel_fn, self.batch_size, self.inducing_points, self.inducing_points)
+        kuu = batch_kernel(self.kernel_fn, self.batch_size, self.inducing_points, self.inducing_points)
         kuu += self.jitter * jnp.eye(M) # (M, M)
         logger.debug(f"kuu: {kuu.shape}")
-        if self.batch_size < 1:
-            kuf = self.kernel_fn(self.inducing_points, x, self.get) # (M, N)
-        else:
-            kuf = batch_kernel(self.kernel_fn, self.batch_size, x, self.inducing_points).T
+        kuf = batch_kernel(self.kernel_fn, self.batch_size, x, self.inducing_points).T
         logger.debug(f"kuf: {kuf.shape}")
         
         L = jnp.linalg.cholesky(kuu) # (M, M)
@@ -145,10 +139,11 @@ class SNNGP():
         
         logdet = self._logdet_term(LB)
         trace = self._trace_term(AAT)
+        logger.debug(f"trace term: {trace}")
         quad = self._quad_term(A, LB)    
         const = self._const_term()
         elbo = const + logdet + quad + trace
-        return elbo
+        return elbo / self.out_dim
     
     def upper_bound(self):
         x, y = self.data
@@ -183,9 +178,9 @@ class SNNGP():
         quad_term = -0.5 * (jnp.sum(jnp.square(y)) / alpha - jnp.sum(jnp.square(c)))
         
         upper_bound = const + logdet + quad_term
-        return upper_bound
+        return upper_bound / self.out_dim
     
-    def log_likelihood(self):
+    def log_marginal_likelihood(self):
         x, y = self.data
         
         self.kernel_fn = init_kernel_fn(self.model, self.stds, self.hyper_params)
@@ -193,7 +188,7 @@ class SNNGP():
         N = cov.shape[0]
             
         chol = scipy.linalg.cholesky(
-                cov + self.sigma * jnp.eye(N), lower=True)
+                cov + self.sigma_squared * jnp.eye(N), lower=True)
         logger.debug(f"{chol.shape}, {y.shape}")
         alpha = scipy.linalg.cho_solve((chol, True), y)
         logger.debug(alpha.shape)
@@ -202,23 +197,28 @@ class SNNGP():
                     jnp.sum(jnp.log(jnp.diag(chol))) - (N / 2.) * jnp.log(2. * jnp.pi))
         logger.debug(ll)
         
-        return ll
+        return ll / self.out_dim
       
+    def pack_params(self):
+        return jnp.append(softplus_inv(self.stds), softplus_inv(self.sigma))
+    
+    def unpack_params(self, params):
+        self.stds = softplus(params[:2])
+        self.sigma = softplus(params[-1])
+        self.sigma_squared = jnp.square(self.sigma)
+        return self.stds, self.sigma_squared
+
     def _training_loss(self, params):
         x, _ = self.data
         M = self.num_inducing_points
         
-        # stds, inducing_points = self.unpack_params(params)
-        stds = softplus(params)
-        self.kernel_fn = init_kernel_fn(self.model, stds, self.hyper_params)
+        self.unpack_params(params)
+        # stds = softplus(params)
+        self.kernel_fn = init_kernel_fn(self.model, self.stds, self.hyper_params)
         
         # ELBO
-        kuu = self.kernel_fn(self.inducing_points, None, self.get) + self.jitter * jnp.eye(M) # (M, M)
-        if self.batch_size == 0:
-            kuf = self.kernel_fn(self.inducing_points, x, self.get) # (M, N)
-        else:
-            kuf = batch_kernel(self.kernel_fn, self.batch_size, x, self.inducing_points).T
-        logger.debug(f"kuf: {kuf.shape}")
+        kuu = batch_kernel(self.kernel_fn, self.batch_size, self.inducing_points, self.inducing_points) + self.jitter * jnp.eye(M) # (M, M)
+        kuf = batch_kernel(self.kernel_fn, self.batch_size, x, self.inducing_points).T
 
         L = jnp.linalg.cholesky(kuu) # (M, M)
         A = scipy.linalg.solve_triangular(L, kuf, lower=True) / self.sigma # (M, N)
@@ -257,8 +257,10 @@ class SNNGP():
     
     #     return self.stds
     
-    def optimize(self):
+    def optimize(self, compile=False, disp=True):
         grad_elbo = value_and_grad(self._training_loss)
+        if compile:
+            grad_elbo = jit(grad_elbo)
 
         def grad_elbo_wrapper(params):
             value, grads = grad_elbo(params)
@@ -267,15 +269,16 @@ class SNNGP():
             return value, grads
         
         logger.info("Optimizing...")
-        res = minimize(fun=grad_elbo_wrapper, x0=softplus_inv(self.stds), method="L-BFGS-B", jac=True, options={"maxiter": 5000, "disp": True})
-        # res = optimize.minimize(fun=self._training_loss, x0=softplus_inv(self.stds), method="BFGS", options={"maxiter": 5000})
+        # res = minimize(fun=grad_elbo_wrapper, x0=softplus_inv(self.stds), method="L-BFGS-B", jac=True, options={"maxiter": 5000, "disp": disp})
+        res = minimize(fun=grad_elbo_wrapper, x0=self.pack_params(), method="L-BFGS-B", jac=True, options={"maxiter": 5000, "disp": disp})
         # logger.debug(f"{res}")
         
-        self.stds = softplus(jnp.asarray(res.x))
+        # self.stds = softplus(jnp.asarray(res.x))
+        self.unpack_params(jnp.asarray(res.x))
         self.is_precomputed = False
-        logger.info(f"Optimized for {res.nit} iters; Success: {res.success}; Result: {self.stds}")
+        logger.info(f"Optimized for {res.nit} iters; Success: {res.success}; Result: {self.stds}, {self.sigma_squared}")
     
-        return self.stds
+        return res.success, self.stds, self.sigma_squared
         
     def predict(self, test, diag=False):
         _, y = self.data

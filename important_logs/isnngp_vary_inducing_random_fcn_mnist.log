@@ -1,0 +1,708 @@
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-04 21:02:23,329 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/infimnist/mnist120k-augs-patterns-idx3-ubyte', augment_y='/vol/bitbucket/yn621/data/infimnist/mnist120k-augs-labels-idx1-ubyte', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=750, select_method='random')
+[2022-08-04 21:02:24,008 INFO] (data_loader:90) MNIST: (60000, 784) train, (10000, 784) test samples.
+[2022-08-04 21:02:24,308 INFO] (data_loader:148) MNIST: (120000, 784) augmented train
+[2022-08-04 21:02:25,301 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 50----
+[2022-08-04 21:02:25,447 INFO] (snngp_inference:59) inducing_points shape: (50, 784)
+[2022-08-04 21:02:31,063 INFO] (isnngp_vary_inducing:35) ELBO: -1589618.717253028
+[2022-08-04 21:02:32,363 INFO] (isnngp_vary_inducing:37) EUBO: 828383.5369716855
+[2022-08-04 21:02:34,721 INFO] (isnngp_vary_inducing:41) Loss: 0.2293222191391559
+[2022-08-04 21:02:34,801 INFO] (isnngp_vary_inducing:43) Accuracy: 82.17%
+[2022-08-04 21:02:34,801 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 100----
+[2022-08-04 21:02:34,915 INFO] (snngp_inference:59) inducing_points shape: (100, 784)
+[2022-08-04 21:02:40,724 INFO] (isnngp_vary_inducing:35) ELBO: -1105521.0285251727
+[2022-08-04 21:02:42,043 INFO] (isnngp_vary_inducing:37) EUBO: 827084.7072118459
+[2022-08-04 21:02:43,839 INFO] (isnngp_vary_inducing:41) Loss: 0.2142996482503446
+[2022-08-04 21:02:43,839 INFO] (isnngp_vary_inducing:43) Accuracy: 87.04%
+[2022-08-04 21:02:43,840 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 150----
+[2022-08-04 21:02:43,969 INFO] (snngp_inference:59) inducing_points shape: (150, 784)
+[2022-08-04 21:02:50,316 INFO] (isnngp_vary_inducing:35) ELBO: -850024.3998717734
+[2022-08-04 21:02:51,746 INFO] (isnngp_vary_inducing:37) EUBO: 825999.6988071359
+[2022-08-04 21:02:53,640 INFO] (isnngp_vary_inducing:41) Loss: 0.20537905098590814
+[2022-08-04 21:02:53,641 INFO] (isnngp_vary_inducing:43) Accuracy: 88.51%
+[2022-08-04 21:02:53,641 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 200----
+[2022-08-04 21:02:53,767 INFO] (snngp_inference:59) inducing_points shape: (200, 784)
+[2022-08-04 21:03:00,674 INFO] (isnngp_vary_inducing:35) ELBO: -691528.2512917964
+[2022-08-04 21:03:02,230 INFO] (isnngp_vary_inducing:37) EUBO: 825050.9269621769
+[2022-08-04 21:03:04,392 INFO] (isnngp_vary_inducing:41) Loss: 0.1992459012758351
+[2022-08-04 21:03:04,393 INFO] (isnngp_vary_inducing:43) Accuracy: 90.80%
+[2022-08-04 21:03:04,393 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 250----
+[2022-08-04 21:03:04,546 INFO] (snngp_inference:59) inducing_points shape: (250, 784)
+[2022-08-04 21:03:11,465 INFO] (isnngp_vary_inducing:35) ELBO: -552446.4769145787
+[2022-08-04 21:03:12,931 INFO] (isnngp_vary_inducing:37) EUBO: 824169.7367943467
+[2022-08-04 21:03:15,035 INFO] (isnngp_vary_inducing:41) Loss: 0.19366842070357934
+[2022-08-04 21:03:15,036 INFO] (isnngp_vary_inducing:43) Accuracy: 91.71%
+[2022-08-04 21:03:15,036 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 300----
+[2022-08-04 21:03:15,165 INFO] (snngp_inference:59) inducing_points shape: (300, 784)
+[2022-08-04 21:03:22,621 INFO] (isnngp_vary_inducing:35) ELBO: -471519.5477853861
+[2022-08-04 21:03:24,318 INFO] (isnngp_vary_inducing:37) EUBO: 823375.2288901785
+[2022-08-04 21:03:26,486 INFO] (isnngp_vary_inducing:41) Loss: 0.19105776677816755
+[2022-08-04 21:03:26,487 INFO] (isnngp_vary_inducing:43) Accuracy: 92.29%
+[2022-08-04 21:03:26,487 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 350----
+[2022-08-04 21:03:26,629 INFO] (snngp_inference:59) inducing_points shape: (350, 784)
+[2022-08-04 21:03:34,288 INFO] (isnngp_vary_inducing:35) ELBO: -394289.07709024136
+[2022-08-04 21:03:35,917 INFO] (isnngp_vary_inducing:37) EUBO: 822606.8757660089
+[2022-08-04 21:03:38,077 INFO] (isnngp_vary_inducing:41) Loss: 0.1872393582761277
+[2022-08-04 21:03:38,077 INFO] (isnngp_vary_inducing:43) Accuracy: 92.96%
+[2022-08-04 21:03:38,078 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 400----
+[2022-08-04 21:03:38,205 INFO] (snngp_inference:59) inducing_points shape: (400, 784)
+[2022-08-04 21:03:46,254 INFO] (isnngp_vary_inducing:35) ELBO: -340737.1892866461
+[2022-08-04 21:03:48,022 INFO] (isnngp_vary_inducing:37) EUBO: 821906.9952928511
+[2022-08-04 21:03:50,252 INFO] (isnngp_vary_inducing:41) Loss: 0.1855111092924549
+[2022-08-04 21:03:50,253 INFO] (isnngp_vary_inducing:43) Accuracy: 93.50%
+[2022-08-04 21:03:50,254 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 450----
+[2022-08-04 21:03:50,390 INFO] (snngp_inference:59) inducing_points shape: (450, 784)
+[2022-08-04 21:03:58,893 INFO] (isnngp_vary_inducing:35) ELBO: -298130.95892726013
+[2022-08-04 21:04:00,671 INFO] (isnngp_vary_inducing:37) EUBO: 821236.459977796
+[2022-08-04 21:04:02,941 INFO] (isnngp_vary_inducing:41) Loss: 0.18435153212239763
+[2022-08-04 21:04:02,942 INFO] (isnngp_vary_inducing:43) Accuracy: 93.88%
+[2022-08-04 21:04:02,942 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 500----
+[2022-08-04 21:04:03,048 INFO] (snngp_inference:59) inducing_points shape: (500, 784)
+[2022-08-04 21:04:11,650 INFO] (isnngp_vary_inducing:35) ELBO: -254819.17517002334
+[2022-08-04 21:04:13,619 INFO] (isnngp_vary_inducing:37) EUBO: 820619.1360178136
+[2022-08-04 21:04:15,980 INFO] (isnngp_vary_inducing:41) Loss: 0.1835482625892438
+[2022-08-04 21:04:15,981 INFO] (isnngp_vary_inducing:43) Accuracy: 94.15%
+[2022-08-04 21:04:15,981 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 550----
+[2022-08-04 21:04:16,087 INFO] (snngp_inference:59) inducing_points shape: (550, 784)
+[2022-08-04 21:04:25,405 INFO] (isnngp_vary_inducing:35) ELBO: -225838.04351179476
+[2022-08-04 21:04:27,467 INFO] (isnngp_vary_inducing:37) EUBO: 820004.8999051331
+[2022-08-04 21:04:30,243 INFO] (isnngp_vary_inducing:41) Loss: 0.18184459308636927
+[2022-08-04 21:04:30,243 INFO] (isnngp_vary_inducing:43) Accuracy: 94.53%
+[2022-08-04 21:04:30,244 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 600----
+[2022-08-04 21:04:30,360 INFO] (snngp_inference:59) inducing_points shape: (600, 784)
+[2022-08-04 21:04:40,322 INFO] (isnngp_vary_inducing:35) ELBO: -188343.16481897596
+[2022-08-04 21:04:42,763 INFO] (isnngp_vary_inducing:37) EUBO: 819387.9131553319
+[2022-08-04 21:04:45,147 INFO] (isnngp_vary_inducing:41) Loss: 0.18127459406974572
+[2022-08-04 21:04:45,147 INFO] (isnngp_vary_inducing:43) Accuracy: 95.02%
+[2022-08-04 21:04:45,148 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 650----
+[2022-08-04 21:04:45,255 INFO] (snngp_inference:59) inducing_points shape: (650, 784)
+[2022-08-04 21:04:55,988 INFO] (isnngp_vary_inducing:35) ELBO: -161672.8770928263
+[2022-08-04 21:04:58,607 INFO] (isnngp_vary_inducing:37) EUBO: 818865.2590383319
+[2022-08-04 21:05:01,335 INFO] (isnngp_vary_inducing:41) Loss: 0.18109133199896624
+[2022-08-04 21:05:01,335 INFO] (isnngp_vary_inducing:43) Accuracy: 95.22%
+[2022-08-04 21:05:01,336 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 700----
+[2022-08-04 21:05:01,460 INFO] (snngp_inference:59) inducing_points shape: (700, 784)
+[2022-08-04 21:05:12,066 INFO] (isnngp_vary_inducing:35) ELBO: -142924.5186136769
+[2022-08-04 21:05:14,601 INFO] (isnngp_vary_inducing:37) EUBO: 818364.5803965931
+[2022-08-04 21:05:17,351 INFO] (isnngp_vary_inducing:41) Loss: 0.18018999174517264
+[2022-08-04 21:05:17,352 INFO] (isnngp_vary_inducing:43) Accuracy: 95.08%
+[2022-08-04 21:05:17,353 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 750----
+[2022-08-04 21:05:17,474 INFO] (snngp_inference:59) inducing_points shape: (750, 784)
+[2022-08-04 21:05:29,236 INFO] (isnngp_vary_inducing:35) ELBO: -118715.37338796083
+[2022-08-04 21:05:32,275 INFO] (isnngp_vary_inducing:37) EUBO: 817832.826421464
+[2022-08-04 21:05:34,894 INFO] (isnngp_vary_inducing:41) Loss: 0.17919429272390144
+[2022-08-04 21:05:34,895 INFO] (isnngp_vary_inducing:43) Accuracy: 95.40%
+[2022-08-04 21:05:34,895 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 800----
+[2022-08-04 21:05:35,000 INFO] (snngp_inference:59) inducing_points shape: (800, 784)
+[2022-08-04 21:05:47,062 INFO] (isnngp_vary_inducing:35) ELBO: -93995.07972007559
+[2022-08-04 21:05:49,818 INFO] (isnngp_vary_inducing:37) EUBO: 817314.1088758627
+[2022-08-04 21:05:52,698 INFO] (isnngp_vary_inducing:41) Loss: 0.1782126369660896
+[2022-08-04 21:05:52,699 INFO] (isnngp_vary_inducing:43) Accuracy: 95.47%
+[2022-08-04 21:05:52,700 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 850----
+[2022-08-04 21:05:52,811 INFO] (snngp_inference:59) inducing_points shape: (850, 784)
+[2022-08-04 21:06:05,376 INFO] (isnngp_vary_inducing:35) ELBO: -83087.25210141332
+[2022-08-04 21:06:08,286 INFO] (isnngp_vary_inducing:37) EUBO: 816873.572910227
+[2022-08-04 21:06:11,070 INFO] (isnngp_vary_inducing:41) Loss: 0.17781621798114056
+[2022-08-04 21:06:11,070 INFO] (isnngp_vary_inducing:43) Accuracy: 95.58%
+[2022-08-04 21:06:11,071 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 900----
+[2022-08-04 21:06:11,187 INFO] (snngp_inference:59) inducing_points shape: (900, 784)
+[2022-08-04 21:06:24,223 INFO] (isnngp_vary_inducing:35) ELBO: -63271.27473478706
+[2022-08-04 21:06:27,636 INFO] (isnngp_vary_inducing:37) EUBO: 816420.0697458737
+[2022-08-04 21:06:30,906 INFO] (isnngp_vary_inducing:41) Loss: 0.17694963396231683
+[2022-08-04 21:06:30,907 INFO] (isnngp_vary_inducing:43) Accuracy: 95.65%
+[2022-08-04 21:06:30,907 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 950----
+[2022-08-04 21:06:31,018 INFO] (snngp_inference:59) inducing_points shape: (950, 784)
+[2022-08-04 21:06:44,075 INFO] (isnngp_vary_inducing:35) ELBO: -48880.12674694962
+[2022-08-04 21:06:47,765 INFO] (isnngp_vary_inducing:37) EUBO: 816002.7468492188
+[2022-08-04 21:06:50,915 INFO] (isnngp_vary_inducing:41) Loss: 0.17691935799498656
+[2022-08-04 21:06:50,916 INFO] (isnngp_vary_inducing:43) Accuracy: 95.69%
+[2022-08-04 21:06:50,916 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1000----
+[2022-08-04 21:06:51,061 INFO] (snngp_inference:59) inducing_points shape: (1000, 784)
+[2022-08-04 21:07:04,835 INFO] (isnngp_vary_inducing:35) ELBO: -33242.63542061753
+[2022-08-04 21:07:08,265 INFO] (isnngp_vary_inducing:37) EUBO: 815596.9320584666
+[2022-08-04 21:07:11,272 INFO] (isnngp_vary_inducing:41) Loss: 0.17659804576367727
+[2022-08-04 21:07:11,273 INFO] (isnngp_vary_inducing:43) Accuracy: 95.97%
+[2022-08-04 21:07:11,274 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1050----
+[2022-08-04 21:07:11,386 INFO] (snngp_inference:59) inducing_points shape: (1050, 784)
+[2022-08-04 21:07:26,085 INFO] (isnngp_vary_inducing:35) ELBO: -14569.831208658288
+[2022-08-04 21:07:30,093 INFO] (isnngp_vary_inducing:37) EUBO: 815133.0768568133
+[2022-08-04 21:07:33,280 INFO] (isnngp_vary_inducing:41) Loss: 0.17649437505708365
+[2022-08-04 21:07:33,280 INFO] (isnngp_vary_inducing:43) Accuracy: 96.23%
+[2022-08-04 21:07:33,281 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1100----
+[2022-08-04 21:07:33,422 INFO] (snngp_inference:59) inducing_points shape: (1100, 784)
+[2022-08-04 21:07:49,282 INFO] (isnngp_vary_inducing:35) ELBO: -12025.776213871897
+[2022-08-04 21:07:53,302 INFO] (isnngp_vary_inducing:37) EUBO: 814814.6504963613
+[2022-08-04 21:07:56,599 INFO] (isnngp_vary_inducing:41) Loss: 0.17588600801372917
+[2022-08-04 21:07:56,600 INFO] (isnngp_vary_inducing:43) Accuracy: 96.11%
+[2022-08-04 21:07:56,600 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1150----
+[2022-08-04 21:07:56,711 INFO] (snngp_inference:59) inducing_points shape: (1150, 784)
+[2022-08-04 21:08:12,382 INFO] (isnngp_vary_inducing:35) ELBO: 2304.8563674286706
+[2022-08-04 21:08:16,982 INFO] (isnngp_vary_inducing:37) EUBO: 814387.8312792851
+[2022-08-04 21:08:20,382 INFO] (isnngp_vary_inducing:41) Loss: 0.1759011492680672
+[2022-08-04 21:08:20,382 INFO] (isnngp_vary_inducing:43) Accuracy: 96.15%
+[2022-08-04 21:08:20,383 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1200----
+[2022-08-04 21:08:20,489 INFO] (snngp_inference:59) inducing_points shape: (1200, 784)
+[2022-08-04 21:08:37,590 INFO] (isnngp_vary_inducing:35) ELBO: 11864.15121821512
+[2022-08-04 21:08:42,123 INFO] (isnngp_vary_inducing:37) EUBO: 814048.5257164931
+[2022-08-04 21:08:45,304 INFO] (isnngp_vary_inducing:41) Loss: 0.17537409612854213
+[2022-08-04 21:08:45,304 INFO] (isnngp_vary_inducing:43) Accuracy: 96.29%
+[2022-08-04 21:08:45,305 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1250----
+[2022-08-04 21:08:45,414 INFO] (snngp_inference:59) inducing_points shape: (1250, 784)
+[2022-08-04 21:09:02,856 INFO] (isnngp_vary_inducing:35) ELBO: 21208.499024322373
+[2022-08-04 21:09:07,687 INFO] (isnngp_vary_inducing:37) EUBO: 813699.0074198619
+[2022-08-04 21:09:11,289 INFO] (isnngp_vary_inducing:41) Loss: 0.17526255007715544
+[2022-08-04 21:09:11,290 INFO] (isnngp_vary_inducing:43) Accuracy: 96.31%
+[2022-08-04 21:09:11,291 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1300----
+[2022-08-04 21:09:11,407 INFO] (snngp_inference:59) inducing_points shape: (1300, 784)
+[2022-08-04 21:09:28,861 INFO] (isnngp_vary_inducing:35) ELBO: 32822.84921397769
+[2022-08-04 21:09:33,587 INFO] (isnngp_vary_inducing:37) EUBO: 813341.2894993777
+[2022-08-04 21:09:37,097 INFO] (isnngp_vary_inducing:41) Loss: 0.17517076849233015
+[2022-08-04 21:09:37,098 INFO] (isnngp_vary_inducing:43) Accuracy: 96.42%
+[2022-08-04 21:09:37,098 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1350----
+[2022-08-04 21:09:37,215 INFO] (snngp_inference:59) inducing_points shape: (1350, 784)
+[2022-08-04 21:09:55,394 INFO] (isnngp_vary_inducing:35) ELBO: 38915.05455564533
+[2022-08-04 21:10:00,644 INFO] (isnngp_vary_inducing:37) EUBO: 813042.9231657757
+[2022-08-04 21:10:04,428 INFO] (isnngp_vary_inducing:41) Loss: 0.17530473251622755
+[2022-08-04 21:10:04,428 INFO] (isnngp_vary_inducing:43) Accuracy: 96.48%
+[2022-08-04 21:10:04,429 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1400----
+[2022-08-04 21:10:04,541 INFO] (snngp_inference:59) inducing_points shape: (1400, 784)
+[2022-08-04 21:10:23,387 INFO] (isnngp_vary_inducing:35) ELBO: 48600.186478574644
+[2022-08-04 21:10:28,831 INFO] (isnngp_vary_inducing:37) EUBO: 812671.8542548127
+[2022-08-04 21:10:32,385 INFO] (isnngp_vary_inducing:41) Loss: 0.17479104872983672
+[2022-08-04 21:10:32,385 INFO] (isnngp_vary_inducing:43) Accuracy: 96.28%
+[2022-08-04 21:10:32,386 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1450----
+[2022-08-04 21:10:32,499 INFO] (snngp_inference:59) inducing_points shape: (1450, 784)
+[2022-08-04 21:10:51,688 INFO] (isnngp_vary_inducing:35) ELBO: 52238.46669183613
+[2022-08-04 21:10:56,858 INFO] (isnngp_vary_inducing:37) EUBO: 812380.0811969782
+[2022-08-04 21:11:00,343 INFO] (isnngp_vary_inducing:41) Loss: 0.17448620100400708
+[2022-08-04 21:11:00,344 INFO] (isnngp_vary_inducing:43) Accuracy: 96.55%
+[2022-08-04 21:11:00,345 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1500----
+[2022-08-04 21:11:00,456 INFO] (snngp_inference:59) inducing_points shape: (1500, 784)
+[2022-08-04 21:11:20,852 INFO] (isnngp_vary_inducing:35) ELBO: 61991.53665180679
+[2022-08-04 21:11:26,397 INFO] (isnngp_vary_inducing:37) EUBO: 812057.3627732178
+[2022-08-04 21:11:30,259 INFO] (isnngp_vary_inducing:41) Loss: 0.17425525233885586
+[2022-08-04 21:11:30,260 INFO] (isnngp_vary_inducing:43) Accuracy: 96.48%
+[2022-08-04 21:11:30,260 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1550----
+[2022-08-04 21:11:30,372 INFO] (snngp_inference:59) inducing_points shape: (1550, 784)
+[2022-08-04 21:11:50,903 INFO] (isnngp_vary_inducing:35) ELBO: 73196.85435130692
+[2022-08-04 21:11:56,757 INFO] (isnngp_vary_inducing:37) EUBO: 811704.7279720529
+[2022-08-04 21:12:00,508 INFO] (isnngp_vary_inducing:41) Loss: 0.1743522088314896
+[2022-08-04 21:12:00,509 INFO] (isnngp_vary_inducing:43) Accuracy: 96.67%
+[2022-08-04 21:12:00,510 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1600----
+[2022-08-04 21:12:00,656 INFO] (snngp_inference:59) inducing_points shape: (1600, 784)
+[2022-08-04 21:12:22,265 INFO] (isnngp_vary_inducing:35) ELBO: 78246.9998430732
+[2022-08-04 21:12:28,449 INFO] (isnngp_vary_inducing:37) EUBO: 811444.2153971842
+[2022-08-04 21:12:32,480 INFO] (isnngp_vary_inducing:41) Loss: 0.1740782225049168
+[2022-08-04 21:12:32,481 INFO] (isnngp_vary_inducing:43) Accuracy: 96.81%
+[2022-08-04 21:12:32,482 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1650----
+[2022-08-04 21:12:32,612 INFO] (snngp_inference:59) inducing_points shape: (1650, 784)
+[2022-08-04 21:12:54,478 INFO] (isnngp_vary_inducing:35) ELBO: 83480.59618657094
+[2022-08-04 21:13:01,259 INFO] (isnngp_vary_inducing:37) EUBO: 811189.0580398334
+[2022-08-04 21:13:05,073 INFO] (isnngp_vary_inducing:41) Loss: 0.17454624694482254
+[2022-08-04 21:13:05,073 INFO] (isnngp_vary_inducing:43) Accuracy: 96.79%
+[2022-08-04 21:13:05,074 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1700----
+[2022-08-04 21:13:05,223 INFO] (snngp_inference:59) inducing_points shape: (1700, 784)
+[2022-08-04 21:13:28,514 INFO] (isnngp_vary_inducing:35) ELBO: 90513.38147634303
+[2022-08-04 21:13:35,144 INFO] (isnngp_vary_inducing:37) EUBO: 810896.9280087153
+[2022-08-04 21:13:39,518 INFO] (isnngp_vary_inducing:41) Loss: 0.17342476152540842
+[2022-08-04 21:13:39,519 INFO] (isnngp_vary_inducing:43) Accuracy: 96.87%
+[2022-08-04 21:13:39,519 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1750----
+[2022-08-04 21:13:39,648 INFO] (snngp_inference:59) inducing_points shape: (1750, 784)
+[2022-08-04 21:14:02,722 INFO] (isnngp_vary_inducing:35) ELBO: 91798.65609048761
+[2022-08-04 21:14:09,803 INFO] (isnngp_vary_inducing:37) EUBO: 810631.960400646
+[2022-08-04 21:14:13,919 INFO] (isnngp_vary_inducing:41) Loss: 0.17281829130006748
+[2022-08-04 21:14:13,919 INFO] (isnngp_vary_inducing:43) Accuracy: 96.68%
+[2022-08-04 21:14:13,920 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1800----
+[2022-08-04 21:14:14,066 INFO] (snngp_inference:59) inducing_points shape: (1800, 784)
+[2022-08-04 21:14:38,842 INFO] (isnngp_vary_inducing:35) ELBO: 100304.59665002662
+[2022-08-04 21:14:46,303 INFO] (isnngp_vary_inducing:37) EUBO: 810373.0426596239
+[2022-08-04 21:14:50,611 INFO] (isnngp_vary_inducing:41) Loss: 0.17300442662079246
+[2022-08-04 21:14:50,612 INFO] (isnngp_vary_inducing:43) Accuracy: 96.88%
+[2022-08-04 21:14:50,612 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1850----
+[2022-08-04 21:14:50,759 INFO] (snngp_inference:59) inducing_points shape: (1850, 784)
+[2022-08-04 21:15:17,217 INFO] (isnngp_vary_inducing:35) ELBO: 103339.67612828931
+[2022-08-04 21:15:24,894 INFO] (isnngp_vary_inducing:37) EUBO: 810131.2081183128
+[2022-08-04 21:15:29,239 INFO] (isnngp_vary_inducing:41) Loss: 0.17334095065134805
+[2022-08-04 21:15:29,240 INFO] (isnngp_vary_inducing:43) Accuracy: 96.98%
+[2022-08-04 21:15:29,240 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1900----
+[2022-08-04 21:15:29,361 INFO] (snngp_inference:59) inducing_points shape: (1900, 784)
+[2022-08-04 21:15:56,392 INFO] (isnngp_vary_inducing:35) ELBO: 110407.62060133799
+[2022-08-04 21:16:04,187 INFO] (isnngp_vary_inducing:37) EUBO: 809854.3850641283
+[2022-08-04 21:16:08,637 INFO] (isnngp_vary_inducing:41) Loss: 0.17300486156790132
+[2022-08-04 21:16:08,638 INFO] (isnngp_vary_inducing:43) Accuracy: 96.91%
+[2022-08-04 21:16:08,638 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 1950----
+[2022-08-04 21:16:08,748 INFO] (snngp_inference:59) inducing_points shape: (1950, 784)
+[2022-08-04 21:16:36,114 INFO] (isnngp_vary_inducing:35) ELBO: 113152.28819473239
+[2022-08-04 21:16:44,651 INFO] (isnngp_vary_inducing:37) EUBO: 809595.0645699818
+[2022-08-04 21:16:49,133 INFO] (isnngp_vary_inducing:41) Loss: 0.17273869737837802
+[2022-08-04 21:16:49,133 INFO] (isnngp_vary_inducing:43) Accuracy: 96.93%
+[2022-08-04 21:16:49,134 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2000----
+[2022-08-04 21:16:49,248 INFO] (snngp_inference:59) inducing_points shape: (2000, 784)
+[2022-08-04 21:17:16,371 INFO] (isnngp_vary_inducing:35) ELBO: 117640.99024085503
+[2022-08-04 21:17:25,465 INFO] (isnngp_vary_inducing:37) EUBO: 809364.2888976821
+[2022-08-04 21:17:30,062 INFO] (isnngp_vary_inducing:41) Loss: 0.17247456806645647
+[2022-08-04 21:17:30,063 INFO] (isnngp_vary_inducing:43) Accuracy: 97.02%
+[2022-08-04 21:17:30,063 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2050----
+[2022-08-04 21:17:30,178 INFO] (snngp_inference:59) inducing_points shape: (2050, 784)
+[2022-08-04 21:17:58,718 INFO] (isnngp_vary_inducing:35) ELBO: 122956.91363722843
+[2022-08-04 21:18:07,641 INFO] (isnngp_vary_inducing:37) EUBO: 809104.7111529204
+[2022-08-04 21:18:12,227 INFO] (isnngp_vary_inducing:41) Loss: 0.1728744553572523
+[2022-08-04 21:18:12,228 INFO] (isnngp_vary_inducing:43) Accuracy: 96.95%
+[2022-08-04 21:18:12,228 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2100----
+[2022-08-04 21:18:12,339 INFO] (snngp_inference:59) inducing_points shape: (2100, 784)
+[2022-08-04 21:18:40,897 INFO] (isnngp_vary_inducing:35) ELBO: 129548.72412147874
+[2022-08-04 21:18:50,193 INFO] (isnngp_vary_inducing:37) EUBO: 808837.9344360753
+[2022-08-04 21:18:55,248 INFO] (isnngp_vary_inducing:41) Loss: 0.1728230312753846
+[2022-08-04 21:18:55,248 INFO] (isnngp_vary_inducing:43) Accuracy: 97.18%
+[2022-08-04 21:18:55,249 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2150----
+[2022-08-04 21:18:55,360 INFO] (snngp_inference:59) inducing_points shape: (2150, 784)
+[2022-08-04 21:19:24,257 INFO] (isnngp_vary_inducing:35) ELBO: 133869.71358818433
+[2022-08-04 21:19:33,907 INFO] (isnngp_vary_inducing:37) EUBO: 808617.9631582658
+[2022-08-04 21:19:38,848 INFO] (isnngp_vary_inducing:41) Loss: 0.1727006207819127
+[2022-08-04 21:19:38,848 INFO] (isnngp_vary_inducing:43) Accuracy: 97.10%
+[2022-08-04 21:19:38,849 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2200----
+[2022-08-04 21:19:38,965 INFO] (snngp_inference:59) inducing_points shape: (2200, 784)
+[2022-08-04 21:20:09,441 INFO] (isnngp_vary_inducing:35) ELBO: 136655.91001974267
+[2022-08-04 21:20:19,171 INFO] (isnngp_vary_inducing:37) EUBO: 808434.8809011364
+[2022-08-04 21:20:24,263 INFO] (isnngp_vary_inducing:41) Loss: 0.17285594638113394
+[2022-08-04 21:20:24,263 INFO] (isnngp_vary_inducing:43) Accuracy: 97.21%
+[2022-08-04 21:20:24,264 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2250----
+[2022-08-04 21:20:24,379 INFO] (snngp_inference:59) inducing_points shape: (2250, 784)
+[2022-08-04 21:20:55,052 INFO] (isnngp_vary_inducing:35) ELBO: 139882.2847589861
+[2022-08-04 21:21:05,460 INFO] (isnngp_vary_inducing:37) EUBO: 808206.6757038744
+[2022-08-04 21:21:10,714 INFO] (isnngp_vary_inducing:41) Loss: 0.1721416536609841
+[2022-08-04 21:21:10,714 INFO] (isnngp_vary_inducing:43) Accuracy: 97.31%
+[2022-08-04 21:21:10,715 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2300----
+[2022-08-04 21:21:10,834 INFO] (snngp_inference:59) inducing_points shape: (2300, 784)
+[2022-08-04 21:21:42,260 INFO] (isnngp_vary_inducing:35) ELBO: 145574.55515580776
+[2022-08-04 21:21:52,860 INFO] (isnngp_vary_inducing:37) EUBO: 807915.2479844096
+[2022-08-04 21:21:58,094 INFO] (isnngp_vary_inducing:41) Loss: 0.17217519008376805
+[2022-08-04 21:21:58,095 INFO] (isnngp_vary_inducing:43) Accuracy: 97.27%
+[2022-08-04 21:21:58,095 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2350----
+[2022-08-04 21:21:58,234 INFO] (snngp_inference:59) inducing_points shape: (2350, 784)
+[2022-08-04 21:22:30,985 INFO] (isnngp_vary_inducing:35) ELBO: 150782.17014838743
+[2022-08-04 21:22:42,160 INFO] (isnngp_vary_inducing:37) EUBO: 807716.6635319681
+[2022-08-04 21:22:47,340 INFO] (isnngp_vary_inducing:41) Loss: 0.1721437053722444
+[2022-08-04 21:22:47,340 INFO] (isnngp_vary_inducing:43) Accuracy: 97.42%
+[2022-08-04 21:22:47,341 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2400----
+[2022-08-04 21:22:47,486 INFO] (snngp_inference:59) inducing_points shape: (2400, 784)
+[2022-08-04 21:23:21,033 INFO] (isnngp_vary_inducing:35) ELBO: 149935.0330836497
+[2022-08-04 21:23:32,675 INFO] (isnngp_vary_inducing:37) EUBO: 807571.7872071756
+[2022-08-04 21:23:37,997 INFO] (isnngp_vary_inducing:41) Loss: 0.1726679580759753
+[2022-08-04 21:23:37,998 INFO] (isnngp_vary_inducing:43) Accuracy: 97.20%
+[2022-08-04 21:23:37,999 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2450----
+[2022-08-04 21:23:38,125 INFO] (snngp_inference:59) inducing_points shape: (2450, 784)
+[2022-08-04 21:24:11,860 INFO] (isnngp_vary_inducing:35) ELBO: 154294.51702222938
+[2022-08-04 21:24:24,481 INFO] (isnngp_vary_inducing:37) EUBO: 807336.3895755875
+[2022-08-04 21:24:30,153 INFO] (isnngp_vary_inducing:41) Loss: 0.17206681268308677
+[2022-08-04 21:24:30,153 INFO] (isnngp_vary_inducing:43) Accuracy: 97.37%
+[2022-08-04 21:24:30,154 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2500----
+[2022-08-04 21:24:30,264 INFO] (snngp_inference:59) inducing_points shape: (2500, 784)
+[2022-08-04 21:25:06,891 INFO] (isnngp_vary_inducing:35) ELBO: 157519.18345532275
+[2022-08-04 21:25:19,457 INFO] (isnngp_vary_inducing:37) EUBO: 807099.7396996926
+[2022-08-04 21:25:25,114 INFO] (isnngp_vary_inducing:41) Loss: 0.1721503546658409
+[2022-08-04 21:25:25,115 INFO] (isnngp_vary_inducing:43) Accuracy: 97.27%
+[2022-08-04 21:25:25,116 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2550----
+[2022-08-04 21:25:25,225 INFO] (snngp_inference:59) inducing_points shape: (2550, 784)
+[2022-08-04 21:26:00,381 INFO] (isnngp_vary_inducing:35) ELBO: 159402.6497705403
+[2022-08-04 21:26:12,981 INFO] (isnngp_vary_inducing:37) EUBO: 806981.828084452
+[2022-08-04 21:26:18,870 INFO] (isnngp_vary_inducing:41) Loss: 0.17216095335015083
+[2022-08-04 21:26:18,870 INFO] (isnngp_vary_inducing:43) Accuracy: 97.25%
+[2022-08-04 21:26:18,871 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2600----
+[2022-08-04 21:26:19,005 INFO] (snngp_inference:59) inducing_points shape: (2600, 784)
+[2022-08-04 21:26:56,270 INFO] (isnngp_vary_inducing:35) ELBO: 165671.19505410513
+[2022-08-04 21:27:09,834 INFO] (isnngp_vary_inducing:37) EUBO: 806710.1093489897
+[2022-08-04 21:27:15,637 INFO] (isnngp_vary_inducing:41) Loss: 0.17206467996003402
+[2022-08-04 21:27:15,637 INFO] (isnngp_vary_inducing:43) Accuracy: 97.34%
+[2022-08-04 21:27:15,638 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2650----
+[2022-08-04 21:27:15,780 INFO] (snngp_inference:59) inducing_points shape: (2650, 784)
+[2022-08-04 21:27:53,049 INFO] (isnngp_vary_inducing:35) ELBO: 165512.15802688024
+[2022-08-04 21:28:07,143 INFO] (isnngp_vary_inducing:37) EUBO: 806605.4274357139
+[2022-08-04 21:28:12,954 INFO] (isnngp_vary_inducing:41) Loss: 0.17176782605910942
+[2022-08-04 21:28:12,955 INFO] (isnngp_vary_inducing:43) Accuracy: 97.33%
+[2022-08-04 21:28:12,955 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2700----
+[2022-08-04 21:28:13,077 INFO] (snngp_inference:59) inducing_points shape: (2700, 784)
+[2022-08-04 21:28:52,170 INFO] (isnngp_vary_inducing:35) ELBO: 169251.62614430988
+[2022-08-04 21:29:06,330 INFO] (isnngp_vary_inducing:37) EUBO: 806398.9279494026
+[2022-08-04 21:29:12,023 INFO] (isnngp_vary_inducing:41) Loss: 0.1718227786063069
+[2022-08-04 21:29:12,023 INFO] (isnngp_vary_inducing:43) Accuracy: 97.44%
+[2022-08-04 21:29:12,024 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2750----
+[2022-08-04 21:29:12,140 INFO] (snngp_inference:59) inducing_points shape: (2750, 784)
+[2022-08-04 21:29:51,742 INFO] (isnngp_vary_inducing:35) ELBO: 171037.56120310014
+[2022-08-04 21:30:06,688 INFO] (isnngp_vary_inducing:37) EUBO: 806244.0965479515
+[2022-08-04 21:30:12,518 INFO] (isnngp_vary_inducing:41) Loss: 0.17152901084566533
+[2022-08-04 21:30:12,518 INFO] (isnngp_vary_inducing:43) Accuracy: 97.49%
+[2022-08-04 21:30:12,519 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2800----
+[2022-08-04 21:30:12,671 INFO] (snngp_inference:59) inducing_points shape: (2800, 784)
+[2022-08-04 21:30:53,065 INFO] (isnngp_vary_inducing:35) ELBO: 176600.4803573218
+[2022-08-04 21:31:07,836 INFO] (isnngp_vary_inducing:37) EUBO: 806014.5440500244
+[2022-08-04 21:31:14,112 INFO] (isnngp_vary_inducing:41) Loss: 0.17164224879644085
+[2022-08-04 21:31:14,113 INFO] (isnngp_vary_inducing:43) Accuracy: 97.45%
+[2022-08-04 21:31:14,113 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2850----
+[2022-08-04 21:31:14,223 INFO] (snngp_inference:59) inducing_points shape: (2850, 784)
+[2022-08-04 21:31:55,867 INFO] (isnngp_vary_inducing:35) ELBO: 176681.90103032358
+[2022-08-04 21:32:13,034 INFO] (isnngp_vary_inducing:37) EUBO: 805824.1393585922
+[2022-08-04 21:32:19,548 INFO] (isnngp_vary_inducing:41) Loss: 0.17119926506665878
+[2022-08-04 21:32:19,549 INFO] (isnngp_vary_inducing:43) Accuracy: 97.37%
+[2022-08-04 21:32:19,549 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2900----
+[2022-08-04 21:32:19,692 INFO] (snngp_inference:59) inducing_points shape: (2900, 784)
+[2022-08-04 21:33:05,063 INFO] (isnngp_vary_inducing:35) ELBO: 179507.1459026673
+[2022-08-04 21:33:21,033 INFO] (isnngp_vary_inducing:37) EUBO: 805675.8436578852
+[2022-08-04 21:33:27,330 INFO] (isnngp_vary_inducing:41) Loss: 0.17172353033916155
+[2022-08-04 21:33:27,331 INFO] (isnngp_vary_inducing:43) Accuracy: 97.36%
+[2022-08-04 21:33:27,331 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 2950----
+[2022-08-04 21:33:27,448 INFO] (snngp_inference:59) inducing_points shape: (2950, 784)
+[2022-08-04 21:34:11,930 INFO] (isnngp_vary_inducing:35) ELBO: 185244.10449612222
+[2022-08-04 21:34:28,552 INFO] (isnngp_vary_inducing:37) EUBO: 805439.0055631244
+[2022-08-04 21:34:34,470 INFO] (isnngp_vary_inducing:41) Loss: 0.17147610863887094
+[2022-08-04 21:34:34,470 INFO] (isnngp_vary_inducing:43) Accuracy: 97.32%
+[2022-08-04 21:34:34,471 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3000----
+[2022-08-04 21:34:34,583 INFO] (snngp_inference:59) inducing_points shape: (3000, 784)
+[2022-08-04 21:35:20,980 INFO] (isnngp_vary_inducing:35) ELBO: 184873.99293359334
+[2022-08-04 21:35:38,931 INFO] (isnngp_vary_inducing:37) EUBO: 805305.4046038073
+[2022-08-04 21:35:45,382 INFO] (isnngp_vary_inducing:41) Loss: 0.17175178222708212
+[2022-08-04 21:35:45,383 INFO] (isnngp_vary_inducing:43) Accuracy: 97.29%
+[2022-08-04 21:35:45,383 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3050----
+[2022-08-04 21:35:45,502 INFO] (snngp_inference:59) inducing_points shape: (3050, 784)
+[2022-08-04 21:36:31,204 INFO] (isnngp_vary_inducing:35) ELBO: 187106.65746900172
+[2022-08-04 21:36:48,545 INFO] (isnngp_vary_inducing:37) EUBO: 805141.7722426795
+[2022-08-04 21:36:55,351 INFO] (isnngp_vary_inducing:41) Loss: 0.17113735702889554
+[2022-08-04 21:36:55,352 INFO] (isnngp_vary_inducing:43) Accuracy: 97.52%
+[2022-08-04 21:36:55,352 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3100----
+[2022-08-04 21:36:55,485 INFO] (snngp_inference:59) inducing_points shape: (3100, 784)
+[2022-08-04 21:37:41,280 INFO] (isnngp_vary_inducing:35) ELBO: 186385.93379015324
+[2022-08-04 21:37:59,550 INFO] (isnngp_vary_inducing:37) EUBO: 805011.4069965912
+[2022-08-04 21:38:06,042 INFO] (isnngp_vary_inducing:41) Loss: 0.17142407040359464
+[2022-08-04 21:38:06,043 INFO] (isnngp_vary_inducing:43) Accuracy: 97.40%
+[2022-08-04 21:38:06,043 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3150----
+[2022-08-04 21:38:06,154 INFO] (snngp_inference:59) inducing_points shape: (3150, 784)
+[2022-08-04 21:38:52,708 INFO] (isnngp_vary_inducing:35) ELBO: 191122.40848012862
+[2022-08-04 21:39:11,867 INFO] (isnngp_vary_inducing:37) EUBO: 804827.216157534
+[2022-08-04 21:39:18,511 INFO] (isnngp_vary_inducing:41) Loss: 0.17125186683277185
+[2022-08-04 21:39:18,512 INFO] (isnngp_vary_inducing:43) Accuracy: 97.51%
+[2022-08-04 21:39:18,512 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3200----
+[2022-08-04 21:39:18,617 INFO] (snngp_inference:59) inducing_points shape: (3200, 784)
+[2022-08-04 21:40:08,876 INFO] (isnngp_vary_inducing:35) ELBO: 193182.31582839147
+[2022-08-04 21:40:28,476 INFO] (isnngp_vary_inducing:37) EUBO: 804645.1551859688
+[2022-08-04 21:40:35,254 INFO] (isnngp_vary_inducing:41) Loss: 0.17109889046623164
+[2022-08-04 21:40:35,255 INFO] (isnngp_vary_inducing:43) Accuracy: 97.45%
+[2022-08-04 21:40:35,255 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3250----
+[2022-08-04 21:40:35,399 INFO] (snngp_inference:59) inducing_points shape: (3250, 784)
+[2022-08-04 21:41:24,218 INFO] (isnngp_vary_inducing:35) ELBO: 195436.5233485353
+[2022-08-04 21:41:44,315 INFO] (isnngp_vary_inducing:37) EUBO: 804492.7856439629
+[2022-08-04 21:41:51,120 INFO] (isnngp_vary_inducing:41) Loss: 0.17134264606043462
+[2022-08-04 21:41:51,120 INFO] (isnngp_vary_inducing:43) Accuracy: 97.60%
+[2022-08-04 21:41:51,120 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3300----
+[2022-08-04 21:41:51,259 INFO] (snngp_inference:59) inducing_points shape: (3300, 784)
+[2022-08-04 21:42:41,736 INFO] (isnngp_vary_inducing:35) ELBO: 199452.31020926812
+[2022-08-04 21:43:01,874 INFO] (isnngp_vary_inducing:37) EUBO: 804261.2957858653
+[2022-08-04 21:43:09,069 INFO] (isnngp_vary_inducing:41) Loss: 0.17106934855003428
+[2022-08-04 21:43:09,070 INFO] (isnngp_vary_inducing:43) Accuracy: 97.53%
+[2022-08-04 21:43:09,070 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3350----
+[2022-08-04 21:43:09,177 INFO] (snngp_inference:59) inducing_points shape: (3350, 784)
+[2022-08-04 21:44:03,014 INFO] (isnngp_vary_inducing:35) ELBO: 200429.91294507345
+[2022-08-04 21:44:23,634 INFO] (isnngp_vary_inducing:37) EUBO: 804201.3598370781
+[2022-08-04 21:44:30,829 INFO] (isnngp_vary_inducing:41) Loss: 0.17093011243159278
+[2022-08-04 21:44:30,829 INFO] (isnngp_vary_inducing:43) Accuracy: 97.51%
+[2022-08-04 21:44:30,829 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3400----
+[2022-08-04 21:44:30,958 INFO] (snngp_inference:59) inducing_points shape: (3400, 784)
+[2022-08-04 21:45:24,318 INFO] (isnngp_vary_inducing:35) ELBO: 203144.5291499464
+[2022-08-04 21:45:45,887 INFO] (isnngp_vary_inducing:37) EUBO: 804031.1601205127
+[2022-08-04 21:45:53,426 INFO] (isnngp_vary_inducing:41) Loss: 0.17084644156921322
+[2022-08-04 21:45:53,427 INFO] (isnngp_vary_inducing:43) Accuracy: 97.52%
+[2022-08-04 21:45:53,427 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3450----
+[2022-08-04 21:45:53,541 INFO] (snngp_inference:59) inducing_points shape: (3450, 784)
+[2022-08-04 21:46:46,791 INFO] (isnngp_vary_inducing:35) ELBO: 205536.52630608075
+[2022-08-04 21:47:11,580 INFO] (isnngp_vary_inducing:37) EUBO: 803838.5470688061
+[2022-08-04 21:47:19,496 INFO] (isnngp_vary_inducing:41) Loss: 0.17110385625649488
+[2022-08-04 21:47:19,496 INFO] (isnngp_vary_inducing:43) Accuracy: 97.51%
+[2022-08-04 21:47:19,496 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3500----
+[2022-08-04 21:47:19,631 INFO] (snngp_inference:59) inducing_points shape: (3500, 784)
+[2022-08-04 21:48:14,902 INFO] (isnngp_vary_inducing:35) ELBO: 206978.01829289587
+[2022-08-04 21:48:37,264 INFO] (isnngp_vary_inducing:37) EUBO: 803653.2544770065
+[2022-08-04 21:48:44,724 INFO] (isnngp_vary_inducing:41) Loss: 0.17067842800277877
+[2022-08-04 21:48:44,725 INFO] (isnngp_vary_inducing:43) Accuracy: 97.53%
+[2022-08-04 21:48:44,725 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3550----
+[2022-08-04 21:48:44,836 INFO] (snngp_inference:59) inducing_points shape: (3550, 784)
+[2022-08-04 21:49:41,517 INFO] (isnngp_vary_inducing:35) ELBO: 208681.61119498487
+[2022-08-04 21:50:04,217 INFO] (isnngp_vary_inducing:37) EUBO: 803503.9455009943
+[2022-08-04 21:50:11,492 INFO] (isnngp_vary_inducing:41) Loss: 0.17097567963111654
+[2022-08-04 21:50:11,493 INFO] (isnngp_vary_inducing:43) Accuracy: 97.59%
+[2022-08-04 21:50:11,493 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3600----
+[2022-08-04 21:50:11,644 INFO] (snngp_inference:59) inducing_points shape: (3600, 784)
+[2022-08-04 21:51:08,594 INFO] (isnngp_vary_inducing:35) ELBO: 208850.79706009955
+[2022-08-04 21:51:33,468 INFO] (isnngp_vary_inducing:37) EUBO: 803462.6165374537
+[2022-08-04 21:51:41,216 INFO] (isnngp_vary_inducing:41) Loss: 0.1709139141645171
+[2022-08-04 21:51:41,217 INFO] (isnngp_vary_inducing:43) Accuracy: 97.60%
+[2022-08-04 21:51:41,217 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3650----
+[2022-08-04 21:51:41,336 INFO] (snngp_inference:59) inducing_points shape: (3650, 784)
+[2022-08-04 21:52:38,987 INFO] (isnngp_vary_inducing:35) ELBO: 213458.95354703988
+[2022-08-04 21:53:03,015 INFO] (isnngp_vary_inducing:37) EUBO: 803229.4469311608
+[2022-08-04 21:53:10,993 INFO] (isnngp_vary_inducing:41) Loss: 0.1710149843565589
+[2022-08-04 21:53:10,994 INFO] (isnngp_vary_inducing:43) Accuracy: 97.49%
+[2022-08-04 21:53:10,994 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3700----
+[2022-08-04 21:53:11,112 INFO] (snngp_inference:59) inducing_points shape: (3700, 784)
+[2022-08-04 21:54:10,713 INFO] (isnngp_vary_inducing:35) ELBO: 213188.18367760757
+[2022-08-04 21:54:35,483 INFO] (isnngp_vary_inducing:37) EUBO: 803135.96969169
+[2022-08-04 21:54:43,669 INFO] (isnngp_vary_inducing:41) Loss: 0.170567536475532
+[2022-08-04 21:54:43,670 INFO] (isnngp_vary_inducing:43) Accuracy: 97.52%
+[2022-08-04 21:54:43,670 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3750----
+[2022-08-04 21:54:43,814 INFO] (snngp_inference:59) inducing_points shape: (3750, 784)
+[2022-08-04 21:55:44,121 INFO] (isnngp_vary_inducing:35) ELBO: 215847.03433328134
+[2022-08-04 21:56:09,343 INFO] (isnngp_vary_inducing:37) EUBO: 802938.3648799383
+[2022-08-04 21:56:17,771 INFO] (isnngp_vary_inducing:41) Loss: 0.17078907900167406
+[2022-08-04 21:56:17,772 INFO] (isnngp_vary_inducing:43) Accuracy: 97.62%
+[2022-08-04 21:56:17,772 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3800----
+[2022-08-04 21:56:17,895 INFO] (snngp_inference:59) inducing_points shape: (3800, 784)
+[2022-08-04 21:57:19,819 INFO] (isnngp_vary_inducing:35) ELBO: 217596.3043681943
+[2022-08-04 21:57:46,122 INFO] (isnngp_vary_inducing:37) EUBO: 802842.8307198978
+[2022-08-04 21:57:54,583 INFO] (isnngp_vary_inducing:41) Loss: 0.17091244834316394
+[2022-08-04 21:57:54,584 INFO] (isnngp_vary_inducing:43) Accuracy: 97.72%
+[2022-08-04 21:57:54,584 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3850----
+[2022-08-04 21:57:54,705 INFO] (snngp_inference:59) inducing_points shape: (3850, 784)
+[2022-08-04 21:58:56,284 INFO] (isnngp_vary_inducing:35) ELBO: 218572.90023562883
+[2022-08-04 21:59:23,527 INFO] (isnngp_vary_inducing:37) EUBO: 802653.0608899095
+[2022-08-04 21:59:31,903 INFO] (isnngp_vary_inducing:41) Loss: 0.17015315924004093
+[2022-08-04 21:59:31,904 INFO] (isnngp_vary_inducing:43) Accuracy: 97.69%
+[2022-08-04 21:59:31,904 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3900----
+[2022-08-04 21:59:32,021 INFO] (snngp_inference:59) inducing_points shape: (3900, 784)
+[2022-08-04 22:00:37,772 INFO] (isnngp_vary_inducing:35) ELBO: 219113.78003135032
+[2022-08-04 22:01:05,888 INFO] (isnngp_vary_inducing:37) EUBO: 802574.8798527862
+[2022-08-04 22:01:14,602 INFO] (isnngp_vary_inducing:41) Loss: 0.17058971140714066
+[2022-08-04 22:01:14,603 INFO] (isnngp_vary_inducing:43) Accuracy: 97.65%
+[2022-08-04 22:01:14,603 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 3950----
+[2022-08-04 22:01:14,761 INFO] (snngp_inference:59) inducing_points shape: (3950, 784)
+[2022-08-04 22:02:20,694 INFO] (isnngp_vary_inducing:35) ELBO: 223323.6780066929
+[2022-08-04 22:02:48,048 INFO] (isnngp_vary_inducing:37) EUBO: 802378.6119630144
+[2022-08-04 22:02:57,089 INFO] (isnngp_vary_inducing:41) Loss: 0.17033985108970456
+[2022-08-04 22:02:57,090 INFO] (isnngp_vary_inducing:43) Accuracy: 97.61%
+[2022-08-04 22:02:57,090 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4000----
+[2022-08-04 22:02:57,202 INFO] (snngp_inference:59) inducing_points shape: (4000, 784)
+[2022-08-04 22:04:03,562 INFO] (isnngp_vary_inducing:35) ELBO: 224474.44540735672
+[2022-08-04 22:04:33,238 INFO] (isnngp_vary_inducing:37) EUBO: 802241.6259998806
+[2022-08-04 22:04:41,880 INFO] (isnngp_vary_inducing:41) Loss: 0.17041502427219463
+[2022-08-04 22:04:41,881 INFO] (isnngp_vary_inducing:43) Accuracy: 97.62%
+[2022-08-04 22:04:41,881 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4050----
+[2022-08-04 22:04:41,994 INFO] (snngp_inference:59) inducing_points shape: (4050, 784)
+[2022-08-04 22:05:49,131 INFO] (isnngp_vary_inducing:35) ELBO: 226161.22238178353
+[2022-08-04 22:06:18,900 INFO] (isnngp_vary_inducing:37) EUBO: 802164.0047015604
+[2022-08-04 22:06:27,351 INFO] (isnngp_vary_inducing:41) Loss: 0.17023208728669034
+[2022-08-04 22:06:27,352 INFO] (isnngp_vary_inducing:43) Accuracy: 97.67%
+[2022-08-04 22:06:27,352 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4100----
+[2022-08-04 22:06:27,460 INFO] (snngp_inference:59) inducing_points shape: (4100, 784)
+[2022-08-04 22:07:35,517 INFO] (isnngp_vary_inducing:35) ELBO: 227808.4657905997
+[2022-08-04 22:08:05,177 INFO] (isnngp_vary_inducing:37) EUBO: 801963.804097725
+[2022-08-04 22:08:14,771 INFO] (isnngp_vary_inducing:41) Loss: 0.1702951205788615
+[2022-08-04 22:08:14,772 INFO] (isnngp_vary_inducing:43) Accuracy: 97.77%
+[2022-08-04 22:08:14,772 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4150----
+[2022-08-04 22:08:14,882 INFO] (snngp_inference:59) inducing_points shape: (4150, 784)
+[2022-08-04 22:09:24,877 INFO] (isnngp_vary_inducing:35) ELBO: 229351.3979763108
+[2022-08-04 22:09:55,036 INFO] (isnngp_vary_inducing:37) EUBO: 801866.6418529449
+[2022-08-04 22:10:04,010 INFO] (isnngp_vary_inducing:41) Loss: 0.17046233717187992
+[2022-08-04 22:10:04,011 INFO] (isnngp_vary_inducing:43) Accuracy: 97.63%
+[2022-08-04 22:10:04,011 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4200----
+[2022-08-04 22:10:04,136 INFO] (snngp_inference:59) inducing_points shape: (4200, 784)
+[2022-08-04 22:11:16,719 INFO] (isnngp_vary_inducing:35) ELBO: 228183.9900695769
+[2022-08-04 22:11:48,395 INFO] (isnngp_vary_inducing:37) EUBO: 801759.3769419134
+[2022-08-04 22:11:57,516 INFO] (isnngp_vary_inducing:41) Loss: 0.170352470174688
+[2022-08-04 22:11:57,516 INFO] (isnngp_vary_inducing:43) Accuracy: 97.60%
+[2022-08-04 22:11:57,517 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4250----
+[2022-08-04 22:11:57,638 INFO] (snngp_inference:59) inducing_points shape: (4250, 784)
+[2022-08-04 22:13:08,627 INFO] (isnngp_vary_inducing:35) ELBO: 231292.07066247857
+[2022-08-04 22:13:40,362 INFO] (isnngp_vary_inducing:37) EUBO: 801657.6521831495
+[2022-08-04 22:13:49,364 INFO] (isnngp_vary_inducing:41) Loss: 0.17037080426872667
+[2022-08-04 22:13:49,365 INFO] (isnngp_vary_inducing:43) Accuracy: 97.72%
+[2022-08-04 22:13:49,365 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4300----
+[2022-08-04 22:13:49,476 INFO] (snngp_inference:59) inducing_points shape: (4300, 784)
+[2022-08-04 22:15:03,129 INFO] (isnngp_vary_inducing:35) ELBO: 232908.46673154028
+[2022-08-04 22:15:35,592 INFO] (isnngp_vary_inducing:37) EUBO: 801465.3482905028
+[2022-08-04 22:15:46,056 INFO] (isnngp_vary_inducing:41) Loss: 0.17031455112881122
+[2022-08-04 22:15:46,057 INFO] (isnngp_vary_inducing:43) Accuracy: 97.55%
+[2022-08-04 22:15:46,057 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4350----
+[2022-08-04 22:15:46,173 INFO] (snngp_inference:59) inducing_points shape: (4350, 784)
+[2022-08-04 22:17:00,294 INFO] (isnngp_vary_inducing:35) ELBO: 234180.28552682896
+[2022-08-04 22:17:33,980 INFO] (isnngp_vary_inducing:37) EUBO: 801437.4103936757
+[2022-08-04 22:17:43,321 INFO] (isnngp_vary_inducing:41) Loss: 0.17016240214432027
+[2022-08-04 22:17:43,321 INFO] (isnngp_vary_inducing:43) Accuracy: 97.70%
+[2022-08-04 22:17:43,321 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4400----
+[2022-08-04 22:17:43,434 INFO] (snngp_inference:59) inducing_points shape: (4400, 784)
+[2022-08-04 22:18:59,968 INFO] (isnngp_vary_inducing:35) ELBO: 235113.86147659027
+[2022-08-04 22:19:34,452 INFO] (isnngp_vary_inducing:37) EUBO: 801278.1718785054
+[2022-08-04 22:19:44,020 INFO] (isnngp_vary_inducing:41) Loss: 0.170122575707602
+[2022-08-04 22:19:44,021 INFO] (isnngp_vary_inducing:43) Accuracy: 97.76%
+[2022-08-04 22:19:44,021 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4450----
+[2022-08-04 22:19:44,138 INFO] (snngp_inference:59) inducing_points shape: (4450, 784)
+[2022-08-04 22:21:01,517 INFO] (isnngp_vary_inducing:35) ELBO: 238554.8545182686
+[2022-08-04 22:21:35,719 INFO] (isnngp_vary_inducing:37) EUBO: 801051.7501838396
+[2022-08-04 22:21:46,194 INFO] (isnngp_vary_inducing:41) Loss: 0.1700261320092266
+[2022-08-04 22:21:46,195 INFO] (isnngp_vary_inducing:43) Accuracy: 97.85%
+[2022-08-04 22:21:46,195 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4500----
+[2022-08-04 22:21:46,306 INFO] (snngp_inference:59) inducing_points shape: (4500, 784)
+[2022-08-04 22:23:04,795 INFO] (isnngp_vary_inducing:35) ELBO: 238229.8672330879
+[2022-08-04 22:23:40,194 INFO] (isnngp_vary_inducing:37) EUBO: 801044.316390999
+[2022-08-04 22:23:49,784 INFO] (isnngp_vary_inducing:41) Loss: 0.1700096689222876
+[2022-08-04 22:23:49,785 INFO] (isnngp_vary_inducing:43) Accuracy: 97.65%
+[2022-08-04 22:23:49,785 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4550----
+[2022-08-04 22:23:49,912 INFO] (snngp_inference:59) inducing_points shape: (4550, 784)
+[2022-08-04 22:25:11,106 INFO] (isnngp_vary_inducing:35) ELBO: 238514.01400433562
+[2022-08-04 22:25:46,868 INFO] (isnngp_vary_inducing:37) EUBO: 800891.0176026725
+[2022-08-04 22:25:57,003 INFO] (isnngp_vary_inducing:41) Loss: 0.17014261502819628
+[2022-08-04 22:25:57,004 INFO] (isnngp_vary_inducing:43) Accuracy: 97.70%
+[2022-08-04 22:25:57,004 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4600----
+[2022-08-04 22:25:57,150 INFO] (snngp_inference:59) inducing_points shape: (4600, 784)
+[2022-08-04 22:27:19,808 INFO] (isnngp_vary_inducing:35) ELBO: 241414.76309504558
+[2022-08-04 22:27:57,352 INFO] (isnngp_vary_inducing:37) EUBO: 800753.072719327
+[2022-08-04 22:28:07,216 INFO] (isnngp_vary_inducing:41) Loss: 0.16993625747641958
+[2022-08-04 22:28:07,216 INFO] (isnngp_vary_inducing:43) Accuracy: 97.74%
+[2022-08-04 22:28:07,217 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4650----
+[2022-08-04 22:28:07,341 INFO] (snngp_inference:59) inducing_points shape: (4650, 784)
+[2022-08-04 22:29:30,389 INFO] (isnngp_vary_inducing:35) ELBO: 243256.67969368107
+[2022-08-04 22:30:09,143 INFO] (isnngp_vary_inducing:37) EUBO: 800662.2814764312
+[2022-08-04 22:30:19,506 INFO] (isnngp_vary_inducing:41) Loss: 0.16991350178568992
+[2022-08-04 22:30:19,507 INFO] (isnngp_vary_inducing:43) Accuracy: 97.69%
+[2022-08-04 22:30:19,507 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4700----
+[2022-08-04 22:30:19,631 INFO] (snngp_inference:59) inducing_points shape: (4700, 784)
+[2022-08-04 22:31:45,700 INFO] (isnngp_vary_inducing:35) ELBO: 243099.18833095033
+[2022-08-04 22:32:25,563 INFO] (isnngp_vary_inducing:37) EUBO: 800535.0166512913
+[2022-08-04 22:32:36,130 INFO] (isnngp_vary_inducing:41) Loss: 0.16983701009360058
+[2022-08-04 22:32:36,131 INFO] (isnngp_vary_inducing:43) Accuracy: 97.69%
+[2022-08-04 22:32:36,131 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4750----
+[2022-08-04 22:32:36,246 INFO] (snngp_inference:59) inducing_points shape: (4750, 784)
+[2022-08-04 22:34:03,428 INFO] (isnngp_vary_inducing:35) ELBO: 245829.8597033067
+[2022-08-04 22:34:42,501 INFO] (isnngp_vary_inducing:37) EUBO: 800397.2429109673
+[2022-08-04 22:34:53,094 INFO] (isnngp_vary_inducing:41) Loss: 0.17023832968180427
+[2022-08-04 22:34:53,095 INFO] (isnngp_vary_inducing:43) Accuracy: 97.77%
+[2022-08-04 22:34:53,095 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4800----
+[2022-08-04 22:34:53,213 INFO] (snngp_inference:59) inducing_points shape: (4800, 784)
+[2022-08-04 22:36:20,896 INFO] (isnngp_vary_inducing:35) ELBO: 245314.4658290717
+[2022-08-04 22:37:01,108 INFO] (isnngp_vary_inducing:37) EUBO: 800372.692613208
+[2022-08-04 22:37:11,617 INFO] (isnngp_vary_inducing:41) Loss: 0.17004810330105347
+[2022-08-04 22:37:11,617 INFO] (isnngp_vary_inducing:43) Accuracy: 97.66%
+[2022-08-04 22:37:11,618 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4850----
+[2022-08-04 22:37:11,733 INFO] (snngp_inference:59) inducing_points shape: (4850, 784)
+[2022-08-04 22:38:40,845 INFO] (isnngp_vary_inducing:35) ELBO: 248303.20848669985
+[2022-08-04 22:39:22,071 INFO] (isnngp_vary_inducing:37) EUBO: 800175.7122633862
+[2022-08-04 22:39:32,849 INFO] (isnngp_vary_inducing:41) Loss: 0.16987924940975524
+[2022-08-04 22:39:32,850 INFO] (isnngp_vary_inducing:43) Accuracy: 97.88%
+[2022-08-04 22:39:32,850 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4900----
+[2022-08-04 22:39:32,995 INFO] (snngp_inference:59) inducing_points shape: (4900, 784)
+[2022-08-04 22:41:03,450 INFO] (isnngp_vary_inducing:35) ELBO: 249268.89054945682
+[2022-08-04 22:41:44,958 INFO] (isnngp_vary_inducing:37) EUBO: 800077.8047595844
+[2022-08-04 22:41:56,359 INFO] (isnngp_vary_inducing:41) Loss: 0.16988063300950415
+[2022-08-04 22:41:56,360 INFO] (isnngp_vary_inducing:43) Accuracy: 97.82%
+[2022-08-04 22:41:56,360 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 4950----
+[2022-08-04 22:41:56,509 INFO] (snngp_inference:59) inducing_points shape: (4950, 784)
+[2022-08-04 22:43:29,175 INFO] (isnngp_vary_inducing:35) ELBO: 250724.2608162124
+[2022-08-04 22:44:10,962 INFO] (isnngp_vary_inducing:37) EUBO: 799925.0741226883
+[2022-08-04 22:44:21,847 INFO] (isnngp_vary_inducing:41) Loss: 0.16991271112542974
+[2022-08-04 22:44:21,848 INFO] (isnngp_vary_inducing:43) Accuracy: 97.75%
+[2022-08-04 22:44:21,848 INFO] (isnngp_vary_inducing:27) 
+----Number of inducing point: 5000----
+[2022-08-04 22:44:21,992 INFO] (snngp_inference:59) inducing_points shape: (5000, 784)
+[2022-08-04 22:45:57,099 INFO] (isnngp_vary_inducing:35) ELBO: 251201.6375984148
+[2022-08-04 22:46:43,420 INFO] (isnngp_vary_inducing:37) EUBO: 799863.5513606388
+[2022-08-04 22:46:55,567 INFO] (isnngp_vary_inducing:41) Loss: 0.16969177976459757
+[2022-08-04 22:46:55,568 INFO] (isnngp_vary_inducing:43) Accuracy: 97.87%
+WARNING:matplotlib.legend:No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+WARNING:matplotlib.legend:No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+WARNING:matplotlib.legend:No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.
+WARNING:matplotlib.legend:No artists with labels found to put in legend.  Note that artists whose label start with an underscore are ignored when legend() is called with no argument.

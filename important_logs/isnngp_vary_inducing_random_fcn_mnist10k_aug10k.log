@@ -1,0 +1,451 @@
+nohup: ignoring input
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-16 11:45:13,938 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=1000, select_method='random')
+[2022-08-16 11:45:14,448 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-16 11:45:14,770 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-16 11:45:15,273 INFO] (snngp_inference:59) inducing_points shape: (1000, 784)
+[2022-08-16 11:45:15,292 INFO] (snngp:272) Optimizing...
+2022-08-16 11:45:22.882036: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 1s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 11:45:34.890147: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 13.008202861s
+Constant folding an instruction is taking > 1s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 11:45:37.404407: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 2s:
+
+  dot.14 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 11:47:45.872779: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 2m10.479042998s
+Constant folding an instruction is taking > 2s:
+
+  dot.14 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[2022-08-16 11:48:44,300 INFO] (snngp:280) Optimized for 6 iters; Success: True; Result: [1.10169279 0.1260148 ], 0.010000000000000016
+[2022-08-16 11:49:02,149 INFO] (isnngp_inference:99) LML: 3687.2417
+[2022-08-16 11:49:08,931 INFO] (isnngp_inference:101) ELBO: -1247.6294
+[2022-08-16 11:49:09,933 INFO] (isnngp_inference:103) EUBO: 13242.4042
+[2022-08-16 11:49:13,531 INFO] (isnngp_inference:107) Accuracy: 94.27%
+[2022-08-16 11:49:13,614 INFO] (isnngp_inference:109) Loss: 0.1398
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-16 11:49:30,908 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=2000, select_method='random')
+[2022-08-16 11:49:31,644 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-16 11:49:31,829 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-16 11:49:32,371 INFO] (snngp_inference:59) inducing_points shape: (2000, 784)
+[2022-08-16 11:49:32,388 INFO] (snngp:272) Optimizing...
+2022-08-16 11:49:40.319577: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 1s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 11:50:31.918015: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 52.598513087s
+Constant folding an instruction is taking > 1s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 11:50:34.852402: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 2s:
+
+  dot.14 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 11:54:52.149522: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 4m19.300334072s
+Constant folding an instruction is taking > 2s:
+
+  dot.14 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[2022-08-16 11:58:12,176 INFO] (snngp:280) Optimized for 12 iters; Success: True; Result: [1.1531502  0.16146952], 0.010000000000000016
+[2022-08-16 11:58:32,507 INFO] (isnngp_inference:99) LML: 4209.7806
+[2022-08-16 11:58:42,487 INFO] (isnngp_inference:101) ELBO: 621.5720
+[2022-08-16 11:58:45,126 INFO] (isnngp_inference:103) EUBO: 12948.9607
+[2022-08-16 11:58:50,847 INFO] (isnngp_inference:107) Accuracy: 95.30%
+[2022-08-16 11:58:50,947 INFO] (isnngp_inference:109) Loss: 0.1313
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-16 11:59:06,878 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=3000, select_method='random')
+[2022-08-16 11:59:07,556 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-16 11:59:07,710 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-16 11:59:08,281 INFO] (snngp_inference:59) inducing_points shape: (3000, 784)
+[2022-08-16 11:59:08,298 INFO] (snngp:272) Optimizing...
+2022-08-16 11:59:16.432404: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 1s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 12:01:15.005885: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 1m59.574158566s
+Constant folding an instruction is taking > 1s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 12:01:18.050322: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 2s:
+
+  dot.14 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 12:07:44.020255: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 6m27.971473938s
+Constant folding an instruction is taking > 2s:
+
+  dot.14 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[2022-08-16 12:15:02,304 INFO] (snngp:280) Optimized for 13 iters; Success: True; Result: [1.18467524 0.17130105], 0.010000000000000016
+[2022-08-16 12:15:21,996 INFO] (isnngp_inference:99) LML: 4497.6257
+[2022-08-16 12:15:39,136 INFO] (isnngp_inference:101) ELBO: 1560.0005
+[2022-08-16 12:15:45,444 INFO] (isnngp_inference:103) EUBO: 12724.4429
+[2022-08-16 12:15:55,585 INFO] (isnngp_inference:107) Accuracy: 95.69%
+[2022-08-16 12:15:55,721 INFO] (isnngp_inference:109) Loss: 0.1272
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-16 12:16:13,340 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=4000, select_method='random')
+[2022-08-16 12:16:14,032 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-16 12:16:14,195 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-16 12:16:14,786 INFO] (snngp_inference:59) inducing_points shape: (4000, 784)
+[2022-08-16 12:16:14,803 INFO] (snngp:272) Optimizing...
+2022-08-16 12:16:23.125225: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 1s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 12:19:45.293366: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 3m23.168214143s
+Constant folding an instruction is taking > 1s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 12:19:48.384407: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 2s:
+
+  dot.14 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 12:28:23.771483: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 8m37.391999343s
+Constant folding an instruction is taking > 2s:
+
+  dot.14 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 12:28:29.272564: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 4s:
+
+  multiply.485 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 12:28:30.076796: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 4.804300899s
+Constant folding an instruction is taking > 4s:
+
+  multiply.485 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[2022-08-16 12:37:38,919 INFO] (snngp:280) Optimized for 7 iters; Success: True; Result: [1.20653073 0.17160731], 0.010000000000000016
+[2022-08-16 12:37:59,399 INFO] (isnngp_inference:99) LML: 4684.3443
+[2022-08-16 12:38:20,332 INFO] (isnngp_inference:101) ELBO: 2126.2160
+[2022-08-16 12:38:28,267 INFO] (isnngp_inference:103) EUBO: 12527.9269
+[2022-08-16 12:38:39,109 INFO] (isnngp_inference:107) Accuracy: 95.95%
+[2022-08-16 12:38:39,222 INFO] (isnngp_inference:109) Loss: 0.1253
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-16 12:38:54,740 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=5000, select_method='random')
+[2022-08-16 12:38:55,273 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-16 12:38:55,412 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-16 12:38:55,929 INFO] (snngp_inference:59) inducing_points shape: (5000, 784)
+[2022-08-16 12:38:55,947 INFO] (snngp:272) Optimizing...
+2022-08-16 12:39:04.277898: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 1s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 12:44:25.780741: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 5m22.502921527s
+Constant folding an instruction is taking > 1s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 12:44:29.939730: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 2s:
+
+  multiply.460 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 12:44:31.054737: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 3.115073904s
+Constant folding an instruction is taking > 2s:
+
+  multiply.460 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[2022-08-16 13:00:14,954 INFO] (snngp:280) Optimized for 7 iters; Success: True; Result: [1.22479754 0.17350071], 0.010000000000000016
+[2022-08-16 13:00:33,376 INFO] (isnngp_inference:99) LML: 4822.4752
+[2022-08-16 13:01:03,826 INFO] (isnngp_inference:101) ELBO: 2534.5123
+[2022-08-16 13:01:17,834 INFO] (isnngp_inference:103) EUBO: 12351.5559
+[2022-08-16 13:01:32,057 INFO] (isnngp_inference:107) Accuracy: 96.06%
+[2022-08-16 13:01:32,139 INFO] (isnngp_inference:109) Loss: 0.1234
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-16 13:01:48,506 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=6000, select_method='random')
+[2022-08-16 13:01:49,206 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-16 13:01:49,372 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-16 13:01:49,943 INFO] (snngp_inference:59) inducing_points shape: (6000, 784)
+[2022-08-16 13:01:49,960 INFO] (snngp:272) Optimizing...
+2022-08-16 13:01:58.896401: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 1s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 13:09:39.559920: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 7m41.666664872s
+Constant folding an instruction is taking > 1s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 13:09:43.486187: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 2s:
+
+  multiply.460 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-16 13:09:45.715128: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 4.229012905s
+Constant folding an instruction is taking > 2s:
+
+  multiply.460 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[2022-08-16 13:36:39,130 INFO] (snngp:280) Optimized for 12 iters; Success: True; Result: [1.24057017 0.1722653 ], 0.010000000000000016
+[2022-08-16 13:36:56,577 INFO] (isnngp_inference:99) LML: 4934.7609
+[2022-08-16 13:37:34,934 INFO] (isnngp_inference:101) ELBO: 2880.9210
+[2022-08-16 13:37:53,065 INFO] (isnngp_inference:103) EUBO: 12182.8607
+[2022-08-16 13:38:12,099 INFO] (isnngp_inference:107) Accuracy: 96.27%
+[2022-08-16 13:38:12,234 INFO] (isnngp_inference:109) Loss: 0.1223
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-16 13:38:28,738 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=7000, select_method='random')
+[2022-08-16 13:38:29,444 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-16 13:38:29,604 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-16 13:38:30,213 INFO] (snngp_inference:59) inducing_points shape: (7000, 784)
+[2022-08-16 13:38:30,232 INFO] (snngp:272) Optimizing...
+[2022-08-16 14:15:13,585 INFO] (snngp:280) Optimized for 12 iters; Success: True; Result: [1.2570575  0.17019834], 0.010000000000000016
+[2022-08-16 14:15:25,676 INFO] (isnngp_inference:99) LML: 5041.8469
+[2022-08-16 14:15:56,372 INFO] (isnngp_inference:101) ELBO: 3208.9731
+[2022-08-16 14:16:12,063 INFO] (isnngp_inference:103) EUBO: 11998.8140
+[2022-08-16 14:16:26,954 INFO] (isnngp_inference:107) Accuracy: 96.40%
+[2022-08-16 14:16:27,034 INFO] (isnngp_inference:109) Loss: 0.1210
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-16 14:16:42,859 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=8000, select_method='random')
+[2022-08-16 14:16:43,354 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-16 14:16:43,464 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-16 14:16:43,792 INFO] (snngp_inference:59) inducing_points shape: (8000, 784)
+[2022-08-16 14:16:43,806 INFO] (snngp:272) Optimizing...
+[2022-08-16 14:48:03,052 INFO] (snngp:280) Optimized for 12 iters; Success: True; Result: [1.26983464 0.17046099], 0.010000000000000016
+[2022-08-16 14:48:15,187 INFO] (isnngp_inference:99) LML: 5114.9602
+[2022-08-16 14:48:53,466 INFO] (isnngp_inference:101) ELBO: 3438.8046
+[2022-08-16 14:49:13,736 INFO] (isnngp_inference:103) EUBO: 11841.0204
+[2022-08-16 14:49:31,292 INFO] (isnngp_inference:107) Accuracy: 96.39%
+[2022-08-16 14:49:31,372 INFO] (isnngp_inference:109) Loss: 0.1203
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-16 14:49:48,235 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=9000, select_method='random')
+[2022-08-16 14:49:48,834 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-16 14:49:48,946 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-16 14:49:49,342 INFO] (snngp_inference:59) inducing_points shape: (9000, 784)
+[2022-08-16 14:49:49,359 INFO] (snngp:272) Optimizing...
+[2022-08-16 15:30:27,507 INFO] (snngp:280) Optimized for 11 iters; Success: True; Result: [1.28289304 0.16596015], 0.010000000000000016
+[2022-08-16 15:30:40,618 INFO] (isnngp_inference:99) LML: 5187.7308
+[2022-08-16 15:31:28,104 INFO] (isnngp_inference:101) ELBO: 3682.7238
+[2022-08-16 15:31:54,183 INFO] (isnngp_inference:103) EUBO: 11674.5560
+[2022-08-16 15:32:17,230 INFO] (isnngp_inference:107) Accuracy: 96.48%
+[2022-08-16 15:32:17,311 INFO] (isnngp_inference:109) Loss: 0.1193
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-16 15:32:34,741 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=10000, select_method='random')
+[2022-08-16 15:32:35,281 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-16 15:32:35,399 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-16 15:32:35,693 INFO] (snngp_inference:59) inducing_points shape: (10000, 784)
+[2022-08-16 15:32:35,706 INFO] (snngp:271) Optimizing...
+[2022-08-16 16:24:37,251 INFO] (snngp:279) Optimized for 11 iters; Success: True; Result: [1.29528391 0.16292705], 0.010000000000000016
+[2022-08-16 16:24:49,961 INFO] (isnngp_inference:99) LML: 5248.7278
+[2022-08-16 16:25:48,444 INFO] (isnngp_inference:101) ELBO: 3902.0813
+[2022-08-16 16:26:20,803 INFO] (isnngp_inference:103) EUBO: 11506.2301
+[2022-08-16 16:26:45,760 INFO] (isnngp_inference:107) Accuracy: 96.56%
+[2022-08-16 16:26:45,847 INFO] (isnngp_inference:109) Loss: 0.1186
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-16 16:27:03,345 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=11000, select_method='random')
+[2022-08-16 16:27:03,831 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-16 16:27:03,935 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-16 16:27:04,300 INFO] (snngp_inference:59) inducing_points shape: (11000, 784)
+[2022-08-16 16:27:04,316 INFO] (snngp:271) Optimizing...
+[2022-08-16 17:29:46,772 INFO] (snngp:279) Optimized for 11 iters; Success: True; Result: [1.30506667 0.15999073], 0.010000000000000016
+[2022-08-16 17:29:59,639 INFO] (isnngp_inference:99) LML: 5292.7560
+[2022-08-16 17:31:11,279 INFO] (isnngp_inference:101) ELBO: 4059.6146
+[2022-08-16 17:31:50,020 INFO] (isnngp_inference:103) EUBO: 11365.9926
+[2022-08-16 17:32:19,194 INFO] (isnngp_inference:107) Accuracy: 96.54%
+[2022-08-16 17:32:19,285 INFO] (isnngp_inference:109) Loss: 0.1181
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-16 17:32:35,359 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=12000, select_method='random')
+[2022-08-16 17:32:35,842 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-16 17:32:35,952 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-16 17:32:36,320 INFO] (snngp_inference:59) inducing_points shape: (12000, 784)
+[2022-08-16 17:32:36,331 INFO] (snngp:271) Optimizing...
+[2022-08-16 18:44:11,748 INFO] (snngp:279) Optimized for 10 iters; Success: True; Result: [1.31811172 0.15712153], 0.010000000000000016
+[2022-08-16 18:44:23,937 INFO] (isnngp_inference:99) LML: 5344.5178
+[2022-08-16 18:45:45,534 INFO] (isnngp_inference:101) ELBO: 4277.6666
+[2022-08-16 18:46:31,611 INFO] (isnngp_inference:103) EUBO: 11184.2794
+[2022-08-16 18:47:05,024 INFO] (isnngp_inference:107) Accuracy: 96.66%
+[2022-08-16 18:47:05,107 INFO] (isnngp_inference:109) Loss: 0.1175
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-18 16:32:12,802 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=13000, select_method='random')
+[2022-08-18 16:32:13,695 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-18 16:32:13,885 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-18 16:32:14,508 INFO] (snngp_inference:59) inducing_points shape: (13000, 784)
+[2022-08-18 16:32:14,531 INFO] (snngp:271) Optimizing...
+[2022-08-18 17:14:20,237 INFO] (snngp:279) Optimized for 11 iters; Success: True; Result: [1.33077411 0.15429086], 0.010000000000000016
+[2022-08-18 17:14:37,900 INFO] (isnngp_inference:91) LML: 5388.2696
+[2022-08-18 17:15:47,428 INFO] (isnngp_inference:93) ELBO: 4460.9324
+[2022-08-18 17:16:17,471 INFO] (isnngp_inference:95) EUBO: 11001.3477
+[2022-08-18 17:16:49,890 INFO] (isnngp_inference:99) Accuracy: 96.61%
+[2022-08-18 17:16:50,214 INFO] (isnngp_inference:101) Loss: 0.1170
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-16 18:47:30,202 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=14000, select_method='random')
+[2022-08-16 18:47:30,899 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-16 18:47:31,060 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-16 18:47:31,452 INFO] (snngp_inference:59) inducing_points shape: (14000, 784)
+[2022-08-16 18:47:31,466 INFO] (snngp:271) Optimizing...
+[2022-08-16 20:22:53,737 INFO] (snngp:279) Optimized for 7 iters; Success: True; Result: [1.3409675 0.1508947], 0.010000000000000016
+[2022-08-16 20:23:06,123 INFO] (isnngp_inference:99) LML: 5419.4435
+[2022-08-16 20:24:56,086 INFO] (isnngp_inference:101) ELBO: 4607.4982
+[2022-08-16 20:25:59,566 INFO] (isnngp_inference:103) EUBO: 10836.7532
+[2022-08-16 20:26:43,388 INFO] (isnngp_inference:107) Accuracy: 96.63%
+[2022-08-16 20:26:43,470 INFO] (isnngp_inference:109) Loss: 0.1166
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-16 20:27:00,244 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=15000, select_method='random')
+[2022-08-16 20:27:00,721 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-16 20:27:00,828 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-16 20:27:01,179 INFO] (snngp_inference:59) inducing_points shape: (15000, 784)
+[2022-08-16 20:27:01,196 INFO] (snngp:271) Optimizing...
+[2022-08-16 22:09:58,710 INFO] (snngp:279) Optimized for 6 iters; Success: True; Result: [1.35256554 0.1471965 ], 0.010000000000000016
+[2022-08-16 22:10:11,181 INFO] (isnngp_inference:99) LML: 5449.7555
+[2022-08-16 22:12:17,211 INFO] (isnngp_inference:101) ELBO: 4771.3653
+[2022-08-16 22:13:30,731 INFO] (isnngp_inference:103) EUBO: 10663.9736
+[2022-08-16 22:14:19,563 INFO] (isnngp_inference:107) Accuracy: 96.66%
+[2022-08-16 22:14:19,644 INFO] (isnngp_inference:109) Loss: 0.1162
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-16 22:14:37,604 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=16000, select_method='random')
+[2022-08-16 22:14:38,082 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-16 22:14:38,193 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-16 22:14:38,654 INFO] (snngp_inference:59) inducing_points shape: (16000, 784)
+[2022-08-16 22:14:38,673 INFO] (snngp:271) Optimizing...
+[2022-08-17 00:56:39,274 INFO] (snngp:279) Optimized for 10 iters; Success: True; Result: [1.36508325 0.14304603], 0.010000000000000016
+[2022-08-17 00:56:58,624 INFO] (isnngp_inference:99) LML: 5476.5886
+[2022-08-17 01:00:53,621 INFO] (isnngp_inference:101) ELBO: 4937.4730
+[2022-08-17 01:03:10,062 INFO] (isnngp_inference:103) EUBO: 10457.2829
+[2022-08-17 01:04:36,251 INFO] (isnngp_inference:107) Accuracy: 96.74%
+[2022-08-17 01:04:36,364 INFO] (isnngp_inference:109) Loss: 0.1157
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-17 01:04:53,480 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=17000, select_method='random')
+[2022-08-17 01:04:54,193 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-17 01:04:54,356 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-17 01:04:54,959 INFO] (snngp_inference:59) inducing_points shape: (17000, 784)
+[2022-08-17 01:04:54,976 INFO] (snngp:271) Optimizing...
+[2022-08-17 04:43:17,363 INFO] (snngp:279) Optimized for 12 iters; Success: True; Result: [1.37610463 0.14011824], 0.010000000000000016
+[2022-08-17 04:43:29,564 INFO] (isnngp_inference:99) LML: 5495.0316
+[2022-08-17 04:46:10,999 INFO] (isnngp_inference:101) ELBO: 5075.7891
+[2022-08-17 04:47:46,298 INFO] (isnngp_inference:103) EUBO: 10272.9931
+[2022-08-17 04:48:46,668 INFO] (isnngp_inference:107) Accuracy: 96.74%
+[2022-08-17 04:48:46,773 INFO] (isnngp_inference:109) Loss: 0.1153
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-17 04:49:04,046 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=18000, select_method='random')
+[2022-08-17 04:49:04,552 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-17 04:49:04,693 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-17 04:49:05,055 INFO] (snngp_inference:59) inducing_points shape: (18000, 784)
+[2022-08-17 04:49:05,070 INFO] (snngp:271) Optimizing...
+[2022-08-17 07:30:41,884 INFO] (snngp:279) Optimized for 7 iters; Success: True; Result: [1.38884072 0.13670665], 0.010000000000000016
+[2022-08-17 07:30:54,482 INFO] (isnngp_inference:99) LML: 5510.7508
+[2022-08-17 07:33:58,950 INFO] (isnngp_inference:101) ELBO: 5225.6230
+[2022-08-17 07:35:48,424 INFO] (isnngp_inference:103) EUBO: 10058.7736
+[2022-08-17 07:36:56,655 INFO] (isnngp_inference:107) Accuracy: 96.80%
+[2022-08-17 07:36:56,737 INFO] (isnngp_inference:109) Loss: 0.1151
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-17 07:37:17,427 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=19000, select_method='random')
+[2022-08-17 07:37:17,912 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-17 07:37:18,021 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-17 07:37:18,362 INFO] (snngp_inference:59) inducing_points shape: (19000, 784)
+[2022-08-17 07:37:18,375 INFO] (snngp:271) Optimizing...
+[2022-08-17 11:16:17,207 INFO] (snngp:279) Optimized for 9 iters; Success: True; Result: [1.40242158 0.13238911], 0.010000000000000016
+[2022-08-17 11:16:29,869 INFO] (isnngp_inference:99) LML: 5521.0924
+[2022-08-17 11:19:59,692 INFO] (isnngp_inference:101) ELBO: 5367.7892
+[2022-08-17 11:22:03,499 INFO] (isnngp_inference:103) EUBO: 9799.9469
+[2022-08-17 11:23:20,421 INFO] (isnngp_inference:107) Accuracy: 96.79%
+[2022-08-17 11:23:20,520 INFO] (isnngp_inference:109) Loss: 0.1147
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-18 17:27:48,541 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=13000, select_method='random')
+[2022-08-18 17:27:49,626 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-18 17:27:49,897 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
+[2022-08-18 17:27:50,654 INFO] (snngp_inference:59) inducing_points shape: (20000, 784)
+[2022-08-18 17:27:50,687 INFO] (snngp:271) Optimizing...
+2022-08-18 17:28:05.776453: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 1s:
+
+  dot.0 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-18 17:28:06.063288: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 1.286978802s
+Constant folding an instruction is taking > 1s:
+
+  dot.0 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[2022-08-18 19:10:21,003 INFO] (snngp:279) Optimized for 9 iters; Success: True; Result: [1.41694474 0.12741773], 0.010000000000000016
+[2022-08-18 19:10:33,839 INFO] (isnngp_inference:91) LML: 5524.8297
+[2022-08-18 19:12:38,395 INFO] (isnngp_inference:93) ELBO: 5524.4171
+[2022-08-18 19:13:36,948 INFO] (isnngp_inference:95) EUBO: 6679.1974
+[2022-08-18 19:14:32,053 INFO] (isnngp_inference:99) Accuracy: 96.83%
+[2022-08-18 19:14:32,229 INFO] (isnngp_inference:101) Loss: 0.1143

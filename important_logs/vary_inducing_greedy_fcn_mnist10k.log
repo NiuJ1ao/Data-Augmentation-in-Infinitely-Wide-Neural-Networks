@@ -1,0 +1,318 @@
+WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
+[2022-08-12 10:20:20,577 INFO] (util:27) Namespace(augment_X=None, augment_y=None, batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=750, select_method='greedy')
+[2022-08-12 10:20:21,329 INFO] (data_loader:91) MNIST: (10000, 784) train, (10000, 784) test samples.
+[2022-08-12 10:20:21,436 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 500----
+[2022-08-12 10:24:30,531 INFO] (snngp:272) Optimizing...
+2022-08-12 10:24:36.188397: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 1s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-12 10:24:36.941438: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 1.755974817s
+Constant folding an instruction is taking > 1s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-12 10:24:39.211516: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 2s:
+
+  dot.5 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-12 10:25:12.261687: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 35.050234947s
+Constant folding an instruction is taking > 2s:
+
+  dot.5 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[2022-08-12 10:25:33,693 INFO] (snngp:280) Optimized for 15 iters; Success: True; Result: [1.0486149  0.13334135], 0.029202465658093948
+[2022-08-12 10:25:45,731 INFO] (snngp_vary_inducing_greedy:47) LML: 4373.173184316316
+[2022-08-12 10:25:49,136 INFO] (snngp_vary_inducing_greedy:49) ELBO: 2600.504980225328
+[2022-08-12 10:25:49,326 INFO] (snngp_vary_inducing_greedy:51) EUBO: 8232.269185253786
+[2022-08-12 10:25:50,166 INFO] (snngp_vary_inducing_greedy:55) Loss: 0.1625069496526871
+[2022-08-12 10:25:50,252 INFO] (snngp_vary_inducing_greedy:57) Accuracy: 91.75%
+[2022-08-12 10:25:50,268 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 1000----
+[2022-08-12 10:30:05,427 INFO] (snngp:272) Optimizing...
+2022-08-12 10:30:13.764098: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 4s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-12 10:30:16.831794: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 7.067762467s
+Constant folding an instruction is taking > 4s:
+
+  dot.2 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-12 10:30:25.110884: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 8s:
+
+  dot.5 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-12 10:31:28.113287: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 1m11.002469922s
+Constant folding an instruction is taking > 8s:
+
+  dot.5 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[2022-08-12 10:32:15,266 INFO] (snngp:280) Optimized for 14 iters; Success: True; Result: [1.09751183 0.14974858], 0.02334912215583465
+[2022-08-12 10:32:26,732 INFO] (snngp_vary_inducing_greedy:47) LML: 5013.294213932431
+[2022-08-12 10:32:30,978 INFO] (snngp_vary_inducing_greedy:49) ELBO: 3454.100793456102
+[2022-08-12 10:32:31,373 INFO] (snngp_vary_inducing_greedy:51) EUBO: 9182.92762616762
+[2022-08-12 10:32:32,592 INFO] (snngp_vary_inducing_greedy:55) Loss: 0.14588399011820893
+[2022-08-12 10:32:32,593 INFO] (snngp_vary_inducing_greedy:57) Accuracy: 93.44%
+[2022-08-12 10:32:32,593 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 1500----
+[2022-08-12 10:36:55,139 INFO] (snngp:272) Optimizing...
+2022-08-12 10:37:31.924965: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 16s:
+
+  dot.5 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-12 10:39:01.899924: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 1m45.975021526s
+Constant folding an instruction is taking > 16s:
+
+  dot.5 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[2022-08-12 10:40:22,194 INFO] (snngp:280) Optimized for 12 iters; Success: True; Result: [1.12813173 0.16830072], 0.020194969355013227
+[2022-08-12 10:40:33,828 INFO] (snngp_vary_inducing_greedy:47) LML: 5385.403252772201
+[2022-08-12 10:40:38,651 INFO] (snngp_vary_inducing_greedy:49) ELBO: 3976.401572895298
+[2022-08-12 10:40:39,451 INFO] (snngp_vary_inducing_greedy:51) EUBO: 9749.961772171755
+[2022-08-12 10:40:41,335 INFO] (snngp_vary_inducing_greedy:55) Loss: 0.13720837038318381
+[2022-08-12 10:40:41,336 INFO] (snngp_vary_inducing_greedy:57) Accuracy: 94.48%
+[2022-08-12 10:40:41,336 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 2000----
+[2022-08-12 10:45:09,668 INFO] (snngp:272) Optimizing...
+2022-08-12 10:46:14.760396: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 32s:
+
+  dot.5 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-12 10:48:04.318332: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 2m21.562058964s
+Constant folding an instruction is taking > 32s:
+
+  dot.5 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[2022-08-12 10:50:02,425 INFO] (snngp:280) Optimized for 11 iters; Success: True; Result: [1.15090128 0.17429162], 0.017911585623516815
+[2022-08-12 10:50:13,673 INFO] (snngp_vary_inducing_greedy:47) LML: 5668.863584601881
+[2022-08-12 10:50:19,874 INFO] (snngp_vary_inducing_greedy:49) ELBO: 4399.744831763975
+[2022-08-12 10:50:21,320 INFO] (snngp_vary_inducing_greedy:51) EUBO: 10190.47204159822
+[2022-08-12 10:50:23,988 INFO] (snngp_vary_inducing_greedy:55) Loss: 0.13137573821895135
+[2022-08-12 10:50:23,989 INFO] (snngp_vary_inducing_greedy:57) Accuracy: 95.06%
+[2022-08-12 10:50:23,989 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 2500----
+[2022-08-12 10:54:59,490 INFO] (snngp:272) Optimizing...
+2022-08-12 10:56:53.240828: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 1m4s:
+
+  dot.5 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-12 10:58:45.653817: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 2m56.413053765s
+Constant folding an instruction is taking > 1m4s:
+
+  dot.5 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[2022-08-12 11:00:16,996 INFO] (snngp:280) Optimized for 4 iters; Success: True; Result: [1.1692889  0.17413014], 0.016269817918607907
+[2022-08-12 11:00:28,640 INFO] (snngp_vary_inducing_greedy:47) LML: 5886.612424379899
+[2022-08-12 11:00:35,760 INFO] (snngp_vary_inducing_greedy:49) ELBO: 4721.936577504629
+[2022-08-12 11:00:37,718 INFO] (snngp_vary_inducing_greedy:51) EUBO: 10511.999094609619
+[2022-08-12 11:00:41,337 INFO] (snngp_vary_inducing_greedy:55) Loss: 0.1274218125488426
+[2022-08-12 11:00:41,337 INFO] (snngp_vary_inducing_greedy:57) Accuracy: 95.37%
+[2022-08-12 11:00:41,338 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 3000----
+[2022-08-12 11:05:24,205 INFO] (snngp:272) Optimizing...
+2022-08-12 11:08:40.628269: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 2m8s:
+
+  dot.5 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-12 11:10:04.309570: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 3m31.681369063s
+Constant folding an instruction is taking > 2m8s:
+
+  dot.5 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[2022-08-12 11:13:31,785 INFO] (snngp:280) Optimized for 9 iters; Success: True; Result: [1.18684865 0.17507021], 0.014867099475534312
+[2022-08-12 11:13:43,180 INFO] (snngp_vary_inducing_greedy:47) LML: 6080.362629203216
+[2022-08-12 11:13:52,158 INFO] (snngp_vary_inducing_greedy:49) ELBO: 4999.411828902857
+[2022-08-12 11:13:54,958 INFO] (snngp_vary_inducing_greedy:51) EUBO: 10792.103266999231
+[2022-08-12 11:13:59,452 INFO] (snngp_vary_inducing_greedy:55) Loss: 0.12412435624410977
+[2022-08-12 11:13:59,452 INFO] (snngp_vary_inducing_greedy:57) Accuracy: 95.63%
+[2022-08-12 11:13:59,453 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 3500----
+[2022-08-12 11:18:47,793 INFO] (snngp:272) Optimizing...
+[2022-08-12 11:29:21,074 INFO] (snngp:280) Optimized for 9 iters; Success: True; Result: [1.20261019 0.17587365], 0.013741334104886456
+[2022-08-12 11:29:32,804 INFO] (snngp_vary_inducing_greedy:47) LML: 6242.458849002074
+[2022-08-12 11:29:43,340 INFO] (snngp_vary_inducing_greedy:49) ELBO: 5226.583537048273
+[2022-08-12 11:29:46,974 INFO] (snngp_vary_inducing_greedy:51) EUBO: 11010.02986992661
+[2022-08-12 11:29:52,021 INFO] (snngp_vary_inducing_greedy:55) Loss: 0.12155919082710975
+[2022-08-12 11:29:52,022 INFO] (snngp_vary_inducing_greedy:57) Accuracy: 95.81%
+[2022-08-12 11:29:52,022 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 4000----
+[2022-08-12 11:34:47,877 INFO] (snngp:272) Optimizing...
+2022-08-12 11:41:01.960349: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:65] Constant folding an instruction is taking > 4m16s:
+
+  dot.5 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+2022-08-12 11:41:28.341491: E external/org_tensorflow/tensorflow/compiler/xla/service/slow_operation_alarm.cc:133] The operation took 4m42.381214236s
+Constant folding an instruction is taking > 4m16s:
+
+  dot.5 (displaying the full instruction incurs a runtime overhead. Raise your logging level to 4 or above).
+
+This isn't necessarily a bug; constant-folding is inherently a trade-off between compilation time and speed at runtime.  XLA has some guards that attempt to keep constant folding from taking too long, but fundamentally you'll always be able to come up with an input program that takes a long time.
+
+If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo and attach the results.
+[2022-08-12 11:47:52,086 INFO] (snngp:280) Optimized for 10 iters; Success: True; Result: [1.21816022 0.17420576], 0.012627132117258565
+[2022-08-12 11:48:03,642 INFO] (snngp_vary_inducing_greedy:47) LML: 6405.045026485121
+[2022-08-12 11:48:16,025 INFO] (snngp_vary_inducing_greedy:49) ELBO: 5456.854832022598
+[2022-08-12 11:48:20,755 INFO] (snngp_vary_inducing_greedy:51) EUBO: 11234.689814589123
+[2022-08-12 11:48:27,063 INFO] (snngp_vary_inducing_greedy:55) Loss: 0.11917458913254457
+[2022-08-12 11:48:27,064 INFO] (snngp_vary_inducing_greedy:57) Accuracy: 95.97%
+[2022-08-12 11:48:27,064 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 4500----
+[2022-08-12 11:53:28,264 INFO] (snngp:272) Optimizing...
+[2022-08-12 12:09:28,086 INFO] (snngp:280) Optimized for 10 iters; Success: True; Result: [1.23307741 0.17258459], 0.011623159439818025
+[2022-08-12 12:09:39,535 INFO] (snngp_vary_inducing_greedy:47) LML: 6554.903200601804
+[2022-08-12 12:09:53,965 INFO] (snngp_vary_inducing_greedy:49) ELBO: 5667.391278365244
+[2022-08-12 12:10:00,270 INFO] (snngp_vary_inducing_greedy:51) EUBO: 11433.506805490497
+[2022-08-12 12:10:07,543 INFO] (snngp_vary_inducing_greedy:55) Loss: 0.1169483400611711
+[2022-08-12 12:10:07,544 INFO] (snngp_vary_inducing_greedy:57) Accuracy: 96.16%
+[2022-08-12 12:10:07,544 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 5000----
+[2022-08-12 12:15:15,648 INFO] (snngp:272) Optimizing...
+[2022-08-12 12:23:50,067 INFO] (snngp:280) Optimized for 4 iters; Success: True; Result: [1.24731408 0.17243714], 0.010733133072155463
+[2022-08-12 12:24:02,066 INFO] (snngp_vary_inducing_greedy:47) LML: 6690.186342941995
+[2022-08-12 12:24:19,089 INFO] (snngp_vary_inducing_greedy:49) ELBO: 5857.144178270416
+[2022-08-12 12:24:26,595 INFO] (snngp_vary_inducing_greedy:51) EUBO: 11601.959280530615
+[2022-08-12 12:24:35,144 INFO] (snngp_vary_inducing_greedy:55) Loss: 0.11512959865297662
+[2022-08-12 12:24:35,145 INFO] (snngp_vary_inducing_greedy:57) Accuracy: 96.33%
+[2022-08-12 12:24:35,145 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 5500----
+[2022-08-12 12:29:50,057 INFO] (snngp:272) Optimizing...
+[2022-08-12 12:45:46,435 INFO] (snngp:280) Optimized for 10 iters; Success: True; Result: [1.2623838  0.17346578], 0.00984394978701667
+[2022-08-12 12:45:57,674 INFO] (snngp_vary_inducing_greedy:47) LML: 6827.110856395331
+[2022-08-12 12:46:17,347 INFO] (snngp_vary_inducing_greedy:49) ELBO: 6048.960877014212
+[2022-08-12 12:46:26,974 INFO] (snngp_vary_inducing_greedy:51) EUBO: 11769.261717220514
+[2022-08-12 12:46:36,998 INFO] (snngp_vary_inducing_greedy:55) Loss: 0.11336794004714146
+[2022-08-12 12:46:36,998 INFO] (snngp_vary_inducing_greedy:57) Accuracy: 96.44%
+[2022-08-12 12:46:36,999 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 6000----
+[2022-08-12 12:51:59,822 INFO] (snngp:272) Optimizing...
+[2022-08-12 13:06:42,426 INFO] (snngp:280) Optimized for 5 iters; Success: True; Result: [1.27809042 0.17329865], 0.008951168974142037
+[2022-08-12 13:06:54,170 INFO] (snngp_vary_inducing_greedy:47) LML: 6966.8287673418645
+[2022-08-12 13:07:16,480 INFO] (snngp_vary_inducing_greedy:49) ELBO: 6244.059408329196
+[2022-08-12 13:07:27,405 INFO] (snngp_vary_inducing_greedy:51) EUBO: 11935.040992554368
+[2022-08-12 13:07:38,368 INFO] (snngp_vary_inducing_greedy:55) Loss: 0.11175642396927812
+[2022-08-12 13:07:38,369 INFO] (snngp_vary_inducing_greedy:57) Accuracy: 96.58%
+[2022-08-12 13:07:38,369 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 6500----
+[2022-08-12 13:13:06,399 INFO] (snngp:272) Optimizing...
+[2022-08-12 13:47:17,542 INFO] (snngp:280) Optimized for 12 iters; Success: True; Result: [1.29538931 0.17214832], 0.007976643328842964
+[2022-08-12 13:47:35,832 INFO] (snngp_vary_inducing_greedy:47) LML: 7120.227033374273
+[2022-08-12 13:48:19,468 INFO] (snngp_vary_inducing_greedy:49) ELBO: 6457.194330394438
+[2022-08-12 13:48:42,621 INFO] (snngp_vary_inducing_greedy:51) EUBO: 12124.439735825315
+[2022-08-12 13:49:01,736 INFO] (snngp_vary_inducing_greedy:55) Loss: 0.11006889379628433
+[2022-08-12 13:49:01,737 INFO] (snngp_vary_inducing_greedy:57) Accuracy: 96.76%
+[2022-08-12 13:49:01,737 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 7000----
+[2022-08-12 13:56:00,467 INFO] (snngp:272) Optimizing...
+[2022-08-12 14:25:17,757 INFO] (snngp:280) Optimized for 10 iters; Success: True; Result: [1.31172214 0.17129143], 0.007111067761615284
+[2022-08-12 14:25:34,857 INFO] (snngp_vary_inducing_greedy:47) LML: 7258.689486423781
+[2022-08-12 14:26:22,163 INFO] (snngp_vary_inducing_greedy:49) ELBO: 6649.079158181239
+[2022-08-12 14:26:46,404 INFO] (snngp_vary_inducing_greedy:51) EUBO: 12274.93312800574
+[2022-08-12 14:27:07,708 INFO] (snngp_vary_inducing_greedy:55) Loss: 0.10870664995527782
+[2022-08-12 14:27:07,709 INFO] (snngp_vary_inducing_greedy:57) Accuracy: 96.88%
+[2022-08-12 14:27:07,710 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 7500----
+[2022-08-12 14:34:15,115 INFO] (snngp:272) Optimizing...
+[2022-08-12 15:16:10,651 INFO] (snngp:280) Optimized for 12 iters; Success: True; Result: [1.33074732 0.17023114], 0.00612582759646889
+[2022-08-12 15:16:30,094 INFO] (snngp_vary_inducing_greedy:47) LML: 7417.36463988081
+[2022-08-12 15:17:16,888 INFO] (snngp_vary_inducing_greedy:49) ELBO: 6871.546979309416
+[2022-08-12 15:17:41,310 INFO] (snngp_vary_inducing_greedy:51) EUBO: 12453.983491141846
+[2022-08-12 15:18:02,764 INFO] (snngp_vary_inducing_greedy:55) Loss: 0.10730819257454387
+[2022-08-12 15:18:02,765 INFO] (snngp_vary_inducing_greedy:57) Accuracy: 96.90%
+[2022-08-12 15:35:12,101 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 8000----
+[2022-08-12 18:17:46,935 INFO] (snngp:272) Optimizing...
+[2022-08-12 18:47:37,574 INFO] (snngp:280) Optimized for 13 iters; Success: True; Result: [1.351045   0.16659485], 0.005090668339341237
+[2022-08-12 18:47:54,184 INFO] (snngp_vary_inducing_greedy:48) LML: 7586.473203082358
+[2022-08-12 18:48:33,507 INFO] (snngp_vary_inducing_greedy:50) ELBO: 7111.883694219478
+[2022-08-12 18:48:54,069 INFO] (snngp_vary_inducing_greedy:52) EUBO: 12637.88156219068
+[2022-08-12 18:49:12,392 INFO] (snngp_vary_inducing_greedy:56) Loss: 0.10575688062935519
+[2022-08-12 18:49:12,648 INFO] (snngp_vary_inducing_greedy:58) Accuracy: 96.97%
+[2022-08-12 18:49:12,684 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 8500----
+[2022-08-12 19:01:51,229 INFO] (snngp:272) Optimizing...
+[2022-08-12 19:36:46,411 INFO] (snngp:280) Optimized for 15 iters; Success: True; Result: [1.37427858 0.16164067], 0.003970710037329455
+[2022-08-12 19:37:01,425 INFO] (snngp_vary_inducing_greedy:48) LML: 7773.794714888021
+[2022-08-12 19:37:43,741 INFO] (snngp_vary_inducing_greedy:50) ELBO: 7376.923404840966
+[2022-08-12 19:38:01,140 INFO] (snngp_vary_inducing_greedy:52) EUBO: 12823.802615144725
+[2022-08-12 19:38:18,304 INFO] (snngp_vary_inducing_greedy:56) Loss: 0.10429970042686089
+[2022-08-12 19:38:18,307 INFO] (snngp_vary_inducing_greedy:58) Accuracy: 97.07%
+[2022-08-12 19:38:18,308 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 9000----
+[2022-08-12 19:50:13,903 INFO] (snngp:272) Optimizing...
+[2022-08-12 20:27:40,395 INFO] (snngp:280) Optimized for 14 iters; Success: True; Result: [1.40171775 0.15351436], 0.002725042553861209
+[2022-08-12 20:27:53,933 INFO] (snngp_vary_inducing_greedy:48) LML: 7990.382007281662
+[2022-08-12 20:28:37,966 INFO] (snngp_vary_inducing_greedy:50) ELBO: 7683.780135009579
+[2022-08-12 20:29:02,335 INFO] (snngp_vary_inducing_greedy:52) EUBO: 13003.961271602002
+[2022-08-12 20:29:24,801 INFO] (snngp_vary_inducing_greedy:56) Loss: 0.10289247026511696
+[2022-08-12 20:29:24,803 INFO] (snngp_vary_inducing_greedy:58) Accuracy: 97.19%
+[2022-08-12 20:29:24,804 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 9500----
+[2022-08-12 20:41:15,644 INFO] (snngp:272) Optimizing...
+[2022-08-12 21:21:48,335 INFO] (snngp:280) Optimized for 14 iters; Success: True; Result: [1.43739808 0.14393046], 0.0012158605696165096
+[2022-08-12 21:22:05,396 INFO] (snngp_vary_inducing_greedy:48) LML: 8276.679422496287
+[2022-08-12 21:22:47,511 INFO] (snngp_vary_inducing_greedy:50) ELBO: 8100.92666404816
+[2022-08-12 21:23:05,203 INFO] (snngp_vary_inducing_greedy:52) EUBO: 13158.487795366618
+[2022-08-12 21:23:24,026 INFO] (snngp_vary_inducing_greedy:56) Loss: 0.10158230961791777
+[2022-08-12 21:23:24,028 INFO] (snngp_vary_inducing_greedy:58) Accuracy: 97.28%
+[2022-08-12 21:23:24,029 INFO] (snngp_vary_inducing_greedy:34) 
+----Number of inducing point: 10000----
+[2022-08-12 21:35:03,867 INFO] (snngp:272) Optimizing...
+[2022-08-12 22:35:38,472 INFO] (snngp:280) Optimized for 16 iters; Success: True; Result: [1.46705663 0.13346916], 0.00012734471257732982
+[2022-08-12 22:35:56,617 INFO] (snngp_vary_inducing_greedy:48) LML: 8542.245339291918
+[2022-08-12 22:36:53,248 INFO] (snngp_vary_inducing_greedy:50) ELBO: 8503.297304214513
+[2022-08-12 22:37:32,379 INFO] (snngp_vary_inducing_greedy:52) EUBO: 10842.359453483596
+[2022-08-12 22:38:00,607 INFO] (snngp_vary_inducing_greedy:56) Loss: 0.1009323555373041
+[2022-08-12 22:38:00,609 INFO] (snngp_vary_inducing_greedy:58) Accuracy: 97.36%

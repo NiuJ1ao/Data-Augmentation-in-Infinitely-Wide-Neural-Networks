@@ -4,3 +4,4 @@ tensorflow
 scikit-learn
 tqdm
 gpflow
+mlxtend

@@ -30,6 +30,7 @@ class Trainer():
         
         # batch training data
         num_batches = compute_num_batches(train[0].shape[0], self.batch_size)
+        logger.debug(f"Num of batches: {num_batches}")
         train_batches = minibatch(*train, batch_size=self.batch_size, num_batches=num_batches)
         val_x, val_y = val
         
@@ -59,9 +60,6 @@ class Trainer():
             # train
             for _ in range(num_batches):
                 train_x, train_y = next(train_batches)
-                # train_preds = self.model.predict(train_x)
-                # print(train_preds.shape, np.any(train_preds != None))
-                # assert False
                 opt_state = self.opt_update(next(itercount), self.grad_loss(opt_state, train_x, train_y), opt_state)
                 self.model.update_params(self.get_params(opt_state))
                 pbar.update(1)
@@ -70,14 +68,15 @@ class Trainer():
             epoch_train_loss, epoch_train_eval = 0, 0
             for _ in range(num_batches):
                 train_x, train_y = next(train_batches)
-                epoch_train_loss += self.loss(self.get_params(opt_state), train_x, train_y)
+                train_loss = self.loss(self.get_params(opt_state), train_x, train_y)
+                epoch_train_loss += train_loss
                 if metric != None:
                     train_preds = self.model.predict(train_x)
-                    assert np.any(train_preds != None)
                     epoch_train_eval += metric(train_preds, train_y)
 
             train_losses += [epoch_train_loss / num_batches]
-            val_losses += [self.loss(self.get_params(opt_state), val_x, val_y)]
+            val_loss = self.loss(self.get_params(opt_state), val_x, val_y)
+            val_losses += [val_loss]
             
             if metric != None:
                 epoch_train_eval = epoch_train_eval / num_batches
