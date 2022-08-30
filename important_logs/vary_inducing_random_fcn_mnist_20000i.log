@@ -73,6 +73,14 @@ If you'd like to file a bug, run with envvar XLA_FLAGS=--xla_dump_to=/tmp/foo an
 [2022-08-16 21:17:35,718 INFO] (snngp_vary_inducing_random:49) EUBO: 74889.70872236564
 [2022-08-16 21:17:43,180 INFO] (snngp_vary_inducing_random:53) Loss: 0.10339957832190246
 [2022-08-16 21:17:43,181 INFO] (snngp_vary_inducing_random:55) Accuracy: 97.22%
+----Number of inducing point: 7000----
+[2022-08-16 20:26:11,302 INFO] (snngp_inference:59) inducing_points shape: (7000, 784)
+[2022-08-16 20:26:11,302 INFO] (snngp:271) Optimizing...
+[2022-08-16 21:16:02,198 INFO] (snngp:279) Optimized for 12 iters; Success: True; Result: [1.12313475 0.15957203], 0.011125087605212362
+[2022-08-16 18:50:06,217 INFO] (snngp_inference:85) ELBO: 42538.4122
+[2022-08-16 18:51:18,288 INFO] (snngp_inference:87) EUBO: 77074.0264
+[2022-08-16 18:51:30,808 INFO] (snngp_inference:91) Accuracy: 97.46%
+[2022-08-16 18:51:30,892 INFO] (snngp_inference:93) Loss: 0.0996
 [2022-08-16 21:17:43,216 INFO] (snngp_vary_inducing_random:67) 
 ----Number of inducing point: 8000----
 [2022-08-16 21:17:43,346 INFO] (snngp_inference:59) inducing_points shape: (8000, 784)

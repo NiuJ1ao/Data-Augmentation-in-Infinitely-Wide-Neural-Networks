@@ -110,10 +110,13 @@ def batch_kernel(kernel_fn, batch_size, x1, x2):
         kernel.append(jnp.concatenate(subkernel, axis=1))
     kernel = jnp.concatenate(kernel)
     return kernel
+
+def fill_diagonal(a, val):
+    di = jnp.diag_indices(a.shape[0])
+    return a.at[di].set(val)
     
 if __name__ == "__main__":
-    a = 0.1
-    b = softplus_inv(a)
-    print(b)
-    print(softplus(b))
+    a = jnp.arange(25).reshape((5,5))
+    print(a)
+    print(fill_diagonal(a, 0))
     

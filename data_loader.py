@@ -201,67 +201,67 @@ if __name__ == "__main__":
         labels_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs-labels-idx1-ubyte')
     print(X.shape, y.shape)
     assert np.all(y == y_orig), (y, y_orig)
-    np.save('/vol/bitbucket/yn621/data/mnist60k-augs-patterns', X)
-    np.save('/vol/bitbucket/yn621/data/mnist60k-augs-labels', y.astype(int))
+    # np.save('/vol/bitbucket/yn621/data/mnist10k-augs-patterns', X)
+    # np.save('/vol/bitbucket/yn621/data/mnist10k-augs-labels', y.astype(int))
     
-    X1, y1 = load_mnist_raw(
-        images_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs2-patterns-idx3-ubyte', 
-        labels_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs2-labels-idx1-ubyte')
-    print(X1.shape, y1.shape)
-    assert np.all(y == y1)
-    X = np.concatenate([X, X1])
-    y = np.concatenate([y, y1])
-    print(X.shape, y.shape)
-    np.save('/vol/bitbucket/yn621/data/mnist20k-augs-patterns', X)
-    np.save('/vol/bitbucket/yn621/data/mnist20k-augs-labels', y.astype(int))
+    # X1, y1 = load_mnist_raw(
+    #     images_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs2-patterns-idx3-ubyte', 
+    #     labels_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs2-labels-idx1-ubyte')
+    # print(X1.shape, y1.shape)
+    # assert np.all(y == y1)
+    # X = np.concatenate([X, X1])
+    # y = np.concatenate([y, y1])
+    # print(X.shape, y.shape)
+    # np.save('/vol/bitbucket/yn621/data/mnist20k-augs-patterns', X)
+    # np.save('/vol/bitbucket/yn621/data/mnist20k-augs-labels', y.astype(int))
     
-    X2, y2 = load_mnist_raw(
-        images_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs3-patterns-idx3-ubyte', 
-        labels_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs3-labels-idx1-ubyte')
-    print(X2.shape, y2.shape)
-    assert np.all(y1 == y2)
-    X = np.concatenate([X, X2])
-    y = np.concatenate([y, y2])
-    print(X.shape, y.shape)
-    np.save('/vol/bitbucket/yn621/data/mnist30k-augs-patterns', X)
-    np.save('/vol/bitbucket/yn621/data/mnist30k-augs-labels', y.astype(int))
+    # X2, y2 = load_mnist_raw(
+    #     images_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs3-patterns-idx3-ubyte', 
+    #     labels_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs3-labels-idx1-ubyte')
+    # print(X2.shape, y2.shape)
+    # assert np.all(y1 == y2)
+    # X = np.concatenate([X, X2])
+    # y = np.concatenate([y, y2])
+    # print(X.shape, y.shape)
+    # np.save('/vol/bitbucket/yn621/data/mnist30k-augs-patterns', X)
+    # np.save('/vol/bitbucket/yn621/data/mnist30k-augs-labels', y.astype(int))
     
-    X3, y3 = load_mnist_raw(
-        images_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs4-patterns-idx3-ubyte', 
-        labels_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs4-labels-idx1-ubyte')
-    print(X3.shape, y3.shape)
-    assert np.all(y1 == y3)
-    X = np.concatenate([X, X3])
-    y = np.concatenate([y, y3])
-    print(X.shape, y.shape)
-    X4, y4 = load_mnist_raw(
-        images_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs5-patterns-idx3-ubyte', 
-        labels_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs5-labels-idx1-ubyte')
-    print(X4.shape, y4.shape)
-    assert np.all(y1 == y4)
-    X = np.concatenate([X, X4])
-    y = np.concatenate([y, y4])
-    print(X.shape, y.shape)
-    np.save('/vol/bitbucket/yn621/data/mnist50k-augs-patterns', X)
-    np.save('/vol/bitbucket/yn621/data/mnist50k-augs-labels', y.astype(int))
+    # X3, y3 = load_mnist_raw(
+    #     images_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs4-patterns-idx3-ubyte', 
+    #     labels_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs4-labels-idx1-ubyte')
+    # print(X3.shape, y3.shape)
+    # assert np.all(y1 == y3)
+    # X = np.concatenate([X, X3])
+    # y = np.concatenate([y, y3])
+    # print(X.shape, y.shape)
+    # X4, y4 = load_mnist_raw(
+    #     images_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs5-patterns-idx3-ubyte', 
+    #     labels_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs5-labels-idx1-ubyte')
+    # print(X4.shape, y4.shape)
+    # assert np.all(y1 == y4)
+    # X = np.concatenate([X, X4])
+    # y = np.concatenate([y, y4])
+    # print(X.shape, y.shape)
+    # np.save('/vol/bitbucket/yn621/data/mnist50k-augs-patterns', X)
+    # np.save('/vol/bitbucket/yn621/data/mnist50k-augs-labels', y.astype(int))
     
-    X5, y5 = load_mnist_raw(
-        images_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs6-patterns-idx3-ubyte', 
-        labels_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs6-labels-idx1-ubyte')
-    print(X5.shape, y5.shape)
-    assert np.all(y1 == y5)
-    X = np.concatenate([X, X5])
-    y = np.concatenate([y, y5])
-    print(X.shape, y.shape)
-    X6, y6 = load_mnist_raw(
-        images_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs7-patterns-idx3-ubyte', 
-        labels_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs7-labels-idx1-ubyte')
-    print(X6.shape, y6.shape)
-    assert np.all(y1 == y6)
-    X = np.concatenate([X, X6])
-    y = np.concatenate([y, y6])
-    print(X.shape, y.shape)
-    np.save('/vol/bitbucket/yn621/data/mnist70k-augs-patterns', X)
-    np.save('/vol/bitbucket/yn621/data/mnist70k-augs-labels', y.astype(int))
+    # X5, y5 = load_mnist_raw(
+    #     images_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs6-patterns-idx3-ubyte', 
+    #     labels_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs6-labels-idx1-ubyte')
+    # print(X5.shape, y5.shape)
+    # assert np.all(y1 == y5)
+    # X = np.concatenate([X, X5])
+    # y = np.concatenate([y, y5])
+    # print(X.shape, y.shape)
+    # X6, y6 = load_mnist_raw(
+    #     images_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs7-patterns-idx3-ubyte', 
+    #     labels_path='/vol/bitbucket/yn621/data/infimnist/mnist10k-augs7-labels-idx1-ubyte')
+    # print(X6.shape, y6.shape)
+    # assert np.all(y1 == y6)
+    # X = np.concatenate([X, X6])
+    # y = np.concatenate([y, y6])
+    # print(X.shape, y.shape)
+    # np.save('/vol/bitbucket/yn621/data/mnist70k-augs-patterns', X)
+    # np.save('/vol/bitbucket/yn621/data/mnist70k-augs-labels', y.astype(int))
     
     

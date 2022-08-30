@@ -6,7 +6,7 @@ from isnngp import iSNNGP
 from snngp_inference import select_inducing_points
 from models import CNN, CNNShallow, FCN
 from util import args_parser, init_random_state, check_divisibility
-from data_loader import load_mnist_augments, load_mnist
+from data_loader import load_mnist_augments, load_mnist, load_mnist_full
 from jax.config import config
 logger = logging.get_logger()
 config.update("jax_enable_x64", True)
@@ -34,7 +34,7 @@ def prepare_model_and_data(args):
             )
         flatten = True
         
-    train, test = load_mnist(shuffle=False, flatten=flatten, one_hot=True, val_size=0)
+    train, test = load_mnist_full(shuffle=False, flatten=flatten, one_hot=True, val_size=0)
     train_X, train_y = train
     N = train_X.shape[0]
     
@@ -72,9 +72,9 @@ def run():
     
     # stds = np.array([1.1, 0.15], dtype=np.float64)
     # noise_variance = 0.01
-    stds = np.array([0.71294438, 0.06118174], dtype=np.float64)
+    stds = np.array([0.9708526, 0.12160651], dtype=np.float64)
     noise_variance = 0.01
-    M = 500
+    M = args.num_inducing_points
     
     inducing_points, indices = select_inducing_points(args.select_method, full_X, M, model,stds, model_params)
     
@@ -87,8 +87,8 @@ def run():
     #     isnngp = iSNNGP(model=model, model_params=model_params, train_data=train, train_augs=augments, inducing_points=inducing_points, num_latent_gps=10, init_stds=stds, batch_size=args.batch_size, noise_variance=noise_variance)
     #     success, stds, noise_variance = isnngp.optimize(compile=True, disp=False)
     
-    lml = isnngp.log_marginal_likelihood()
-    logger.info(f"LML: {lml:.4f}")
+    # lml = isnngp.log_marginal_likelihood()
+    # logger.info(f"LML: {lml:.4f}")
     elbo = isnngp.lower_bound()
     logger.info(f"ELBO: {elbo:.4f}")
     eubo = isnngp.upper_bound()

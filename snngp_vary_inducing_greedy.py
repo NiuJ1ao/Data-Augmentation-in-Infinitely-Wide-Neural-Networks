@@ -21,12 +21,12 @@ def run():
     model, model_params, train, test = prepare_model_and_data(args)
     train_x, train_y = train
     test_x, test_y = test
-    stds = np.array([1.1, 0.15], dtype=np.float64)
-    noise_variance = 0.01
+    stds = np.array([1.11264191, 0.16673347], dtype=np.float64)
+    noise_variance = 0.011984670523132117
     kernel_fn = init_kernel_fn(model, stds, model_params)
-    # inducing_generator = greedy_variance_generator(train_x, 20000, kernel_fn)
+    inducing_generator = greedy_variance_generator(train_x, 20000, kernel_fn)
     Zs = []
-    nums_inducing_points = [5000, 7000] # np.logspace(np.log10(100), np.log10(5000), 20)
+    nums_inducing_points = [10000] # np.logspace(np.log10(100), np.log10(5000), 20)
     prev_m = 0
     for m in nums_inducing_points:
         m = round(m)
@@ -39,14 +39,15 @@ def run():
         #     Zs.append(Z)
         # inducing_points = np.vstack(Zs)
         inducing_points, _ = select_inducing_points(args.select_method, train_x, m, model, stds, model_params)
+        np.save(f"/vol/bitbucket/yn621/data/inducing_points_{m}", inducing_points)
         snngp = SNNGP(model=model, hyper_params=model_params, train_data=train, inducing_points=inducing_points, num_latent_gps=10, init_stds=stds, batch_size=args.batch_size, noise_variance=noise_variance)
-        try:
-            success, stds, noise_variance = snngp.optimize(compile=True, disp=False)
-        except Exception as e:
-            logger.warning(f"Fail to optimize: {e}")
+    #     # try:
+    #     #     success, stds, noise_variance = snngp.optimize(compile=True, disp=False)
+    #     # except Exception as e:
+    #     #     logger.warning(f"Fail to optimize: {e}")
         
-        lml = snngp.log_marginal_likelihood()
-        logger.info(f"LML: {lml}")
+    #     # lml = snngp.log_marginal_likelihood()
+    #     # logger.info(f"LML: {lml}")
         elbo = snngp.lower_bound()
         logger.info(f"ELBO: {elbo}")
         eubo = snngp.upper_bound()
@@ -62,21 +63,22 @@ def run():
         del snngp
         prev_m = m
         
-    for m in np.arange(8000, 21000, 1000):
+    for m in np.arange(11000, 21000, 1000):
         m = round(m)
         if m == prev_m:
             continue
         logger.info(f"\n----Number of inducing point: {m}----")
         
-        # for _ in range(m-prev_m):
-        #     Z, _ = next(inducing_generator)
-        #     Zs.append(Z)
-        # inducing_points = np.vstack(Zs)
-        inducing_points, _ = select_inducing_points(args.select_method, train_x, m, model, stds, model_params)
+        for _ in range(m-prev_m):
+            Z, _ = next(inducing_generator)
+            Zs.append(Z)
+        inducing_points = np.vstack(Zs)
+        # inducing_points, _ = select_inducing_points(args.select_method, train_x, m, model, stds, model_params)
+        np.save(f"/vol/bitbucket/yn621/data/inducing_points_{m}", inducing_points)
         snngp = SNNGP(model=model, hyper_params=model_params, train_data=train, inducing_points=inducing_points, num_latent_gps=10, init_stds=stds, batch_size=args.batch_size, noise_variance=noise_variance)
         
-        lml = snngp.log_marginal_likelihood()
-        logger.info(f"LML: {lml}")
+        # lml = snngp.log_marginal_likelihood()
+        # logger.info(f"LML: {lml}")
         elbo = snngp.lower_bound()
         logger.info(f"ELBO: {elbo}")
         eubo = snngp.upper_bound()

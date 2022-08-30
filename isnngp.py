@@ -211,7 +211,7 @@ class iSNNGP(SNNGP):
         quad_term = -0.5 * (jnp.sum(jnp.square(y)) / alpha - jnp.sum(jnp.square(c)))
         
         upper_bound = const + logdet + quad_term
-        return upper_bound / self.out_dim
+        return upper_bound
     
     def log_marginal_likelihood(self):
         x, y = self.train_augs
@@ -227,7 +227,7 @@ class iSNNGP(SNNGP):
         logger.debug(alpha.shape)
         ll = jnp.sum(-0.5 * jnp.einsum('ik,ik->k', y, alpha) -
                     jnp.sum(jnp.log(jnp.diag(chol))) - (N / 2.) * jnp.log(2. * jnp.pi))
-        return ll / self.out_dim
+        return ll
       
     def _training_loss(self, params):
         x, _ = self.train_augs

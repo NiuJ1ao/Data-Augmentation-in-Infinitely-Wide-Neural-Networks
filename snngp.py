@@ -143,7 +143,7 @@ class SNNGP():
         quad = self._quad_term(A, LB)    
         const = self._const_term()
         elbo = const + logdet + quad + trace
-        return elbo / self.out_dim
+        return elbo
     
     def upper_bound(self):
         x, y = self.data
@@ -178,7 +178,7 @@ class SNNGP():
         quad_term = -0.5 * (jnp.sum(jnp.square(y)) / alpha - jnp.sum(jnp.square(c)))
         
         upper_bound = const + logdet + quad_term
-        return upper_bound / self.out_dim
+        return upper_bound
     
     def log_marginal_likelihood(self):
         x, y = self.data
@@ -197,7 +197,7 @@ class SNNGP():
                     jnp.sum(jnp.log(jnp.diag(chol))) - (N / 2.) * jnp.log(2. * jnp.pi))
         logger.debug(ll)
         
-        return ll / self.out_dim
+        return ll
       
     def pack_params(self):
         return jnp.append(softplus_inv(self.stds), softplus_inv(self.sigma))

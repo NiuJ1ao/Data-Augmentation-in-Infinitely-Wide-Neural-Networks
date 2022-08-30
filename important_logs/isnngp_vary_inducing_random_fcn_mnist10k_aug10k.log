@@ -423,7 +423,7 @@ WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 
 [2022-08-17 11:23:20,421 INFO] (isnngp_inference:107) Accuracy: 96.79%
 [2022-08-17 11:23:20,520 INFO] (isnngp_inference:109) Loss: 0.1147
 WARNING:absl:No GPU/TPU found, falling back to CPU. (Set TF_CPP_MIN_LOG_LEVEL=0 and rerun for more info.)
-[2022-08-18 17:27:48,541 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=13000, select_method='random')
+[2022-08-18 17:27:48,541 INFO] (util:27) Namespace(augment_X='/vol/bitbucket/yn621/data/mnist10k-augs-patterns.npy', augment_y='/vol/bitbucket/yn621/data/mnist10k-augs-labels.npy', batch_size=0, device_count=-1, epochs=1, lr=0.1, model='fcn', momentum=0.9, num_inducing_points=20000, select_method='random')
 [2022-08-18 17:27:49,626 INFO] (data_loader:92) MNIST: (10000, 784) train, (10000, 784) test samples.
 [2022-08-18 17:27:49,897 INFO] (data_loader:193) MNIST: (10000, 784) augmented train
 [2022-08-18 17:27:50,654 INFO] (snngp_inference:59) inducing_points shape: (20000, 784)
