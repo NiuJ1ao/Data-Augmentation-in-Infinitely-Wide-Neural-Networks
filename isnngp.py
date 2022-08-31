@@ -2,8 +2,7 @@ import jax.numpy as jnp
 from jax import scipy
 from tqdm import tqdm
 from logger import get_logger
-from util import softplus, batch_kernel
-from snngp import kernel_diagonal, init_kernel_fn
+from util import softplus, batch_kernel, kernel_diagonal, init_kernel_fn
 from snngp import SNNGP
 from jax.config import config
 config.update("jax_enable_x64", True)

@@ -4,24 +4,11 @@ import jax.numpy as jnp
 from jax import scipy, value_and_grad, jit
 from logger import get_logger
 from scipy.optimize import minimize
-from util import softplus, softplus_inv, batch_kernel
+from util import softplus, softplus_inv, batch_kernel, init_kernel_fn, kernel_diagonal
 from jax.config import config
 config.update("jax_enable_x64", True)
 
 logger = get_logger()
-
-def init_kernel_fn(model, stds, hyper_params):
-    model = model(W_std=stds[0], b_std=stds[1], **hyper_params)
-    kernel_fn = model.kernel_fn
-    return kernel_fn
-
-def kernel_diagonal(kernel_fn, data):
-    input_shape = (1,) + data.shape[1:]
-    N = data.shape[0]
-    data = data.reshape((N, -1))
-    kernel_wrapper = lambda x: kernel_fn(x.reshape(input_shape), None, "nngp")
-    diagonal = jnp.apply_along_axis(kernel_wrapper, 1, data).flatten()
-    return diagonal
 
 class SNNGP():
     def __init__(self, 

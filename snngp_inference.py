@@ -4,10 +4,10 @@ from neural_tangents import stax
 
 import logger as logging
 from data_loader import load_mnist, load_mnist_augments, load_mnist_full
-from inducing_points import greedy_variance, random_select, first_n
 from metrics import RMSE, accuracy
-from models import CNN, CNNShallow, FCN
-from snngp import SNNGP, init_kernel_fn
+from models import CNNShallow, FCN
+from snngp import SNNGP
+from inducing_points import select_inducing_points
 from util import args_parser, check_divisibility, init_random_state
 from jax.config import config
 logger = logging.get_logger()
@@ -35,8 +35,12 @@ def prepare_model_and_data(args):
             nonlinearity=stax.Relu
             )
         flatten = True
+    
+    if args.dataset == "mnist":
+        train, test = load_mnist_full(shuffle=False, flatten=flatten, one_hot=True, val_size=0)
+    elif args.dataset == "mnist10k":
+        train, test = load_mnist(shuffle=False, flatten=flatten, one_hot=True, val_size=0)
         
-    train, test = load_mnist_full(shuffle=False, flatten=flatten, one_hot=True, val_size=0)
     if args.augment_X != None:
         augment_X, augment_y = load_mnist_augments(args.augment_X, args.augment_y, 
                                                    flatten=flatten, one_hot=True)
@@ -47,17 +51,6 @@ def prepare_model_and_data(args):
         logger.info(f"Training data after augmentation: {train_X.shape}, {train_y.shape}")
     check_divisibility(train[0], test[0], batch_size, device_count)
     return model, model_params, train, test
-
-def select_inducing_points(method, train, M, model=None, stds=None, model_params=None):
-    if method == "random":
-        inducing_points, indices = random_select(train, M)
-    elif method == "first":
-        inducing_points, indices = first_n(train, M)
-    elif method == "greedy":
-        kernel_fn = init_kernel_fn(model, stds, model_params)
-        inducing_points, indices = greedy_variance(train, M, kernel_fn)
-    logger.info(f"inducing_points shape: {inducing_points.shape}")
-    return inducing_points, indices
 
 def run():
     logger = logging.init_logger(log_level=logging.DEBUG)
@@ -76,23 +69,23 @@ def run():
     # stds = np.array([1., 1.], dtype=np.float64)
     # noise_variance = 0.01
     
-    # inducing_points, indices = select_inducing_points(args.select_method, train_x, args.num_inducing_points, model,stds, model_params)
+    inducing_points, indices = select_inducing_points(args.select_method, train_x, args.num_inducing_points, model,stds, model_params)
     # inducing_labels = np.argmax(train_y[indices], axis=-1)
     # logger.info(f"Inducing points stats: {Counter(inducing_labels.astype(int).tolist())}")
-    inducing_points = np.load(f"/vol/bitbucket/yn621/data/inducing_points_{args.num_inducing_points}.npy")
-    logger.info(f"inducing_points shape: {inducing_points.shape}")
+    # inducing_points = np.load(f"/vol/bitbucket/yn621/data/inducing_points_{args.num_inducing_points}.npy")
+    # logger.info(f"inducing_points shape: {inducing_points.shape}")
     
     snngp = SNNGP(model=model, hyper_params=model_params, train_data=train, inducing_points=inducing_points, num_latent_gps=10, noise_variance=noise_variance, init_stds=stds, batch_size=args.batch_size)
     
-    # success, _, _ = snngp.optimize(compile=True, disp=False)
-    # while not success:
-    #     logger.info("Retry...")
-    #     inducing_points, _ = select_inducing_points(args.select_method, train_x, args.num_inducing_points, model,stds, model_params)
-    #     snngp = SNNGP(model=model, hyper_params=model_params, train_data=train, inducing_points=inducing_points, num_latent_gps=10, init_stds=stds, batch_size=args.batch_size, noise_variance=noise_variance)
-    #     success, stds, noise_variance = snngp.optimize(compile=True, disp=False)
+    success, _, _ = snngp.optimize(compile=True, disp=False)
+    while not success:
+        logger.info("Retry...")
+        inducing_points, _ = select_inducing_points(args.select_method, train_x, args.num_inducing_points, model,stds, model_params)
+        snngp = SNNGP(model=model, hyper_params=model_params, train_data=train, inducing_points=inducing_points, num_latent_gps=10, init_stds=stds, batch_size=args.batch_size, noise_variance=noise_variance)
+        success, stds, noise_variance = snngp.optimize(compile=True, disp=False)
     
-    # lml = snngp.log_marginal_likelihood()
-    # logger.info(f"LML: {lml:.4f}")
+    lml = snngp.log_marginal_likelihood()
+    logger.info(f"LML: {lml:.4f}")
     elbo = snngp.lower_bound()
     logger.info(f"ELBO: {elbo:.4f}")
     eubo = snngp.upper_bound()

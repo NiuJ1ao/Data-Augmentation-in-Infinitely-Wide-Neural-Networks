@@ -5,7 +5,7 @@ import logger as logging
 from metrics import RMSE, accuracy
 from isnngp import iSNNGP
 from isnngp_inference import prepare_model_and_data
-from snngp_inference import select_inducing_points
+from inducing_points import select_inducing_points
 from util import args_parser, init_random_state
 
 logger = logging.init_logger(log_level=logging.INFO)

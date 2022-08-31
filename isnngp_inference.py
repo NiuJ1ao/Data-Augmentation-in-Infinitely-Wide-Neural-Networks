@@ -33,8 +33,12 @@ def prepare_model_and_data(args):
             nonlinearity=stax.Relu
             )
         flatten = True
-        
-    train, test = load_mnist_full(shuffle=False, flatten=flatten, one_hot=True, val_size=0)
+    
+    
+    if args.dataset == "mnist":
+        train, test = load_mnist_full(shuffle=False, flatten=flatten, one_hot=True, val_size=0)
+    elif args.dataset == "mnist10k":
+        train, test = load_mnist(shuffle=False, flatten=flatten, one_hot=True, val_size=0)
     train_X, train_y = train
     N = train_X.shape[0]
     
@@ -80,15 +84,15 @@ def run():
     
     isnngp = iSNNGP(model=model, model_params=model_params, train_data=train, train_augs=augments, inducing_points=inducing_points, num_latent_gps=10, init_stds=stds, batch_size=args.batch_size, noise_variance=noise_variance)
     
-    # success, _, _ = isnngp.optimize(compile=True, disp=False)
-    # while not success:
-    #     logger.info("Retry...")
-    #     inducing_points, indices = select_inducing_points(args.select_method, train_x, args.num_inducing_points, model,stds, model_params)
-    #     isnngp = iSNNGP(model=model, model_params=model_params, train_data=train, train_augs=augments, inducing_points=inducing_points, num_latent_gps=10, init_stds=stds, batch_size=args.batch_size, noise_variance=noise_variance)
-    #     success, stds, noise_variance = isnngp.optimize(compile=True, disp=False)
+    success, _, _ = isnngp.optimize(compile=True, disp=False)
+    while not success:
+        logger.info("Retry...")
+        inducing_points, indices = select_inducing_points(args.select_method, train_x, args.num_inducing_points, model,stds, model_params)
+        isnngp = iSNNGP(model=model, model_params=model_params, train_data=train, train_augs=augments, inducing_points=inducing_points, num_latent_gps=10, init_stds=stds, batch_size=args.batch_size, noise_variance=noise_variance)
+        success, stds, noise_variance = isnngp.optimize(compile=True, disp=False)
     
-    # lml = isnngp.log_marginal_likelihood()
-    # logger.info(f"LML: {lml:.4f}")
+    lml = isnngp.log_marginal_likelihood()
+    logger.info(f"LML: {lml:.4f}")
     elbo = isnngp.lower_bound()
     logger.info(f"ELBO: {elbo:.4f}")
     eubo = isnngp.upper_bound()

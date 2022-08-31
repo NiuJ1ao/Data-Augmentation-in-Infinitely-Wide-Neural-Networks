@@ -3,6 +3,7 @@ import jax.numpy as jnp
 from jax import lax
 from logger import get_logger
 from tqdm import tqdm
+from util import init_kernel_fn
 logger = get_logger()
 
 def random_select(X, M):
@@ -209,3 +210,14 @@ class ConditionalVarianceGenerator():
             return Z, indices[self.step]
         else:
             raise StopIteration
+
+def select_inducing_points(method, train, M, model=None, stds=None, model_params=None):
+    if method == "random":
+        inducing_points, indices = random_select(train, M)
+    elif method == "first":
+        inducing_points, indices = first_n(train, M)
+    elif method == "greedy":
+        kernel_fn = init_kernel_fn(model, stds, model_params)
+        inducing_points, indices = greedy_variance(train, M, kernel_fn)
+    logger.info(f"inducing_points shape: {inducing_points.shape}")
+    return inducing_points, indices

@@ -4,10 +4,11 @@ import matplotlib.pyplot as plt
 import logger as logging
 from metrics import RMSE, accuracy
 from snngp import SNNGP
-from snngp_inference import prepare_model_and_data, select_inducing_points
+from snngp_inference import prepare_model_and_data
+from inducing_points import select_inducing_points
 from util import args_parser, init_random_state
 from snngp import init_kernel_fn
-from inducing_points import greedy_variance, greedy_variance_generator
+from inducing_points import greedy_variance_generator
 from tqdm import tqdm
 
 logger = logging.init_logger(log_level=logging.INFO)
@@ -41,13 +42,13 @@ def run():
         inducing_points, _ = select_inducing_points(args.select_method, train_x, m, model, stds, model_params)
         np.save(f"/vol/bitbucket/yn621/data/inducing_points_{m}", inducing_points)
         snngp = SNNGP(model=model, hyper_params=model_params, train_data=train, inducing_points=inducing_points, num_latent_gps=10, init_stds=stds, batch_size=args.batch_size, noise_variance=noise_variance)
-    #     # try:
-    #     #     success, stds, noise_variance = snngp.optimize(compile=True, disp=False)
-    #     # except Exception as e:
-    #     #     logger.warning(f"Fail to optimize: {e}")
+        try:
+            success, stds, noise_variance = snngp.optimize(compile=True, disp=False)
+        except Exception as e:
+            logger.warning(f"Fail to optimize: {e}")
         
-    #     # lml = snngp.log_marginal_likelihood()
-    #     # logger.info(f"LML: {lml}")
+        lml = snngp.log_marginal_likelihood()
+        logger.info(f"LML: {lml}")
         elbo = snngp.lower_bound()
         logger.info(f"ELBO: {elbo}")
         eubo = snngp.upper_bound()

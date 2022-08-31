@@ -1,4 +1,3 @@
-from tabnanny import check
 from data_loader import load_mnist
 from nngp import NNGP
 from models import FCN, CNNShallow

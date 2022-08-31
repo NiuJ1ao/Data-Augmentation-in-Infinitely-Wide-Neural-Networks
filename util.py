@@ -10,7 +10,9 @@ logger = get_logger()
 def args_parser():
     parser = argparse.ArgumentParser(description='Data Augmentation in Infinitely Wide Neural Networks')
     parser.add_argument('--model', default='resnet', choices=['fcn', 'cnn', 'resnet'],
-                        help='an integer for the accumulator')
+                        help='the selection of models')
+    parser.add_argument('--dataset', default='mnist10k', choices=['mnist', 'mnist10k'],
+                        help='the selection of datasets')
     parser.add_argument("--epochs",  type=int, default=1, help="number of training steps")
     parser.add_argument("--batch-size",  type=int, default=0, help="batch size")
     parser.add_argument("--lr", type=float, default=0.1, help="learning rate")
@@ -114,6 +116,19 @@ def batch_kernel(kernel_fn, batch_size, x1, x2):
 def fill_diagonal(a, val):
     di = jnp.diag_indices(a.shape[0])
     return a.at[di].set(val)
+
+def init_kernel_fn(model, stds, hyper_params):
+    model = model(W_std=stds[0], b_std=stds[1], **hyper_params)
+    kernel_fn = model.kernel_fn
+    return kernel_fn
+
+def kernel_diagonal(kernel_fn, data):
+    input_shape = (1,) + data.shape[1:]
+    N = data.shape[0]
+    data = data.reshape((N, -1))
+    kernel_wrapper = lambda x: kernel_fn(x.reshape(input_shape), None, "nngp")
+    diagonal = jnp.apply_along_axis(kernel_wrapper, 1, data).flatten()
+    return diagonal
     
 if __name__ == "__main__":
     a = jnp.arange(25).reshape((5,5))

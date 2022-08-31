@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 import logger as logging
 from metrics import RMSE, accuracy
 from snngp import SNNGP
-from snngp_inference import prepare_model_and_data, select_inducing_points
+from snngp_inference import prepare_model_and_data
+from inducing_points import select_inducing_points
 from util import args_parser, init_random_state
 
 logger = logging.init_logger(log_level=logging.INFO)
